@@ -2,7 +2,11 @@
 class Admin:
     ##attributes
     def __init__ (self,admin_id:int, username:str, password:str, email:str):
-        self.admin_id = admin_id
+        if not admin_id:
+            raise ValueError("admin_id ist erforderlich")
+        if not isinstance(admin_id, int):
+            raise ValueError("admin_id muss eine Zahl sein")
+        self.__admin_id = admin_id
         self.username = username
         self.password = password
         self.email = email
@@ -11,14 +15,7 @@ class Admin:
     @property
     def admin_id(self):
         return self.__admin_id
-    @admin_id.setter
-    def admin_id(self, value):
-        self.__admin_id = value
-        if not admin_id:
-            raise ValueError("admin_id ist erforderlich")
-        if not isinstance(admin_id, int):
-            raise ValueError("admin_id muss eine Zahl sein")
-    
+
     ##username Getter & Setter
     @property
     def username(self):
@@ -50,6 +47,7 @@ class Admin:
             raise ValueError("Passwort muss mindestens eine Zahl enthalten")
         if not has_special:
             raise ValueError("Passwort muss mindestens ein Sonderzeichen enthalten")
+        #Passwort muss mindestens 8 Zeichen, eine Zahl, ein Sonderzeichen und Buchstaben enthalten.
 
     ## email Getter & Setter
     @property
@@ -60,3 +58,4 @@ class Admin:
         if "@" not in value or "." not in value:
             raise ValueError("Ungültige Email")
         self.__email = value
+        #Email muss ein @ und . enthalten.
