@@ -11,7 +11,10 @@ class Address:
         self.street = street
         self.city = city
         self.zip_code = zip_code
-          
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(id={self.address_id}, street={self.street}, city={self.city}, zip_code={self.zip_code})"
+
     #address_id Getter & Setter
     @property
     def address_id(self):

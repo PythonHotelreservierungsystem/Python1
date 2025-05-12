@@ -6,4 +6,4 @@ from .guest import Guest
 from .hotel import Hotel
 from .invoice import Invoice
 from .room import Room
-from .roomType import RoomType
+from .room_type import RoomType
