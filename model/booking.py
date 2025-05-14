@@ -1,9 +1,14 @@
+from datetime import datetime, date
 ##Booking
 class Booking:
     #attributes
     def __init__(self,booking_id:str, checkin_date:str, checkout_date:str, is_cancelled:bool, total_amount:float, 
                  guest:int):
-        self.booking_id = booking_id
+        if not booking_id:
+            raise ValueError("booking_id ist erforderlich")
+        if not isinstance(booking_id, int):
+            raise ValueError("booking_id muss eine Zahl sein")
+        self.__booking_id = booking_id
         self.checkin_date = checkin_date
         self.checkout_date = checkout_date
         self.is_cancelled = is_cancelled
@@ -14,14 +19,6 @@ class Booking:
     @property
     def booking_id(self):
         return self.__booking_id
-    @booking_id.setter
-    def booking_id(self, value):
-        self.__booking_id = value
-        if not booking_id:
-            raise ValueError("booking_id ist erforderlich")
-        if not isinstance(booking_id, int):
-            raise ValueError("booking_id muss eine Zahl sein")
-
 
     ##checkin_date Getter & Setter
     @property
@@ -44,7 +41,7 @@ class Booking:
         self.__checkout_date = value
         if value < date.today(): 
             raise ValueError("CheckOut Date darf nicht in der vergangenheit liegen")
-        if value < checkin_date():
+        if value < self.checkin_date():
             raise ValueError("CheckOut Date darf nicht vor dem CheckIn Date liegen")
 
     ##is_cancelled Getter & Setter
@@ -55,7 +52,7 @@ class Booking:
     def is_cancelled(self, value):
         self.__is_cancelled = value
         if not value != bool:
-            RaiseTypeError("is_cancelled muss Ja oder Nein sein")
+            raise ValueError("is_cancelled muss Ja oder Nein sein")
 
 
     ##total_amount Getter & Setter
@@ -70,11 +67,10 @@ class Booking:
         else:
             raise ValueError("Ungültiger Betrag")
 
-
     ##guest Getter & Setter
     @property
     def guest(self):
         return self.__guest
     @guest.setter
     def guest(self, value):
-        self.__guest = valued
+        self.__guest = value
