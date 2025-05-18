@@ -9,7 +9,7 @@ class Guest:
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
-        self.address = [] # Association mit address
+        self.__address = [] # Association mit address
         self.bookings = []  # Association mit Booking
 
     ## add_booking Methode
