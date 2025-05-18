@@ -24,6 +24,16 @@ class HotelDataAccess(BaseDataAccess):
     ##    last_row_id, row_count = self.execute(sql, params)
     ##    return model.Hotel(last_row_id, name, stars, address)
 
+    def show_hotel_by_id(self, hotel_id: int) -> Hotel:
+        sql = """ SELECT HotelId, HotelName FROM Hotel WHERE HotelId = ? """
+        params = tuple([hotel_id])
+        result = self.fetchone(sql, params)
+        if result:
+            hotel_id, hotel_name = result
+            return model.Hotel(hotel_id, hotel_name)
+        else:
+            return None
+
     def show_hotels_by_city(self, city: str) -> model.Hotel:
         if city is None:
             raise ValueError("city cannot be None")
@@ -53,5 +63,4 @@ class HotelDataAccess(BaseDataAccess):
             return model.Hotel(stars=stars, name=Hotel.name)
         else:
             return None
-
 
