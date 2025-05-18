@@ -2,21 +2,19 @@
 class RoomType:
     ##attributes
     def __init__(self,room_type_id:int, description:str, max_guests:int):
-        self.room_type_id = room_type_id
+        self.__room_type_id = room_type_id
         self.description = description
         self.max_guests = max_guests
-    
-    #room_type_id Getter und Setter
-    @property
-    def room_type_id(self):
-        return self.__room_type_id
-    @room_type_id.setter
-    def room_type_id(self, value):
-        self.__room_type_id = value
+
         if not room_type_id:
             raise ValueError("room_type_id ist erforderlich")
         if not isinstance(room_type_id, int):
             raise ValueError("room_type_id muss eine Zahl sein")
+    #room_type_id Getter und Setter
+    @property
+    def room_type_id(self):
+        return self.__room_type_id
+
     
     #description Getter und Setter
     @property
@@ -24,13 +22,12 @@ class RoomType:
         return self.__description
     @description.setter
     def description(self, value):
-        self.__description = value
-        if not description:
+        if not value:
             raise ValueError("description ist erforderlich")
-        if not isinstance(room_type, str):
-            raise ValueError("description")
+        if not isinstance(value, str):
+            raise ValueError("description muss ein String sein")
+        self.__description = value
 
-    
     #max_guests Getter und Setter
     @property
     def max_guests(self):

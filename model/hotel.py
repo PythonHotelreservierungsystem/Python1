@@ -2,7 +2,11 @@
 class Hotel:
     #attributes
     def __init__(self, hotel_id:str, name:str, stars:int, address:str):
-        self.hotel_id = hotel_id
+        if not hotel_id:
+            raise ValueError("hotel_id ist erforderlich")
+        if not isinstance(hotel_id, int):
+            raise ValueError("hotel_id muss eine Zahl sein")
+        self.__hotel_id = hotel_id
         self.name = name
         self.stars = stars
         self.address = address
@@ -12,17 +16,6 @@ class Hotel:
     @property
     def hotel_id(self):
         return self.__hotel_id
-    @hotel_id.setter
-    def hotel(self, value):
-        self.__hotel_id = value
-        if value:
-            self.__hotel_id = value
-        else:
-            raise ValueError("Ungültige ID")
-        if not hotel_id:
-            raise ValueError("hotel_id ist erforderlich")
-        if not isinstance(hotel_id, int):
-            raise ValueError("hotel_id muss eine Zahl sein")
 
     ##name Getter & Setter
     @property

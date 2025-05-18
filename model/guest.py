@@ -1,10 +1,15 @@
+##Guest
 class Guest:
-    def __init__(self, guest_id: int, firstname: str, lastname: str, email: str, address: str):
-        self.guest_id = guest_id
+    def __init__(self, guest_id: int, firstname: str, lastname: str, email: str):
+        if not guest_id:
+            raise ValueError("guest_id ist erforderlich")
+        if not isinstance(guest_id, int):
+            raise ValueError("guest_id muss eine Zahl sein")
+        self.__guest_id = guest_id
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
-        self.address = address
+        self.address = [] # Association mit address
         self.bookings = []  # Association mit Booking
 
     ## add_booking Methode
@@ -15,17 +20,6 @@ class Guest:
     @property
     def guest_id(self):
         return self.__guest_id
-
-    @guest_id.setter
-    def guest_id(self, value):
-        if value:
-            self.__guest_id = value
-        else:
-            raise ValueError("Ungültige ID")
-        if not guest_id:
-            raise ValueError("guest_id ist erforderlich")
-        if not isinstance(guest_id, int):
-            raise ValueError("guest_id muss eine Zahl sein")
 
     ## firstname Getter & Setter
     @property
