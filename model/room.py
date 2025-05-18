@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-
+                                            ## Phillip fragen
 if TYPE_CHECKING:
     from model.room_type import RoomType
 
