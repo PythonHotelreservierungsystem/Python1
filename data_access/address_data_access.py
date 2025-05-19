@@ -13,36 +13,30 @@ class AddressDataAccess(BaseDataAccess):
     def create_address(
             self,
             street: str,
-            street_number: int,
             city: str,
-            postal_code: int,
-            country: str
+            zip_code: str
     ) -> model.Address:
         if street is None:
             raise ValueError("street cannot be None")
-        if street_number is None:
-            raise ValueError("street number cannot be None")
         if city is None:
             raise ValueError("city cannot be None")
-        if postal_code is None:
+        if zip_code is None:
             raise ValueError("postal code cannot be None")
-        if country is None:
-            raise ValueError("country cannot be None")
         sql = """
-        INSERT INTO Address(Street, StreetNumber, City, PostalCode, Country)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO Address(Street, City, ZipCode)
+        VALUES (?, ?, ?)
         """
-        params = tuple([street, street_number, city, postal_code, country])
+        params = tuple([street, city, zip_code])
 
         last_row_id, row_count = self.execute(sql, params)
 
         return model.Address(
             address_id=last_row_id,
             street=street,
-            street_number=street_number,
             city=city,
-            postal_code=postal_code,
-            country=country)
+            zip_code=zip_code
+        )
+
 
     def show_address_by_id(self, address_id: int) -> model.Address | None:
         if address_id is None:
@@ -51,10 +45,8 @@ class AddressDataAccess(BaseDataAccess):
         SELECT 
             AddressId, 
             Street,
-            StreetNumber,
             City,
-            PostalCode,
-            Country 
+            ZipCode 
         FROM Address
         WHERE AddressId = ? 
             """
@@ -64,18 +56,14 @@ class AddressDataAccess(BaseDataAccess):
             (
                 address_id,
                 street,
-                street_number,
                 city,
-                postal_code,
-                country
+                zip_code
             ) = result
             return model.Address(
                 address_id,
                 street,
-                street_number,
                 city,
-                postal_code,
-                country
+                zip_code
             )
         else:
             return None

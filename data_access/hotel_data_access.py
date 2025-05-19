@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import model
-
 from model import Hotel
+from model import Address
 
 from data_access.base_data_access import BaseDataAccess
 
+from data_access.address_data_access import AddressDataAccess
 
 class HotelDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -24,23 +25,23 @@ class HotelDataAccess(BaseDataAccess):
     ##    return model.Hotel(last_row_id, name, stars, address)
     def create_hotel(self,
                      name: str,
-                     address_id:model.Address,
-                     stars: int
+                     stars: int,
+                     address_id: model.Address = None
     ) -> model.Hotel:
         if name is None:
             raise ValueError("Hotel name cannot be None")
-        if address_id is None:
-            raise ValueError("Hotel address id cannot be None")
+        ## if address_id is None:
+            ##raise ValueError("Hotel address id cannot be None")
         if stars is None:
             raise ValueError("Hotel stars cannot be None")
 
         sql = """
-        INSERT INTO Hotel(Name, Address, Stars)
+        INSERT INTO Hotel(Name, Address_Id, Stars)
         VALUES (?, ?, ?)
         """
         params = tuple([
             name,
-            address_id,
+            Address.address_id if address_id else None,
             stars
 
         ])
@@ -50,10 +51,9 @@ class HotelDataAccess(BaseDataAccess):
         return model.Hotel(
             hotel_id=last_row_id,
             name=name,
-            address=address(),
+            address_id=address_id,
             stars=stars
-            ## Do müend mir allwe irgendwie no d Buechige integriere
-            ## oder das ganze über d Bookings oder halt Room definiere
+
         )
 
     def show_hotel_by_id(self, hotel_id: int) -> model.Hotel | None:
@@ -104,8 +104,8 @@ class HotelDataAccess(BaseDataAccess):
             model.Hotel(
                 hotel_id,
                 name,
-                stars,
-                type
+                stars
+
         )
         for(hotel_id,
             address_id,
