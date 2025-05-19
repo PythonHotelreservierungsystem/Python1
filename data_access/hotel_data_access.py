@@ -61,27 +61,27 @@ class HotelDataAccess(BaseDataAccess):
             raise Exception('Hotel ID is required')
         sql = """ 
         SELECT
-            HotelId,
-            AddressId,
+            Hotel_Id,
             Name,
+            Address_Id,
             Stars
-        FROM Hotel WHERE HotelId = ?
+        FROM Hotel WHERE Hotel_Id = ?
                   """
         params = tuple([hotel_id])
         result = self.fetchone(sql, params)
         if result:
             (
                 hotel_id,
-                address_id,
                 name,
+                address_id,
                 stars
 
             ) = result
             ## Das in eusem model Hotel erwitere no
             return model.Hotel(
                 hotel_id,
-                address_id,
                 name,
+                address_id,
                 stars
             )
         else:

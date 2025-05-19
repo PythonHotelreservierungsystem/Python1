@@ -23,6 +23,6 @@ class HotelManager:
         return self.__hotel_da.show_hotel_by_id(hotel_id)
 
 hm = HotelManager(HotelDataAccess("../../database/hotel_reservation_sample.db"))
-tesst = hm.create_hotel( "Abba", stars= 3)
+tesst = hm.show_hotels(hotel_id=1)
 
 print(tesst)
