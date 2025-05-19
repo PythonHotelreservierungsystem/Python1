@@ -36,7 +36,7 @@ class HotelDataAccess(BaseDataAccess):
 
         sql = """
         INSERT INTO Hotel(Name, Address, Stars)
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?)
         """
         params = tuple([
             name,
@@ -50,7 +50,7 @@ class HotelDataAccess(BaseDataAccess):
         return model.Hotel(
             hotel_id=last_row_id,
             name=name,
-            address=address_id,
+            address=address(),
             stars=stars
             ## Do müend mir allwe irgendwie no d Buechige integriere
             ## oder das ganze über d Bookings oder halt Room definiere
