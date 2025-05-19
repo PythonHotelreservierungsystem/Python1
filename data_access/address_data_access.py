@@ -79,5 +79,3 @@ class AddressDataAccess(BaseDataAccess):
             )
         else:
             return None
-
-    def show_address_by_city(self, ):

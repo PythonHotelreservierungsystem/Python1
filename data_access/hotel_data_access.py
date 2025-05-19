@@ -22,6 +22,45 @@ class HotelDataAccess(BaseDataAccess):
 
     ##    last_row_id, row_count = self.execute(sql, params)
     ##    return model.Hotel(last_row_id, name, stars, address)
+    def create_hotel(self,
+                     name: str,
+                     address_id:model.Address,
+                     stars: int,
+                     type: str,
+                     is_accessible: bool = True
+    ) -> model.Hotel:
+        if name is None:
+            raise ValueError("Hotel name cannot be None")
+        if address_id is None:
+            raise ValueError("Hotel address id cannot be None")
+        if stars is None:
+            raise ValueError("Hotel stars cannot be None")
+        if type is None:
+            raise ValueError("Hotel type cannot be None")
+
+        sql = """
+        INSERT INTO hotel(Name, Address, Stars, Type, IsAccessible)
+        VALUES (?, ?, ?, ?, ?)
+        """
+        params = tuple([
+            name,
+            address_id,
+            stars,
+            type,
+            is_accessible
+        ])
+
+        last_row_id, row_count = self.execute(sql, params)
+
+        return model.Hotel(
+            hotel_id=last_row_id,
+            name=name,
+            address=address_id,
+            stars=stars,
+            type=type,
+            ## Do müend mir allwe irgendwie no d Buechige integriere
+            is_accessible=is_accessible
+        )
 
     def show_hotel_by_id(self, hotel_id: int) -> model.Hotel | None:
         if hotel_id is None:
