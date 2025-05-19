@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import model
 
-from model import Address
-
 from data_access.base_data_access import BaseDataAccess
 
 class AddressDataAccess(BaseDataAccess):
