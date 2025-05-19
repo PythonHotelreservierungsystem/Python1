@@ -6,7 +6,6 @@ from model import Hotel
 
 from data_access.base_data_access import BaseDataAccess
 
-## Do stimmt fix no ganz vil nit aber isch trotzdem mol do
 
 class HotelDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -24,43 +23,75 @@ class HotelDataAccess(BaseDataAccess):
     ##    last_row_id, row_count = self.execute(sql, params)
     ##    return model.Hotel(last_row_id, name, stars, address)
 
-    def show_hotel_by_id(self, hotel_id: int) -> Hotel:
-        sql = """ SELECT HotelId, HotelName FROM Hotel WHERE HotelId = ? """
+    def show_hotel_by_id(self, hotel_id: int) -> model.Hotel | None:
+        if hotel_id is None:
+            raise Exception('Hotel ID is required')
+        sql = """ 
+        SELECT
+            HotelId,
+            AddressID,
+            Name,
+            Stars,
+            Type, 
+            IsAccessible 
+        FROM Hotel WHERE HotelId = ?
+                  """
         params = tuple([hotel_id])
         result = self.fetchone(sql, params)
         if result:
-            hotel_id, hotel_name = result
-            return model.Hotel(hotel_id, hotel_name)
+            (
+                hotel_id,
+                address_id,
+                name,
+                stars,
+                type,
+                is_accessible
+            ) = result
+            ## Das in eusem model Hotel erwitere no
+            return model.Hotel(
+                hotel_id,
+                address_id,
+                name,
+                stars,
+                type,
+                is_accessible
+            )
         else:
             return None
 
-    def show_hotels_by_city(self, city: str) -> model.Hotel:
-        if city is None:
-            raise ValueError("city cannot be None")
 
+    def show_hotels_by_address(self, address: model.Address) -> list[model.Hotel]:
         sql = """
-        SELECT City, Name FROM Hotel WHERE City = ? """
-        params = tuple([city])
-        result = self.fetchall(sql, params)
-        if result:
-            city = result
-            return model.Hotel(city=city, name=Hotel.name)
-        else:
-            return None
+        SELECT
+            HotelId,
+            AddressID,
+            Name,
+            Stars,
+            Type,
+            IsAccessible
+        FROM Hotel WHERE AddressID = ?
+        """
+        params = tuple([address.address_id])
+        hotels = self.fetchall(sql, params)
+
+        return [
+            model.Hotel(
+                hotel_id,
+                name,
+                stars,
+                type,
+                is_accessible,
+                address_id=address
+        )
+        for(hotel_id,
+            address_id,
+            name,
+            stars,
+            type,
+            is_accessible
+            ) in hotels
+        ]
 
 
-    def show_hotels_by_stars(self, stars: int) -> model.Hotel:
-        if stars is None:
-            raise ValueError("stars cannot be None")
 
-        sql = """
-        SELECT City, Name FROM Hotel WHERE Stars = ?
-         """
-        params = tuple([stars])
-        result = self.fetchall(sql, params)
-        if result:
-            stars, name = result
-            return model.Hotel(stars=stars, name=Hotel.name)
-        else:
-            return None
 
