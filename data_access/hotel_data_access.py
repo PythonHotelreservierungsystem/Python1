@@ -10,7 +10,7 @@ from data_access.address_data_access import AddressDataAccess
 
 class HotelDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
-        super().__init__(db_path)
+        super().__init__("../database/hotel_reservation_sample.db")
 
     ## def create_new_hotel(self, name: str, stars: int, address: model.Address = None) -> model.Hotel:
     ##    sql = """
@@ -51,7 +51,7 @@ class HotelDataAccess(BaseDataAccess):
         return model.Hotel(
             hotel_id=last_row_id,
             name=name,
-            address_id=address_id,
+            address=address_id,
             stars=stars
 
         )
