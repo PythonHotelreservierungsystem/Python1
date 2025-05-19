@@ -39,7 +39,7 @@ class HotelDataAccess(BaseDataAccess):
             raise ValueError("Hotel type cannot be None")
 
         sql = """
-        INSERT INTO hotel(Name, Address, Stars, Type, IsAccessible)
+        INSERT INTO Hotel(Name, Address, Stars, Type, IsAccessible)
         VALUES (?, ?, ?, ?, ?)
         """
         params = tuple([
@@ -59,6 +59,7 @@ class HotelDataAccess(BaseDataAccess):
             stars=stars,
             type=type,
             ## Do müend mir allwe irgendwie no d Buechige integriere
+            ## oder das ganze über d Bookings oder halt Room definiere
             is_accessible=is_accessible
         )
 
