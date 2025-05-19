@@ -25,9 +25,7 @@ class HotelDataAccess(BaseDataAccess):
     def create_hotel(self,
                      name: str,
                      address_id:model.Address,
-                     stars: int,
-                     type: str,
-                     is_accessible: bool = True
+                     stars: int
     ) -> model.Hotel:
         if name is None:
             raise ValueError("Hotel name cannot be None")
@@ -35,19 +33,16 @@ class HotelDataAccess(BaseDataAccess):
             raise ValueError("Hotel address id cannot be None")
         if stars is None:
             raise ValueError("Hotel stars cannot be None")
-        if type is None:
-            raise ValueError("Hotel type cannot be None")
 
         sql = """
-        INSERT INTO Hotel(Name, Address, Stars, Type, IsAccessible)
+        INSERT INTO Hotel(Name, Address, Stars)
         VALUES (?, ?, ?, ?, ?)
         """
         params = tuple([
             name,
             address_id,
-            stars,
-            type,
-            is_accessible
+            stars
+
         ])
 
         last_row_id, row_count = self.execute(sql, params)
@@ -56,11 +51,9 @@ class HotelDataAccess(BaseDataAccess):
             hotel_id=last_row_id,
             name=name,
             address=address_id,
-            stars=stars,
-            type=type,
+            stars=stars
             ## Do müend mir allwe irgendwie no d Buechige integriere
             ## oder das ganze über d Bookings oder halt Room definiere
-            is_accessible=is_accessible
         )
 
     def show_hotel_by_id(self, hotel_id: int) -> model.Hotel | None:
@@ -69,11 +62,9 @@ class HotelDataAccess(BaseDataAccess):
         sql = """ 
         SELECT
             HotelId,
-            AddressID,
+            AddressId,
             Name,
-            Stars,
-            Type, 
-            IsAccessible 
+            Stars
         FROM Hotel WHERE HotelId = ?
                   """
         params = tuple([hotel_id])
@@ -83,18 +74,15 @@ class HotelDataAccess(BaseDataAccess):
                 hotel_id,
                 address_id,
                 name,
-                stars,
-                type,
-                is_accessible
+                stars
+
             ) = result
             ## Das in eusem model Hotel erwitere no
             return model.Hotel(
                 hotel_id,
                 address_id,
                 name,
-                stars,
-                type,
-                is_accessible
+                stars
             )
         else:
             return None
@@ -106,9 +94,7 @@ class HotelDataAccess(BaseDataAccess):
             HotelId,
             AddressID,
             Name,
-            Stars,
-            Type,
-            IsAccessible
+            Stars
         FROM Hotel WHERE AddressID = ?
         """
         params = tuple([address.address_id])
@@ -119,16 +105,13 @@ class HotelDataAccess(BaseDataAccess):
                 hotel_id,
                 name,
                 stars,
-                type,
-                is_accessible,
-                address_id=address
+                type
         )
         for(hotel_id,
             address_id,
             name,
-            stars,
-            type,
-            is_accessible
+            stars
+
             ) in hotels
         ]
 
