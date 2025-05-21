@@ -24,7 +24,7 @@ except ValueError as e:
 print("\n=== Test: Ungültiger Hotelname (leer) ===")
 try:
     hotel1.name = ""
-    print("Fehler: Leerer Hotelname wurde akzeptiert!")
+    print("Fehler: Leerer Hotelname wurde akzeptiert.!")
 except ValueError as e:
     print("Fehler erkannt:", e)
 

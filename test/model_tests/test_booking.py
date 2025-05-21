@@ -10,7 +10,7 @@ try:
 except ValueError as e:
     print("Fehler bei gültiger Buchung:", e)
 
-print("\n=== Test: Buchung ohne booking_id ===")
+print("\n=== Test: Buchung ohne booking_id. ===")
 try:
     booking = Booking(None, checkin, checkout, False, 450.00, 1)
     print("Fehler: Buchung ohne booking_id wurde akzeptiert!")

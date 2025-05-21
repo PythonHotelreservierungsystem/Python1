@@ -24,7 +24,7 @@ except ValueError as e:
 print("\n=== Test: Ungültige E-Mail setzen ===")
 try:
     guest1.email = "ungültigeemail"
-    print("Fehler: Ungültige E-Mail wurde akzeptiert!")
+    print("Fehler: Ungültige E-Mail wurde akzeptiert.!")
 except ValueError as e:
     print("Fehler erkannt:", e)
 

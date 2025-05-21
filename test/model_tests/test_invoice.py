@@ -31,7 +31,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: issue_date falsches Format ===")
+print("\n=== Test: issue_date falsches Format ===.")
 try:
     invoice = Invoice(3, "01-01-2025", 250, "B005")
     print("Fehler: Falsches Datumformat wurde akzeptiert!")

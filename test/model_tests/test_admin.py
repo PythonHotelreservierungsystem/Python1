@@ -35,7 +35,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Ungültiges Passwort – zu kurz ===")
+print("\n=== Test: Ungültiges Passwort – zu kurz. ===")
 try:
     admin1.password = "a1$"
     print("Fehler: Zu kurzes Passwort wurde akzeptiert!")

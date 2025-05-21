@@ -7,7 +7,7 @@ try:
 except Exception as e:
     print("Fehler bei gültigem Zimmer:", e)
 
-print("\n=== Test: Kein room_id ===")
+print("\n=== Test: Kein room_id ===.")
 try:
     room = Room(None, 101, 120.0, "Einzelzimmer", "Hotel Zürich", ["TV"])
     print("Fehler: room_id None wurde akzeptiert!")
