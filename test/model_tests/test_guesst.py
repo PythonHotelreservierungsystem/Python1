@@ -31,7 +31,7 @@ except ValueError as e:
 print("\n=== Test: Ungültige Adresse setzen ===")
 try:
     guest1.address = None
-    print("Fehler: Ungültige Adresse wurde akzeptiert!")
+    print("Fehler: Ungültige Adresse wurde akzeptiert !")
 except ValueError as e:
     print("Fehler erkannt:", e)
 

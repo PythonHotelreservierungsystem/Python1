@@ -38,7 +38,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: issue_date als datetime.date direkt übergeben ===")
+print("\n=== Test : issue_date als datetime.date direkt übergeben ===")
 try:
     invoice = Invoice(4, date.today() + timedelta(days=2), 300, "B006")
     print("Rechnung mit datetime.date erstellt:", invoice.issue_date)

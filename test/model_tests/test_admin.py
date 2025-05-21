@@ -1,6 +1,6 @@
 from model.admin import Admin
 
-print("=== Test: Gültiger Admin ===")
+print("=== Test: gültiger Admin ===")
 try:
     admin1 = Admin(1, "adminuser", "Abc123$%", "admin@test.com")
     print("Admin erfolgreich erstellt:", admin1.username, admin1.email)

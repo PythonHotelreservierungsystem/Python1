@@ -20,7 +20,7 @@ except ValueError as e:
 print("\n=== Test: booking_id ist kein String ===")
 try:
     booking = Booking(123, checkin, checkout, False, 450.00, 1)
-    print("Fehler: booking_id als int wurde akzeptiert!")
+    print("Fehler : booking_id als int wurde akzeptiert!")
 except ValueError as e:
     print("Fehler erkannt:", e)
 

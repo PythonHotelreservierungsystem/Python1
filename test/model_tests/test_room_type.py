@@ -35,7 +35,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Ungültige max_guests (zu hoch) ===")
+print("\n=== Test : Ungültige max_guests (zu hoch) ===")
 try:
     rt1.max_guests = 20
     print("Fehler: max_guests > 14 wurde akzeptiert!")

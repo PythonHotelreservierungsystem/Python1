@@ -14,7 +14,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: room_id ist kein int ===")
+print("\n=== Test : room_id ist kein int ===")
 try:
     room = Room("eins", 101, 120.0, "Einzelzimmer", "Hotel Zürich", ["TV"])
     print("Fehler: room_id als String wurde akzeptiert!")

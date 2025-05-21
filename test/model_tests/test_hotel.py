@@ -28,7 +28,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Ungültige Sterne (0) ===")
+print("\n=== Test: Ungültige Sterne ( 0 ) ===")
 try:
     hotel1.stars = 0
     print("Fehler: Sterne 0 wurden akzeptiert!")

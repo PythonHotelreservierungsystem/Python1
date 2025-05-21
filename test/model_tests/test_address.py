@@ -2,7 +2,7 @@ from model.address import Address
 
 print("=== Test: Gültige Adresse ===")
 try:
-    address1 = Address(1, "Musterstrasse 10", "Zürich", 8000)
+    address1 = Address(1, "Musterstrasse 11", "Zürich", 8000)
     print("Adresse erfolgreich erstellt:", address1)
 except ValueError as e:
     print("Fehler bei gültiger Adresse:", e)

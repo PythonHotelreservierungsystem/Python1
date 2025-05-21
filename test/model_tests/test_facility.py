@@ -10,7 +10,7 @@ except ValueError as e:
 print("\n=== Test: Facility ohne ID ===")
 try:
     facility = Facility(None, "Sauna")
-    print("Fehler: Facility ohne ID wurde akzeptiert!")
+    print("Fehler: Facility ohne ID wurde akzeptiert !")
 except ValueError as e:
     print("Fehler erkannt:", e)
 
