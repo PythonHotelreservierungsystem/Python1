@@ -1,13 +1,14 @@
-import sqlite3
 import os
 
+import sqlite3
+
 class BaseDataAccess:
-    def __init__(self, connection_str: str = None):
+    def __init__(self, connection_str: str = "../../database/hotel_reservation_sample.db"):
         if connection_str:
-            self.__connection_str = connection_str
+         self.__connection_str = connection_str
         else:
-            self.__connection_str = os.environ.get("./database/hotel_reservation_sample.db")
-            if self.__connection_str is None:
+         self.__connection_str = os.environ.get("../../database/hotel_reservation_sample.db")
+         if self.__connection_str is None:
                 raise Exception("DB_FILE environment variable or parameter connection_str has to be set.")
 
     def _connect(self):
