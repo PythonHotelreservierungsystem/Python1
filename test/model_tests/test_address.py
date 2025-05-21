@@ -28,7 +28,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Ungültige PLZ (String statt int) ===")
+print("\n=== Test: Ungültige PLZ (String statt int.) ===")
 try:
     address1.zip_code = "8000"
     print("Fehler: Ungültige PLZ wurde akzeptiert!")
