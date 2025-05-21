@@ -35,7 +35,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Gültige Änderungen ===")
+print("\n=== Test: Gültige Änderungen ===..")
 try:
     address1.street = "Bahnhofstrasse 5"
     address1.city = "Bern"
