@@ -5,4 +5,3 @@
 ## 1.1. Ich möchte alle Hotels in einer Stadt durchsuchen,
 ##damit ich das Hotel nach meinem bevorzugten Standort
 ##(Stadt) auswählen kann.
-
