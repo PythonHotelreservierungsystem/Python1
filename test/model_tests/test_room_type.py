@@ -28,7 +28,7 @@ try:
 except ValueError as e:
     print("Fehler erkannt:", e)
 
-print("\n=== Test: Beschreibung ist kein String ===")
+print("\n=== Test: Beschreibung ist kein String ===.")
 try:
     rt1.description = 123
     print("Fehler: Beschreibung als Zahl wurde akzeptiert!")
