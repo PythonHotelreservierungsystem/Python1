@@ -87,7 +87,7 @@ class HotelDataAccess(BaseDataAccess):
         else:
             return None
 
-
+    ##User Story 1.1
     def show_hotels_by_address(self, address: model.Address) -> list[model.Hotel]:
         sql = """
         SELECT

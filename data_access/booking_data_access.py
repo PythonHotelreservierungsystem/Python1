@@ -19,7 +19,7 @@ class BookingDataAccess(BaseDataAccess):
             raise ValueError("Check in and check out dates are required")
         if check_in_date > check_out_date:
             raise ValueError("Check in date cannot be after check out date")
-
+        ##Für Userstory
         sql="""
         INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date, is_cancelled, total_amount)
         VALUES (?,?,?,?,?,?)"""
