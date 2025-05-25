@@ -32,7 +32,7 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled,
             total_amount
         ])
-
+##g
         last_row_id, row_count = self.execute(sql, params)
         return model.Booking(
             booking_id=last_row_id,
