@@ -21,7 +21,7 @@ class AddressDataAccess(BaseDataAccess):
         if zip_code is None:
             raise ValueError("postal code cannot be None")
         sql = """
-        INSERT INTO Address(Street, City, ZipCode)
+        INSERT INTO Address(Street, City, Zip_Code)
         VALUES (?, ?, ?)
         """
         params = tuple([street, city, zip_code])
@@ -41,12 +41,12 @@ class AddressDataAccess(BaseDataAccess):
             raise ValueError("Address ID is required")
         sql = """ 
         SELECT 
-            AddressId, 
+            Address_Id, 
             Street,
             City,
-            ZipCode 
+            Zip_Code 
         FROM Address
-        WHERE AddressId = ? 
+        WHERE Address_Id = ? 
             """
         params = tuple([address_id])
         result = self.fetchone(sql, params)

@@ -27,7 +27,7 @@ class GuestDataAccess(BaseDataAccess):
             raise ValueError("firstname and lastname and email are required")
 
         sql = """
-        INSERT INTO Guest(firstname, lastname, email)
+        INSERT INTO Guest(first_name, last_name, email)
         VALUES (?, ?, ?)"""
         params = tuple([
             firstname,
