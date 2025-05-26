@@ -87,4 +87,40 @@ JOIN
 Room_Facilities
 ON Room_Facilities.room_id = Room.room_id
 
+#User Story 2.1 (muss evtl. noch angepasst werden mit +1 booking_id)
+
+SELECT
+    Room.room_id,
+    Room.price_per_night,
+    Room_Type.type_id,
+    Room_Type.max_guests,
+    Room_Type.description,
+    Booking.booking_id,
+    Booking.total_amount,
+    Facilities.facility_name
+
+FROM
+Room
+JOIN
+Booking
+ON
+Booking.room_id = Room.room_id
+
+JOIN
+Room_Type
+ON
+Room.type_id = Room_Type.type_id
+
+JOIN
+Room_Facilities
+ON
+Room_Facilities.room_id = Room.room_id
+
+JOIN
+Facilities
+ON
+Room_Facilities.facility_id = Facilities.facility_id
+
+
+
 
