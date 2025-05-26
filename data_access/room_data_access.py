@@ -37,5 +37,10 @@ class RoomDataAccess(BaseDataAccess):
             hotel=hotel_id,
             facilities=facility_id
         )
+##User Story 2.1
+    def show_room_by_details(self, room_type: model.RoomType) -> list[model.Room]:
+        sql = """
+        SELECT"""
+    ):
 
 
