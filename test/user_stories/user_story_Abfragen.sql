@@ -46,4 +46,12 @@ ORDER BY
     Hotel.name,
     Room.room_number
 
+##User Story 1.6
+SELECT Hotel.hotel_id, Hotel.name, Hotel.stars, Address.street, Address.zip_code, Address.city
+FROM Hotel
+
+JOIN
+Address
+ON Hotel.address_id = Address.address_id
+
 
