@@ -10,7 +10,7 @@ LEFT JOIN Booking ON Booking.room_id = Room.room_id
 WHERE Booking.booking_id IS NULL
 GROUP BY Hotel.hotel_id, Hotel.name
 
-##User Story 1.5
+User Story 1.5
 SELECT
     Hotel.hotel_id,
     Hotel.name,
@@ -19,7 +19,7 @@ SELECT
     Room.room_id,
     Room.room_number,
     Room_Type.type_id,
-    Room_Type.capacity
+    Room_Type.max_guests
 FROM
     Hotel
 JOIN Address
