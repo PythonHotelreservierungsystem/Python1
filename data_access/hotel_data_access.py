@@ -114,6 +114,33 @@ class HotelDataAccess(BaseDataAccess):
 
             ) in hotels
         ]
+    ##User Story 1.2 allwe au nit korrekt falls Fehler in BL
+    def show_hotels_by_stars(self, stars: int) -> list[model.Hotel]:
+        sql = """
+        SELECT
+            Hotel_Id,
+            Address_Id,
+            Name,
+            Stars
+        FROM Hotel WHERE Stars >= ?
+        """
+        params = tuple([stars.Hotel])
+        hotels = self.fetchall(sql, params)
+
+        return [
+            model.Hotel(
+                hotel_id,
+                name,
+                stars
+
+        )
+        for(hotel_id,
+            address_id,
+            name,
+            stars
+
+            ) in hotels
+        ]
 ## für UserStory 1.3
     def show_hotel_by_capacity(self, max_guests: model.RoomType) -> list[model.Hotel]:
         sql="""
