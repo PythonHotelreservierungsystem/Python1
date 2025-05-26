@@ -19,7 +19,7 @@ SELECT
     Room.room_id,
     Room.room_number,
     Room_Type.type_id,
-    Room_Type.capacity
+    Room_Type.max_guests
 FROM
     Hotel
 JOIN Address
@@ -29,7 +29,7 @@ JOIN Room
 ON Room.hotel_id = Hotel.hotel_id
 
 JOIN Room_Type
-ON Room_Type.type_id = Room_Type.type_id
+ON Room.type_id = Room_Type.type_id
 
 LEFT JOIN Booking
 ON Booking.room_id = Room.room_id
@@ -39,12 +39,10 @@ ON Booking.room_id = Room.room_id
     )
 WHERE
     Booking.booking_id IS NULL
-    AND Hotel.stars >= ?
-    AND Room_Type.max_guests >= ?
-    AND Address.city = ?
-ORDER BY
-    Hotel.name,
-    Room.room_number
+    AND Hotel.stars >= 5
+    AND Room_Type.max_guests >= 2
+
+
 
 ##User Story 1.6
 SELECT Hotel.hotel_id, Hotel.name, Hotel.stars, Address.street, Address.zip_code, Address.city
