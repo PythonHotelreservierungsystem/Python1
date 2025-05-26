@@ -121,6 +121,40 @@ Facilities
 ON
 Room_Facilities.facility_id = Facilities.facility_id
 
+#User Story 2.2
+
+SELECT
+Hotel.hotel_id,
+Hotel.name,
+Room.room_id,
+Room.room_number,
+Room_Type.max_guests,
+Room_Type.description
+
+FROM
+Hotel
+JOIN Room
+ON Room.hotel_id = Hotel.hotel_id
+
+JOIN
+Room_Type
+ON
+Room_Type.type_id = Room.type_id
+
+JOIN
+Room_Facilities
+ON
+Room_Facilities.room_id = Room.room_id
+
+LEFT JOIN Booking
+ON Booking.room_id = Room.room_id
+    AND NOT (
+        Booking.check_out_date <= ?
+        OR Booking.check_in_date >= ?
+    )
+WHERE Booking.booking_id IS NULL
+
+
 
 
 
