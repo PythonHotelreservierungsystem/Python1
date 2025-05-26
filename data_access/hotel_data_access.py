@@ -91,8 +91,8 @@ class HotelDataAccess(BaseDataAccess):
     def show_hotels_by_address(self, address: model.Address) -> list[model.Hotel]:
         sql = """
         SELECT
-            HotelId,
-            AddressID,
+            Hotel_Id,
+            Address_Id,
             Name,
             Stars
         FROM Hotel WHERE AddressID = ?
@@ -114,7 +114,36 @@ class HotelDataAccess(BaseDataAccess):
 
             ) in hotels
         ]
-
+## für UserStory 1.3
+    def show_hotel_by_capacity(self, max_guests: model.RoomType) -> list[model.Hotel]:
+        sql="""
+        SELECT Hotel.Hotel_Id, Hotel.Name, Address.City
+        FROM Hotel
+        JOIN Address ON Address.Address_Id = Hotel.Address_Id
+        WHERE Address.City = ?
+            AND EXISTS (
+                SELECT 1
+                FROM Room
+                JOIN RoomType ON RoomType.Room_Type_Id = Room.Room_Type_Id
+                WHERE Room.Hotel_Id = Hotel.Hotel_Id
+                    AND RoomType.Capacity <= ?)
+                    """
+        params = tuple([max_guests.room_type_id])
+        hotels = self.fetchall(sql, params)
+        ###Do sind allwe Fehler falls es bi BL het
+        return [
+            model.Hotel(
+                hotel_id,
+                name,
+                city,
+                max_guests
+            )
+            for(hotel_id,
+                name,
+                city,
+                max_guests
+                ) in hotels
+        ]
 
 
 
