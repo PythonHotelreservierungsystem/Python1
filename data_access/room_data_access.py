@@ -41,6 +41,6 @@ class RoomDataAccess(BaseDataAccess):
     def show_room_by_details(self, room_type: model.RoomType) -> list[model.Room]:
         sql = """
         SELECT"""
-    ):
+
 
 
