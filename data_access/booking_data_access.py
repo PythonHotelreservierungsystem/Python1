@@ -1,5 +1,5 @@
 import model
-
+from datetime import date
 from data_access.base_data_access import BaseDataAccess
 
 
