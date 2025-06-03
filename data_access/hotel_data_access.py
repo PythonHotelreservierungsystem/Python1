@@ -3,6 +3,8 @@ from datetime import date
 import model
 from model import Hotel
 from model import Address
+import sqlite3
+
 
 from data_access.base_data_access import BaseDataAccess
 from data_access.address_data_access import AddressDataAccess
@@ -87,111 +89,53 @@ class HotelDataAccess(BaseDataAccess):
             return None
 
     ##User Story 1.1
-    def show_hotels_by_address(self, address: model.Address) -> list[model.Hotel]:
+    ##Gibt alle Hotels zurück, deren zugehörige Adresse in der angegebenen Stadt liegt.
+    def show_hotels_by_city(self, city: str) -> list[model.Hotel]:
+        conn = sqlite3.connect(self._db_path)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
         sql = """
-        SELECT
-            Hotel_Id,
-            Address_Id,
-            Name,
-            Stars
-        FROM Hotel WHERE AddressID = ?
-        """
-        params = tuple([address.address_id])
-        hotels = self.fetchall(sql, params)
-
-        return [
-            model.Hotel(
-                hotel_id,
-                name,
-                stars
-
-        )
-        for(hotel_id,
-            address_id,
-            name,
-            stars
-
-            ) in hotels
-        ]
-    ##User Story 1.2 allwe au nit korrekt falls Fehler in BL
-    def show_hotels_by_stars(self, stars: int) -> list[model.Hotel]:
-        sql = """
-        SELECT
-            Hotel_Id,
-            Address_Id,
-            Name,
-            Stars
-        FROM Hotel WHERE Stars >= ?
-        """
-        params = tuple([stars.Hotel])
-        hotels = self.fetchall(sql, params)
-
-        return [
-            model.Hotel(
-                hotel_id,
-                name,
-                stars
-
-        )
-        for(hotel_id,
-            address_id,
-            name,
-            stars
-
-            ) in hotels
-        ]
-## für UserStory 1.3
-    def show_hotel_by_capacity(self, max_guests: model.RoomType) -> list[model.Hotel]:
-        sql="""
-        SELECT Hotel.Hotel_Id, Hotel.Name, Address.City
-        FROM Hotel
-        JOIN Address ON Address.Address_Id = Hotel.Address_Id
-        WHERE Address.City = ?
-            AND EXISTS (
-                SELECT 1
-                FROM Room
-                JOIN RoomType ON RoomType.Room_Type_Id = Room.Room_Type_Id
-                WHERE Room.Hotel_Id = Hotel.Hotel_Id
-                    AND RoomType.Capacity <= ?)
-                    """
-        params = tuple([max_guests.room_type_id])
-        hotels = self.fetchall(sql, params)
-        ###Do sind allwe Fehler falls es bi BL het
-        return [
-            model.Hotel(
-                hotel_id,
-                name,
-                city,
-                max_guests
+            SELECT
+            h.hotel_id AS hotel_id,
+            h.name AS hotel_name,
+            h.stars AS hotel_stars,
+            a.address_id AS address_id,
+            a.street AS street,
+            a.city AS city,
+            a.zip_code AS zip_code,
+        FROM Hotel AS h
+        JOIN Address AS a
+        ON a.address_id = h.address_id
+        WHERE a.city = ?
+            """
+        cur.execute(sql, (city,))
+        rows = cur.fetchall()
+        conn.close()
+        hotels = list[model.Hotel] = []
+        for row in rows:
+            adresse = model.Address(
+                address_id=row["address_id"],
+                street=row["street"],
+                city=row["city"],
+                zip_code=row["zip_code"]
             )
-            for(hotel_id,
-                name,
-                city,
-                max_guests
-                ) in hotels
-        ]
-    ##User Story 3.8
-    def get_bookings_for_hotels(self, hotel_id: int)-> list[Booking]:
-        sql="""
-        SELECT hotel_id, guest, check_in, check_out, rooms
-        FROM Booking WHERE hotel_id = ?
-        """
-        params = tuple([hotel_id])
-        booking = self.fetchall(sql, params)
-        return [
-            model.Booking(
-                hotel_id,
-                guest,
-                check_in,
-                check_out,
-                rooms
+            hotel = model.Hotel(
+                hotel_id=row["hotel_id"],
+                name=row["hotel_name"],
+                stars=row["hotel_stars"],
+                address=adresse
             )
-            for(hotel_id,
-                guest,
-                check_in,
-                check_out,
-                rooms
-                )in booking
-        ]
+            hotels.append(hotel)
+        return hotels
+
+
+            
+            
+
+
+
+
+
+
 
 

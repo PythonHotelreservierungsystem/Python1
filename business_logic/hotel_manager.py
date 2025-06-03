@@ -1,6 +1,6 @@
 import model
 
-import data_access
+
 
 from data_access import HotelDataAccess
 
