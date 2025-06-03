@@ -21,9 +21,14 @@ class Booking:
 
     @check_in_date.setter
     def check_in_date(self, value):
-        parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
-        if parsed_date < date.today():
-            raise ValueError("CheckIn Date darf nicht in der Vergangenheit liegen")
+        if isinstance(value, date):
+            parsed_date = value
+        elif isinstance(value, str):
+            parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
+        else:
+            raise TypeError("check_in_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
+        ##if parsed_date < date.today():
+        ##    raise ValueError("CheckIn Date darf nicht in der Vergangenheit liegen")
         self.__check_in_date = parsed_date
 
     @property
@@ -32,7 +37,12 @@ class Booking:
 
     @check_out_date.setter
     def check_out_date(self, value):
-        parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
+        if isinstance(value, date):
+            parsed_date = value
+        elif isinstance(value, str):
+            parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
+        else:
+            raise TypeError("check_out_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
         if parsed_date < date.today():
             raise ValueError("CheckOut Date darf nicht in der Vergangenheit liegen")
         if hasattr(self, '_Booking__checkin_date') and parsed_date < self.checkin_date:
