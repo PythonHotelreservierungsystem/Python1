@@ -32,7 +32,7 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled,
             total_amount
         ])
-##g
+
         last_row_id, row_count = self.execute(sql, params)
         return model.Booking(
             booking_id=last_row_id,
@@ -44,31 +44,31 @@ class BookingDataAccess(BaseDataAccess):
             total_amount=total_amount
         )
     ##User story 3.8
-    def show_bookings_with_hotels(self)-> list[Booking]:
-        sql="""
-        SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, room.hotel_id, room.room_number
-        FROM Booking AS booking
-        JOIN Room AS room ON booking.room_id = room.room_id
-        """
-        params = tuple([booking_id])
-        result = self.fetchall(sql, params)
-
-        if result:
-            (
-                booking_id,
-                room_id,
-                guest_id,
-                check_in_date,
-                check_out_date,
-                hotel_id,
-                room_number
-            ) = result
-            return model.Booking(
-                booking_id,
-                room_id,
-                guest_id,
-                check_in_date,
-                check_out_date,
-                hotel_id,
-                room_number
-            )
+    ##def show_bookings_with_hotels(self)-> list[Booking]:
+    ##    sql="""
+    ##    SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, room.hotel_id, room.room_number
+    ##    FROM Booking AS booking
+     ##   JOIN Room AS room ON booking.room_id = room.room_id
+     ##   """
+     ##   params = tuple([booking_id])
+     ##   result = self.fetchall(sql, params)
+##
+     ##   if result:
+    ##        (
+    ##            booking_id,
+    ##            room_id,
+    ##            guest_id,
+    ##            check_in_date,
+     ##           check_out_date,
+     ##           hotel_id,
+     ##           room_number
+    ##        ) = result
+    ##        return model.Booking(
+    ##            booking_id,
+    ##            room_id,
+    ##            guest_id,
+     ##           check_in_date,
+    ##            check_out_date,
+    ##            hotel_id,
+    ##            room_number
+     ##       )

@@ -1,11 +1,10 @@
 from __future__ import annotations
-
+from datetime import date
 import model
 from model import Hotel
 from model import Address
 
 from data_access.base_data_access import BaseDataAccess
-
 from data_access.address_data_access import AddressDataAccess
 
 class HotelDataAccess(BaseDataAccess):
