@@ -22,7 +22,7 @@ class HotelManager:
     def show_hotels(self, hotel_id: int) -> model.Hotel:
         return self.__hotel_da.show_hotel_by_id(hotel_id)
 
-
+    ##user Story 1.1
     def show_hotel_by_city(self, city: str) -> model.Hotel:
         return self.__hotel_da.show_hotel_by_id(1)
 
@@ -35,11 +35,4 @@ else:
     print("Hotel not found")
 
 
-hm = HotelManager(HotelDataAccess("../../database/hotel_reservation_sample.db"))
-tesst = hm.show_hotels(hotel_id=1)
 
-
-if tesst:
-    print(f"Hotel '{tesst.name}' (ID: {tesst.hotel_id}) - {tesst.stars} stars, Address ID {tesst.address}")
-##else:
-   ## print("Hotel not found")
