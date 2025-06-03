@@ -7,7 +7,7 @@ class Booking:
         if not isinstance(booking_id, str):
             raise ValueError("booking_id muss ein String sein")
         self.__booking_id = booking_id
-        self.hotel_id = hotel_id
+        self.hotel_id = hotel_id ##allwe überflüssig jetzt
         self.room_id = room_id
         self.checkin_date = checkin_date
         self.checkout_date = checkout_date
