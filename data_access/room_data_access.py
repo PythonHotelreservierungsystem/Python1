@@ -1,4 +1,5 @@
 import model
+from model import Room
 from data_access.base_data_access import BaseDataAccess
 
 class RoomDataAccess(BaseDataAccess):
