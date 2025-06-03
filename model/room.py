@@ -19,6 +19,8 @@ class Room:
         self.room_type = room_type 
         self.hotel = hotel
         self.facilities = facilities
+        ##zum über Room uf d Bookings zuegriffe
+        self.booking: list[Booking] = []
 
     #room_id Getter und Setter
     @property

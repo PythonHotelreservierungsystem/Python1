@@ -171,6 +171,28 @@ class HotelDataAccess(BaseDataAccess):
                 max_guests
                 ) in hotels
         ]
-
+    ##User Story 3.8
+    def get_bookings_for_hotels(self, hotel_id: int)-> list[Booking]:
+        sql="""
+        SELECT hotel_id, guest, check_in, check_out, rooms
+        FROM Booking WHERE hotel_id = ?
+        """
+        params = tuple([hotel_id])
+        booking = self.fetchall(sql, params)
+        return [
+            model.Booking(
+                hotel_id,
+                guest,
+                check_in,
+                check_out,
+                rooms
+            )
+            for(hotel_id,
+                guest,
+                check_in,
+                check_out,
+                rooms
+                )in booking
+        ]
 
 

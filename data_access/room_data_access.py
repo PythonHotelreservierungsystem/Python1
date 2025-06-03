@@ -37,5 +37,31 @@ class RoomDataAccess(BaseDataAccess):
             hotel=hotel_id,
             facilities=facility_id
         )
-
+##User Story 2.1
+    def show_room_by_details(self, room_type: model.RoomType) -> list[model.Room]:
+        sql = """
+        SELECT"""
+##für User story 3.8
+    def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
+        sql="""
+        SELECT room_id, guest_id, check_in_date, check_out_date, booking_id
+        FROM Booking WHERE room_id = ?
+        """
+        params = tuple([room_id])
+        booking = self.fetchall(sql, params)
+        return [
+            model.Booking(
+                room_id,
+                guest,
+                check_in_date,
+                check_out_date,
+                rooms
+            )
+            for(room_id,
+                guest,
+                check_in_date,
+                check_out_date,
+                rooms
+                )in booking
+        ]
 
