@@ -3,8 +3,8 @@ from data_access.hotel_data_access import HotelDataAccess
 
 
 class HotelManager:
-    def __init__(self, db_path: str):
-        self.__hotel_da = HotelDataAccess(db_path)
+    def __init__(self, hotel_data_access: HotelDataAccess):
+        self.__hotel_da = hotel_data_access
 
 
     ## user Story 1.1
