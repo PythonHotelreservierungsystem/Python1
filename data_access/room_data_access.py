@@ -2,7 +2,6 @@ import model
 
 from data_access.base_data_access import BaseDataAccess
 
-
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
@@ -38,7 +37,7 @@ class RoomDataAccess(BaseDataAccess):
             facilities=facility_id
         )
 ##User Story 2.1
-    def show_room_by_details(self, room_type: model.RoomType) -> list[model.Room]:
+    def show_room_by_details(self, room_type: model.RoomType) -> list[Room]:
         sql = """
         SELECT"""
 ##für User story 3.8
@@ -64,4 +63,49 @@ class RoomDataAccess(BaseDataAccess):
                 rooms
                 )in booking
         ]
+    def get_all_with_room_and_hotels(self) -> list[Booking]:
+        sql="""
+        SELECT booking.booking_id, booking.room_id, booking.guest_id,
+            booking.check_in_date, booking.check_out_date, booking.is_cancelled,
+            booking.total_amount, room.room_number, hotel.hotel_id, hotel.name,
+            hotel.address_id
+        FROM Booking AS booking
+        JOIN Room AS room ON booking.room_id = room.room_id
+        JOIN Hotel AS hotel ON room.hotel_id = hotel.hotel_id
+        """
+        params = tuple([bookings])
+        result = self.fetchall(sql, params)
+
+        for results in result:
+            (
+                booking_id, room_id, guest_id,
+                check_in_date, check_out_date,
+                is_cancelled, total_amount, room_number,
+                hotel_id, name, address_id) = results
+
+            hotel = model.Hotel(
+                hotel_id=hotel_id,
+                name=name,
+                address=hotel_address_id)
+
+            room = model.Room(
+                room_id=room_id,
+                room_no=room_number,
+                price_per_night=price_per_night,
+                room_type=room_type_id,
+                hotel=hotel_id
+            )
+            booking = model.Booking(
+                booking_id=booking_id,
+                room_id=room_id,
+                guest=guest_id,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                is_cancelled=is_cancelled,
+                total_amount=total_amount
+            )
+            bookings.append(booking)
+            return bookings
+
+
 

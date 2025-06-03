@@ -9,8 +9,8 @@ class Booking:
         self.__booking_id = booking_id
         self.hotel_id = hotel_id ##allwe überflüssig jetzt
         self.room_id = room_id
-        self.checkin_date = checkin_date
-        self.checkout_date = checkout_date
+        self.check_in_date = check_in_date
+        self.check_out_date = check_out_date
         self.is_cancelled = is_cancelled
         self.total_amount = total_amount
         self.guest = guest
