@@ -43,3 +43,10 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled=is_cancelled,
             total_amount=total_amount
         )
+    ##User story 3.8
+    def show_bookings_with_hotels(self)-> list[Booking]:
+        sql="""
+        SELECT booking.booking_id, booking.hotel_id, booking.guest_id, booking.room_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, hotel.name, hotel.address_id
+        FROM Booking AS booking
+        JOIN Hotel AS hotel ON booking.hotel_id = hotel.hotel_id
+        """
