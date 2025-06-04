@@ -2,6 +2,16 @@ import model
 from model import Room
 from data_access.base_data_access import BaseDataAccess
 
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+from test.model_tests.test_room import room1
+
+if TYPE_CHECKING:
+    from model.room_type import  import Room_Type
+    from model.hotel import Hotel
+
+
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
@@ -20,6 +30,7 @@ class RoomDataAccess(BaseDataAccess):
             raise ValueError("Price per night cannot be None")
         if room_type is None:
             raise ValueError("Room type cannot be None")
+    def read_all_rooms(self,):
         sql ="""
         INSERT INTO Room (Room_Number, Price_Per_Night, Type_Id, Hotel_ID)
         VALUES (?, ?, ?, ?)"""
