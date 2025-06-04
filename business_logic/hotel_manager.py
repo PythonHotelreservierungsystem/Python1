@@ -33,4 +33,21 @@ class HotelManager:
 
         return gefiltert
 
+if __name__ == "__main__":
+    # DAO initialisieren (Pfad ggf. anpassen, falls dein Notebook/CWD anders ist)
+    dao = HotelDataAccess("../database/hotel_reservation_sample.db")
+    manager = HotelManager(dao)
 
+    # Beispiel-Stadt und Mindest-Sterne
+    city = "Basel"
+    min_stars = 4
+
+    # 1.2 testen: Hotels in „Berlin” mit >= 4 Sternen
+    result = manager.show_hotels_by_city_and_min_stars(city, min_stars)
+
+    # Da die Methode intern schon „print“ ausführt, falls nichts gefunden wird,
+    # hier nur noch die Ausgabe der Treffer
+    if result:
+        print(f"\nGefundene Hotels in '{city}' mit mindestens {min_stars} Sternen:")
+        for h in result:
+            print(f"  • {h.name} ({h.stars} Sterne) – {h.address.street}, {h.address.zip_code}")
