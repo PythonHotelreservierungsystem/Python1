@@ -28,6 +28,17 @@ class HotelDataAccess(BaseDataAccess):
             return_list.append(Hotel(hotel_id, name, stars, Address(address_id, street, city, zip_code)))
         return return_list
 
+if __name__ == "__main__":
+    # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
+    dao = HotelDataAccess("../database/hotel_reservation_sample.db")
+
+    # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
+    alle_hotels = dao.read_all_hotel()
+    for h in alle_hotels:
+        print(
+            f"ID: {h.hotel_id}, Name: {h.name}, Sterne: {h.stars}, "
+            f"{h.address.street}, {h.address.city} {h.address.zip_code}"
+        )
 
 
 
