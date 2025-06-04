@@ -5,7 +5,7 @@ from model import Booking
 from model import Guest
 from model import Facility
 from model import Hotel
-from model import Room_Type
+from model import RoomType
 
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -43,7 +43,7 @@ class RoomDataAccess(BaseDataAccess):
             facilities=facility_id
         )
 ##User Story 2.1
-    def show_room_by_details(self, room_type: model.RoomType) -> list[Room]:
+    def show_room_details(self) -> list[Room]:
         sql = """
         SELECT"""
 ##für User story 3.8
