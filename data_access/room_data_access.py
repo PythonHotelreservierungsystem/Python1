@@ -51,8 +51,10 @@ class RoomDataAccess(BaseDataAccess):
 ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """
-        SELECT Room.room_id, room_number, price_per_night, Room_Type.type_id, description, max_guests, Hotel.hotel_id, name, stars, address_id, Facilities.facility_name,
-        facilities.facility_id
+        SELECT Room.room_id, room_number, price_per_night, 
+        Room_Type.type_id, description, max_guests, 
+        Hotel.hotel_id, name, stars, address_id,
+        Facilities.facility_id, facility_name
         FROM Room
         JOIN Room_Type ON Room.type_id = Room_Type.type_id
         JOIN Hotel ON Room.hotel_id = Hotel.hotel_id
@@ -70,7 +72,7 @@ class RoomDataAccess(BaseDataAccess):
                     price_per_night=price_per_night,
                     room_type=RoomType(type_id, description, max_guests),
                     hotel=Hotel(hotel_id, name, stars, address_id),
-                    facilities=Facility(facility_id, facility_name)
+                    facilities=Facility(facility_name, facility_id)
                     )
                 )
         return return_list
@@ -84,8 +86,8 @@ if __name__ == "__main__":
     for r in alle_rooms:
         print(
             f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
-            f"{r.room_type.description}, {r.room_type.max_guests} {r.hotel.name}{r.hotel.stars}{r.hotel.address}{r.facilities}")
-
+            f"A:{r.room_type.description}, B:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
+## User
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
      ##   sql="""

@@ -18,7 +18,7 @@ class Room:
         self.price_per_night = price_per_night
         self.room_type = room_type 
         self.hotel = hotel
-        self.facilities = list[Facility]
+        self.facilities = Facility
         ##zum über Room uf d Bookings zuegriffe
         self.booking: list[Booking] = []
 
