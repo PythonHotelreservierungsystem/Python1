@@ -44,7 +44,7 @@ class Address:
 
     @zip_code.setter
     def zip_code(self, value):
-        if isinstance(value, int):
+        if isinstance(value, str):
             self.__zip_code = value
         else:
             raise ValueError("Ungültige PLZ")
