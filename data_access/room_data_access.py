@@ -45,7 +45,7 @@ class RoomDataAccess(BaseDataAccess):
 ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """
-        SELECT"""
+        SELECT """
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
      ##   sql="""
