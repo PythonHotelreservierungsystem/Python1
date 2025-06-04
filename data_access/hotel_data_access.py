@@ -27,7 +27,7 @@ class HotelDataAccess(BaseDataAccess):
         for hotel_id, name, stars, address_id, street, city, zip_code in hotels:
             return_list.append(Hotel(hotel_id, name, stars, Address(address_id, street, city, zip_code)))
         return return_list
-
+#
 if __name__ == "__main__":
     # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
     dao = HotelDataAccess("../database/hotel_reservation_sample.db")
