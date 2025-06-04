@@ -72,7 +72,7 @@ class RoomDataAccess(BaseDataAccess):
                     price_per_night=price_per_night,
                     room_type=RoomType(type_id, description, max_guests),
                     hotel=Hotel(hotel_id, name, stars, address_id),
-                    facilities=Facility(facility_name, facility_id)
+                    facilities=Facility(facility_id, facility_name)
                     )
                 )
         return return_list
