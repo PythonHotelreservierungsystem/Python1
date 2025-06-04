@@ -1,9 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
                                             ## Phillip fragen
-if TYPE_CHECKING:
-    from model.room_type import RoomType
-
+from model.facility import Facility
+from model.booking import Booking
+from model.room_type import RoomType
 
 ##Room
 class Room:
@@ -18,7 +18,7 @@ class Room:
         self.price_per_night = price_per_night
         self.room_type = room_type 
         self.hotel = hotel
-        self.facilities = facilities
+        self.facilities = list[Facility]
         ##zum über Room uf d Bookings zuegriffe
         self.booking: list[Booking] = []
 
@@ -35,7 +35,7 @@ class Room:
     def room_no(self, value):
         if not value:
             raise ValueError("room_no ist erforderlich")
-        if not isinstance(value, int):
+        if not isinstance(value, str):
             raise ValueError("room_no muss eine Zahl sein")
         self.__room_no = value
 

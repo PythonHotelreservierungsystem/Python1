@@ -1,6 +1,12 @@
 import model
 from data_access.base_data_access import BaseDataAccess
+from data_access.hotel_data_access import HotelDataAccess
+from data_access.room_type_data_access import RoomTypeDataAccess
+from data_access.address_data_access import AddressDataAccess
+from data_access.guest_data_access import GuestDataAccess
 from model import Room
+from model import Address
+from model import Guest
 from model import Booking
 from model import Guest
 from model import Facility
@@ -45,7 +51,41 @@ class RoomDataAccess(BaseDataAccess):
 ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """
-        SELECT """
+        SELECT Room.room_id, room_number, price_per_night, Room_Type.type_id, description, max_guests, Hotel.hotel_id, name, stars, address_id, Facilities.facility_name,
+        facilities.facility_id
+        FROM Room
+        JOIN Room_Type ON Room.type_id = Room_Type.type_id
+        JOIN Hotel ON Room.hotel_id = Hotel.hotel_id
+        JOIN Room_Facilities ON Room.room_id = Room_Facilities.room_id
+        JOIN Facilities ON Room_Facilities.facility_id = Facilities.facility_id
+        """
+
+        rooms = self.fetchall(sql)
+        return_list = []
+        for room_id, room_number, price_per_night, type_id, description, max_guests, hotel_id, name, stars, address_id, facility_name, facility_id in rooms:
+            return_list.append(
+                Room(
+                    room_id=room_id,
+                    room_no=room_number,
+                    price_per_night=price_per_night,
+                    room_type=RoomType(type_id, description, max_guests),
+                    hotel=Hotel(hotel_id, name, stars, address_id),
+                    facilities=Facility(facility_id, facility_name)
+                    )
+                )
+        return return_list
+
+if __name__ == "__main__":
+    # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
+    dao = RoomDataAccess("../database/hotel_reservation_sample.db")
+
+    # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
+    alle_rooms = dao.show_room_details()
+    for r in alle_rooms:
+        print(
+            f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
+            f"{r.room_type.description}, {r.room_type.max_guests} {r.hotel.name}{r.hotel.stars}{r.hotel.address}{r.facilities}")
+
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
      ##   sql="""
