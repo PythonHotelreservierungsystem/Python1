@@ -5,7 +5,7 @@ from datetime import date, datetime
 class BaseDataAccess:
     def __init__(self, connection_str: str = "../../database/hotel_reservation_sample.db"):
         if connection_str:
-         self.__connection_str = connection_str
+         self._connection_str = connection_str
         else:
          self.__connection_str = os.environ.get("../../database/hotel_reservation_sample.db")
          if self.__connection_str is None:
@@ -14,7 +14,7 @@ class BaseDataAccess:
     def _connect(self):
         # Mit detect_types=sqlite3.PARSE_DECLTYPES wird
         # der Verbindung gesagt die registrierten Adapter und Konverter zu verwenden
-        return sqlite3.connect(self.__connection_str, detect_types=sqlite3.PARSE_DECLTYPES)
+        return sqlite3.connect(self._connection_str, detect_types=sqlite3.PARSE_DECLTYPES)
 
     def fetchone(self, sql: str, params: tuple = None):
         if params is None:
