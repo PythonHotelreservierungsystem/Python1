@@ -1,6 +1,11 @@
 import model
-from model import Room
 from data_access.base_data_access import BaseDataAccess
+from model import Room
+from model import Booking
+from model import Guest
+from model import Facility
+from model import Hotel
+from model import Room_Type
 
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -20,6 +25,7 @@ class RoomDataAccess(BaseDataAccess):
             raise ValueError("Price per night cannot be None")
         if room_type is None:
             raise ValueError("Room type cannot be None")
+    def read_all_rooms(self,):
         sql ="""
         INSERT INTO Room (Room_Number, Price_Per_Night, Type_Id, Hotel_ID)
         VALUES (?, ?, ?, ?)"""
