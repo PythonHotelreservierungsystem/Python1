@@ -1,7 +1,8 @@
 ##Hotel
+from model import Address
 class Hotel:
     #attributes
-    def __init__(self, hotel_id:int, name:str, stars:int, address:str):
+    def __init__(self, hotel_id:int, name:str, stars:int, address:Address):
         if not hotel_id:
             raise ValueError("hotel_id ist erforderlich")
         if not isinstance(hotel_id, int):
