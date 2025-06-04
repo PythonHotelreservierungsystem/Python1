@@ -21,7 +21,7 @@ if __name__ == "__main__":
     manager = HotelManager(dao)
 
     # 3) Nach Stadt filtern, z.B. "Berlin"
-    stadt = "Berlin"
+    stadt = "Zürich"
     hotels_in_berlin = manager.show_hotels_by_city(stadt)
 
     # 4) Ausgabe
