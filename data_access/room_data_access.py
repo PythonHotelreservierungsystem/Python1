@@ -1,16 +1,11 @@
 import model
-from model import Room
 from data_access.base_data_access import BaseDataAccess
-
-from __future__ import annotations
-from typing import TYPE_CHECKING
-
-from test.model_tests.test_room import room1
-
-if TYPE_CHECKING:
-    from model.room_type import  import Room_Type
-    from model.hotel import Hotel
-
+from model import Room
+from model import Booking
+from model import Guest
+from model import Facility
+from model import Hotel
+from model import Room_Type
 
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):

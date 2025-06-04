@@ -1,4 +1,4 @@
-##Hotel
+##Hotel#
 from model import Address
 class Hotel:
     #attributes
