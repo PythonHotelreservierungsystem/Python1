@@ -4,7 +4,7 @@ class Booking:
     def __init__(self, booking_id: int, hotel_id: int, room_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: float, guest: int):
         if not booking_id:
             raise ValueError("booking_id ist erforderlich")
-        if not isinstance(booking_id, str):
+        if not isinstance(booking_id, int):
             raise ValueError("booking_id muss ein String sein")
         self.__booking_id = booking_id
         self.hotel_id = hotel_id ##allwe überflüssig jetzt
@@ -16,8 +16,12 @@ class Booking:
         self.guest = guest
 
     @property
+    def booking_id(self):
+        return self.__booking_id
+
+    @property
     def check_in_date(self):
-        return self.__checkin_date
+        return self.__check_in_date
 
     @check_in_date.setter
     def check_in_date(self, value):

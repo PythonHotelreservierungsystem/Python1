@@ -1,7 +1,8 @@
 import model
 from datetime import date
 from data_access.base_data_access import BaseDataAccess
-
+from data_access.guest_data_access import Guest
+from data_access.room_data_access import Room
 
 class BookingDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -43,45 +44,41 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled=is_cancelled,
             total_amount=total_amount
         )
-    ##User story 3.8
+    ##User story 2.2
     def show_bookings_with_hotels(self)-> list[model.Booking]:
         sql="""
         SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, room.hotel_id, room.room_number
         FROM Booking AS booking
         JOIN Room AS room ON booking.room_id = room.room_id
         """
-        result = self.fetchall(sql)
-
-        if result:
-            bookings = []
-            for row in result:
-                (
-                    booking_id,
-                    room_id,
-                    guest_id,
-                    check_in_date,
-                    check_out_date,
-                    is_cancelled,
-                    total_amount,
-                    hotel_id,
-                    room_number
-                ) = row
-
-                booking = model.Booking(
-                    booking_id=str(booking_id),
-                    room_id=room_id,
-                    guest=guest_id,
-                    check_in_date=check_in_date,
-                    check_out_date=check_out_date,
-                    is_cancelled=is_cancelled,
-                    total_amount=total_amount,
-                    hotel_id=hotel_id,
-
-                )
-
-            return bookings
-
-        return []
+        bookings = self.fetchall(sql)
+        return_list = []
+        for booking_id, room_id, guest_id, check_in_date, check_out_date, is_cancelled, total_amount, hotel_id, room_number in bookings:
+            return_list.append(
+                model.Booking(
+                booking_id=booking_id,
+                room_id=room_id,
+                guest=guest_id,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                is_cancelled=is_cancelled,
+                total_amount=total_amount,
+                hotel_id=hotel_id
+            )
+        )
+        return return_list
 
 
 
+
+if __name__ == "__main__":
+    # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
+    dao = BookingDataAccess("../database/hotel_reservation_sample.db")
+
+    # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
+    alle_bookings = dao.show_bookings_with_hotels()
+    for b in alle_bookings:
+        print(
+            f"ID: {b.booking_id}, Gast: {b.guest}, CheckIn: {b.check_in_date}, CheckOut: {b.check_out_date} "
+            f"A:{b.is_cancelled}, B:{b.total_amount}, C:{b.hotel_id}")
+## User Story 2.2

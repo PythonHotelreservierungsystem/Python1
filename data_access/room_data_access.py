@@ -22,8 +22,8 @@ class RoomDataAccess(BaseDataAccess):
             room_no: str,
             price_per_night: float,
             room_type: model.RoomType = None,
-            hotel_id: model.Hotel = None,
-            facility_id: model.Facility = None
+            hotel_id: Hotel = None,
+            facility_id: Facility = None
     ) -> model.Room:
         if room_no is None:
             raise ValueError("Room number cannot be None")
@@ -87,7 +87,7 @@ if __name__ == "__main__":
         print(
             f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
             f"A:{r.room_type.description}, B:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
-## User
+## User Story 2.2
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
      ##   sql="""
