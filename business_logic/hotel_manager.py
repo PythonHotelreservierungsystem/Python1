@@ -1,8 +1,12 @@
 import model
+from data_access.base_data_access import BaseDataAccess
 from data_access import BookingDataAccess
 from data_access.hotel_data_access import HotelDataAccess
 from data_access.room_data_access import RoomDataAccess
-from datetime import date
+from datetime import date, datetime
+
+
+
 
 
 
@@ -69,6 +73,7 @@ class HotelManager:
         hotels = self.__hotel_da.read_all_hotel()
         rooms = self.__room_da.show_room_details()
         bookings = booking_dao.show_bookings_with_hotels()
+        print(f"[DEBUG] Anzahl Buchungen geladen: {len(bookings)}")
 
         #nur hotels in gewünschter Stadt
         stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
@@ -77,14 +82,28 @@ class HotelManager:
         def is_room_available(room_id, bookings, check_in_date, check_out_date):
             for b in bookings:
                 if b.room_id == room_id and not b.is_cancelled:
-                    if not (check_out_date <= b.check_in_date or check_in_date >= b.check_out_date):
+                    b_check_in = b.check_in_date
+                    b_check_out = b.check_out_date
+
+                    if isinstance(b_check_in, str):
+                        b_check_in = date.fromisoformat(b_check_in)
+                    if isinstance(b_check_out, str):
+                        b_check_out = date.fromisoformat(b_check_out)
+
+                    # KORREKTER Vergleich mit den umgewandelten Werten
+                    if not (check_out_date <= b_check_in or check_in_date >= b_check_out):
                         return False
             return True
 
+        print(f"[DEBUG] Anzahl Buchungen geladen: {len(bookings)}")
         verfuegbare_hotels = []
+
         for hotel in stadt_hotels:
-            for room in rooms:
-                if room.hotel.hotel_id == hotel.hotel_id and is_room_available(room.room_id, bookings, check_in_date, check_out_date):
+            # Alle Zimmer dieses Hotels herausfiltern
+            hotel_rooms = [r for r in rooms if r.hotel.hotel_id == hotel.hotel_id]
+            # Prüfen, ob mindestens ein Zimmer verfügbar ist
+            for room in hotel_rooms:
+                if is_room_available(room.room_id, bookings, check_in_date, check_out_date):
                     verfuegbare_hotels.append(hotel)
                     break
         return verfuegbare_hotels
@@ -109,9 +128,9 @@ if __name__ == "__main__":
     manager = HotelManager(hotel_da, room_da)
 
     # Beispiel: Suche nach verfügbaren Hotels in Basel vom 10.06.2025 bis 12.06.2025
-    city = "Genève"
-    check_in = date(2025, 7, 10)
-    check_out = date(2025, 7, 15)
+    city = "Bern"
+    check_in = date(2025, 8, 3)
+    check_out = date(2025, 8, 6)
 
     result = manager.find_available_hotels_by_city_and_dates(city, check_in, check_out, booking_da)
 
@@ -122,7 +141,6 @@ if __name__ == "__main__":
             print(f"  • {h.name} – {h.address.street}, {h.address.zip_code}")
     else:
         print(f"Keine verfügbaren Hotels in '{city}' vom {check_in} bis {check_out}.")
-
 
 
 
