@@ -18,7 +18,7 @@ class HotelDataAccess(BaseDataAccess):
     #Alle Hotelinfos aus DB holen
     def read_all_hotel(self,):
         sql = """
-        SELECT hotel_id, name, stars, Address.address_id, street, city, zip_code FROM hotel
+        SELECT hotel_id, name, stars, Address.address_id, street, city, zip_code FROM Hotel
         JOIN Address ON hotel.address_id = address.address_id
         """
     # erstellt mit den Hotelinfos hotel und Address & fetchall holt alle Zeilen aus der DB
