@@ -12,6 +12,7 @@ from model import Guest
 from model import Facility
 from model import Hotel
 from model import RoomType
+import sqlite3
 
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -32,55 +33,30 @@ class RoomDataAccess(BaseDataAccess):
             raise ValueError("Price per night cannot be None")
         if room_type is None:
             raise ValueError("Room type cannot be None")
-    def read_all_rooms(self,):
-        sql ="""
-        INSERT INTO Room (Room_Number, Price_Per_Night, Type_Id, Hotel_ID)
-        VALUES (?, ?, ?, ?)"""
 
-        params = (room_number, price_per_night, Room_Type.room_type_id, Hotel.hotel_id)
 
-        last_row_id, row_count = self.execute(sql, params)
-
-        return model.Room(
-            room_id=last_row_id,
-            room_no=room_number,
-            room_type=room_type_id,
-            price_per_night=price_per_night,
-            hotel=hotel_id,
-            facilities=facility_id
-        )
-
-# User Story 1.3
-#     def read_all_room_types(self): -> List[Room]:
-#     sql = """
-#     SELECT r.room_id, r.hotel_id, r.room_number, r.type_id, r.price_per_night, rt.max_guests FROM Room as r
-#     JOIN Room_Type as rt ON r.type_id = rt.type_id
-#     """
-#     #alle zeilen holen
-#     rows = self.fetch(sql)
-#
-#     return_list: List[Room] = []
-#
-#     #jede ZZeile in Room Objekt umwandeln
-#     for room_id, hotel_id, room_number, type_id, price_per_night, max_guests in rows:
-#
-#         #roomtype objekt erstellen nur mit type_id und max guests
+    # def read_all_rooms(self,):
+    #     sql ="""
+    #     INSERT INTO Room (Room_Number, Price_Per_Night, Type_Id, Hotel_ID)
+    #     VALUES (?, ?, ?, ?)"""
+    #
+    #     params = (room_number, price_per_night, Room_Type.room_type_id, Hotel.hotel_id)
+    #
+    #     last_row_id, row_count = self.execute(sql, params)
+    #
+    #     return model.Room(
+    #         room_id=last_row_id,
+    #         room_no=room_number,
+    #         room_type=room_type_id,
+    #         price_per_night=price_per_night,
+    #         hotel=hotel_id,
+    #         facilities=facility_id
+    #     )
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-##User Story 2.1
+    ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """
         SELECT Room.room_id, room_number, price_per_night, 
@@ -100,7 +76,7 @@ class RoomDataAccess(BaseDataAccess):
             return_list.append(
                 Room(
                     room_id=room_id,
-                    room_no=room_number,
+                    room_number=room_number,
                     price_per_night=price_per_night,
                     room_type=RoomType(type_id, description, max_guests),
                     hotel=Hotel(hotel_id, name, stars, address_id),
@@ -118,7 +94,7 @@ class RoomDataAccess(BaseDataAccess):
 #     for r in alle_rooms:
 #         print(
 #             f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
-#             f"A:{r.room_type.description}, B:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
+#             f"A:{r.room_type.description}, Max Guests:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
 ## User Story 2.2
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:

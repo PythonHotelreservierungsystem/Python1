@@ -1,5 +1,6 @@
 import model
 from data_access.hotel_data_access import HotelDataAccess
+from data_access.room_data_access import RoomDataAccess
 
 
 
@@ -30,5 +31,32 @@ class HotelManager:
             print(f"Keine Hotels in '{city}' mit mindestens {min_stars} Sternen gefunden.")
             return []
         return gefiltert
+
+        # User Story 1.3
+    def find_hotels_by_city_and_guests(self, city: str, guest_count: int) -> list:
+        # alle hotels laden
+        hotels = self.hotel_dao.read_all_hotel()
+        # Räume mit Typ und Hotel laden
+        rooms = self.room_dao.show_room_details()
+
+        ergebnis = []
+        for hotel in hotels:
+            if hotel.address.city.strip().lower() != city.strip().lower():
+                continue
+            # nun prüfen ob es Zimmer hat was genügend platz hat
+            for room in rooms:
+                if room.hotel.hotel_id == hotel.hotel_id and room.room_type.max_guests >= guest_count:
+                    ergebnis.append(hotel)
+                    break
+        return ergebnis
+
+
+
+
+
+
+
+
+
 
 
