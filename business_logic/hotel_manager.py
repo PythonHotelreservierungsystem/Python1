@@ -39,9 +39,9 @@ class HotelManager:
         if not self.__room_da:
             raise ValueError("RoomDataAccess wurde nicht initialisiert.")
         # alle hotels laden
-        hotels = self.hotel_da.read_all_hotel()
+        hotels = self.__hotel_da.read_all_hotel()
         # Räume mit Typ und Hotel laden
-        rooms = self.room_da.show_room_details()
+        rooms = self.__room_da.show_room_details()
 
         ergebnis = []
         for hotel in hotels:
@@ -52,7 +52,23 @@ class HotelManager:
                 if room.hotel.hotel_id == hotel.hotel_id and room.room_type.max_guests >= guest_count:
                     ergebnis.append(hotel)
                     break
-        return ergebnis
+        if ergebnis:
+            return ergebnis
+        else:
+            print(f"Keine Hotels in '{city}' mit mindestens {guest_count} Gasten gefunden.")
+            return []
+
+# if __name__ == "__main__":
+#
+#     hotel_da = HotelDataAccess("../database/hotel_reservation_sample.db")
+#     room_da = RoomDataAccess("../database/hotel_reservation_sample.db")
+#
+#     manager = HotelManager(hotel_da, room_da)
+#
+#     ergebnis = manager.find_hotels_by_city_and_guests("Zürich", 1)
+#
+#     for hotel in ergebnis:
+#         print(f"{hotel.name} in {hotel.address.city} – ID: {hotel.hotel_id}")
 
 
 
