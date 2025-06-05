@@ -5,6 +5,7 @@ from data_access.room_data_access import RoomDataAccess
 from datetime import date
 
 
+
 class HotelManager:
     def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None):
         self.__hotel_da = hotel_data_access
@@ -67,13 +68,60 @@ class HotelManager:
         #alle Datenbank abfragen holen
         hotels = self.__hotel_da.read_all_hotel()
         rooms = self.__room_da.show_room_details()
-        booking = booking_dao.show_bookings_with_hotels()
+        bookings = booking_dao.show_bookings_with_hotels()
 
         #nur hotels in gewünschter Stadt
         stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
-        
-        #
 
+        # schauen ob room verfügbar ist
+        def is_room_available(room_id, bookings, check_in_date, check_out_date):
+            for b in bookings:
+                if b.room_id == room_id and not b.is_cancelled:
+                    if not (check_out_date <= b.check_in_date or check_in_date >= b.check_out_date):
+                        return False
+            return True
+
+        verfuegbare_hotels = []
+        for hotel in stadt_hotels:
+            for room in rooms:
+                if room.hotel.hotel_id == hotel.hotel_id and is_room_available(room.room_id, bookings, check_in_date, check_out_date):
+                    verfuegbare_hotels.append(hotel)
+                    break
+        return verfuegbare_hotels
+
+
+
+if __name__ == "__main__":
+    from data_access.hotel_data_access import HotelDataAccess
+    from data_access.room_data_access import RoomDataAccess
+    from data_access.booking_data_access import BookingDataAccess
+    from datetime import date
+
+    # Datenbankpfad anpassen, falls nötig
+    db_path = "../database/hotel_reservation_sample.db"
+
+    # DataAccess-Objekte erstellen
+    hotel_da = HotelDataAccess(db_path)
+    room_da = RoomDataAccess(db_path)
+    booking_da = BookingDataAccess(db_path)
+
+    # HotelManager initialisieren
+    manager = HotelManager(hotel_da, room_da)
+
+    # Beispiel: Suche nach verfügbaren Hotels in Basel vom 10.06.2025 bis 12.06.2025
+    city = "Genève"
+    check_in = date(2025, 7, 10)
+    check_out = date(2025, 7, 15)
+
+    result = manager.find_available_hotels_by_city_and_dates(city, check_in, check_out, booking_da)
+
+    # Ausgabe
+    if result:
+        print(f"Verfügbare Hotels in '{city}' vom {check_in} bis {check_out}:")
+        for h in result:
+            print(f"  • {h.name} – {h.address.street}, {h.address.zip_code}")
+    else:
+        print(f"Keine verfügbaren Hotels in '{city}' vom {check_in} bis {check_out}.")
 
 
 
