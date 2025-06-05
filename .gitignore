@@ -1,2 +1,3 @@
 .venv
 .idea
+/database/working_hotel_reservation_sample.db
