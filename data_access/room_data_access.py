@@ -17,6 +17,7 @@ class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
+    # Room erstellen
     def create_room(
             self,
             room_no: str,
@@ -48,6 +49,37 @@ class RoomDataAccess(BaseDataAccess):
             hotel=hotel_id,
             facilities=facility_id
         )
+
+# User Story 1.3
+    def read_all_room_types(self): -> List[Room]:
+    sql = """
+    SELECT r.room_id, r.hotel_id, r.room_number, r.type_id, r.price_per_night, rt.max_guests FROM Room as r
+    JOIN Room_Type as rt ON r.type_id = rt.type_id
+    """
+    #alle zeilen holen
+    rows = self.fetch(sql)
+
+    return_list: List[Room] = []
+
+    #jede ZZeile in Room Objekt umwandeln
+    for room_id, hotel_id, room_number, type_id, price_per_night, max_guests in rows:
+
+        #roomtype objekt erstellen nur mit type_id und max guests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """
@@ -77,16 +109,16 @@ class RoomDataAccess(BaseDataAccess):
                 )
         return return_list
 
-if __name__ == "__main__":
-    # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
-    dao = RoomDataAccess("../database/hotel_reservation_sample.db")
-
-    # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
-    alle_rooms = dao.show_room_details()
-    for r in alle_rooms:
-        print(
-            f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
-            f"A:{r.room_type.description}, B:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
+# if __name__ == "__main__":
+#     # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
+#     dao = RoomDataAccess("../database/hotel_reservation_sample.db")
+#
+#     # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
+#     alle_rooms = dao.show_room_details()
+#     for r in alle_rooms:
+#         print(
+#             f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
+#             f"A:{r.room_type.description}, B:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}, F:{r.facilities.facility_id}, G:{r.facilities.facility_name}")
 ## User Story 2.2
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
