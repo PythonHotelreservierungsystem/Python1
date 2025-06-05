@@ -5,8 +5,10 @@ from data_access.room_data_access import RoomDataAccess
 
 
 class HotelManager:
-    def __init__(self, hotel_data_access: HotelDataAccess):
+    def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None):
         self.__hotel_da = hotel_data_access
+        self.__room_da = room_data_access
+
 
 
     ## user Story 1.1
@@ -32,12 +34,14 @@ class HotelManager:
             return []
         return gefiltert
 
-        # User Story 1.3
+    #     # User Story 1.3
     def find_hotels_by_city_and_guests(self, city: str, guest_count: int) -> list:
+        if not self.__room_da:
+            raise ValueError("RoomDataAccess wurde nicht initialisiert.")
         # alle hotels laden
-        hotels = self.hotel_dao.read_all_hotel()
+        hotels = self.hotel_da.read_all_hotel()
         # Räume mit Typ und Hotel laden
-        rooms = self.room_dao.show_room_details()
+        rooms = self.room_da.show_room_details()
 
         ergebnis = []
         for hotel in hotels:
