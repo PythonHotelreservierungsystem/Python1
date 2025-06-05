@@ -44,7 +44,7 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled=is_cancelled,
             total_amount=total_amount
         )
-    ##User story 2.2
+    ##User story 1.4 ? 2.2
     def show_bookings_with_hotels(self)-> list[model.Booking]:
         sql="""
         SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, room.hotel_id, room.room_number
@@ -80,5 +80,5 @@ if __name__ == "__main__":
     for b in alle_bookings:
         print(
             f"ID: {b.booking_id}, Gast: {b.guest}, CheckIn: {b.check_in_date}, CheckOut: {b.check_out_date} "
-            f"A:{b.is_cancelled}, B:{b.total_amount}, C:{b.hotel_id}")
+            f"is cancelled?:{b.is_cancelled}, total amount:{b.total_amount}, hotel id:{b.hotel_id}")
 ## User Story 2.2

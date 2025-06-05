@@ -51,8 +51,6 @@ class RoomDataAccess(BaseDataAccess):
         )
 
 
-
-
     ##User Story 2.1
     def show_room_details(self) -> list[Room]:
         sql = """

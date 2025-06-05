@@ -1,7 +1,8 @@
 import model
+from data_access import BookingDataAccess
 from data_access.hotel_data_access import HotelDataAccess
 from data_access.room_data_access import RoomDataAccess
-
+from datetime import date
 
 
 class HotelManager:
@@ -58,17 +59,22 @@ class HotelManager:
             print(f"Keine Hotels in '{city}' mit mindestens {guest_count} Gasten gefunden.")
             return []
 
-# if __name__ == "__main__":
-#
-#     hotel_da = HotelDataAccess("../database/hotel_reservation_sample.db")
-#     room_da = RoomDataAccess("../database/hotel_reservation_sample.db")
-#
-#     manager = HotelManager(hotel_da, room_da)
-#
-#     ergebnis = manager.find_hotels_by_city_and_guests("Zürich", 1)
-#
-#     for hotel in ergebnis:
-#         print(f"{hotel.name} in {hotel.address.city} – ID: {hotel.hotel_id}")
+        # User Story 1.4
+    def find_available_hotels_by_city_and_dates(self,
+        city: str, check_in_date: date, check_out_date:date,
+        booking_dao: BookingDataAccess) -> list[model.Hotel]:
+
+        #alle Datenbank abfragen holen
+        hotels = self.__hotel_da.read_all_hotel()
+        rooms = self.__room_da.show_room_details()
+        booking = booking_dao.show_bookings_with_hotels()
+
+        #nur hotels in gewünschter Stadt
+        stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
+        
+        #
+
+
 
 
 
