@@ -51,20 +51,20 @@ class RoomDataAccess(BaseDataAccess):
         )
 
 # User Story 1.3
-    def read_all_room_types(self): -> List[Room]:
-    sql = """
-    SELECT r.room_id, r.hotel_id, r.room_number, r.type_id, r.price_per_night, rt.max_guests FROM Room as r
-    JOIN Room_Type as rt ON r.type_id = rt.type_id
-    """
-    #alle zeilen holen
-    rows = self.fetch(sql)
-
-    return_list: List[Room] = []
-
-    #jede ZZeile in Room Objekt umwandeln
-    for room_id, hotel_id, room_number, type_id, price_per_night, max_guests in rows:
-
-        #roomtype objekt erstellen nur mit type_id und max guests
+#     def read_all_room_types(self): -> List[Room]:
+#     sql = """
+#     SELECT r.room_id, r.hotel_id, r.room_number, r.type_id, r.price_per_night, rt.max_guests FROM Room as r
+#     JOIN Room_Type as rt ON r.type_id = rt.type_id
+#     """
+#     #alle zeilen holen
+#     rows = self.fetch(sql)
+#
+#     return_list: List[Room] = []
+#
+#     #jede ZZeile in Room Objekt umwandeln
+#     for room_id, hotel_id, room_number, type_id, price_per_night, max_guests in rows:
+#
+#         #roomtype objekt erstellen nur mit type_id und max guests
 
 
 
