@@ -151,47 +151,6 @@ class HotelManager:
         return verfuegbare_hotels
 
 
-if __name__ == "__main__":
-    from data_access.hotel_data_access import HotelDataAccess
-    from data_access.room_data_access import RoomDataAccess
-    from data_access.booking_data_access import BookingDataAccess
-    from datetime import datetime
-
-    # DB-Pfad ggf. anpassen
-    db_path = "../database/hotel_reservation_sample.db"
-
-    # HotelManager erzeugen
-    manager = HotelManager(
-        hotel_data_access=HotelDataAccess(db_path),
-        room_data_access=RoomDataAccess(db_path)
-    )
-    booking_dao = BookingDataAccess(db_path)
-
-    # Testwerte
-    check_in = datetime(2025, 8, 23)
-    check_out = datetime(2025, 8, 25)
-    city = "Genève"
-    min_stars = 4
-    guest_count = 5
-
-    # Methode testen
-    ergebnisse = manager.find_hotels_by_criteria(
-        city=city,
-        check_in_date=check_in,
-        check_out_date=check_out,
-        min_stars=min_stars,
-        guest_count=guest_count,
-        booking_da=booking_dao
-    )
-
-    # Ausgabe
-    if ergebnisse:
-        print(f"Verfügbare Hotels in '{city}' vom {check_in.date()} bis {check_out.date()} (mind. {min_stars} Sterne, für {guest_count} Gäste):")
-        for h in ergebnisse:
-            print(f"  • {h.name} – {h.address.street}, {h.address.zip_code} {h.address.city}")
-    else:
-        print(f"Keine passenden Hotels in '{city}' für die angegebenen Kriterien gefunden.")
-
 
 
 
