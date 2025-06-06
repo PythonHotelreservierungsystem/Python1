@@ -7,3 +7,4 @@ from .hotel import Hotel
 from .invoice import Invoice
 from .room import Room
 from .room_type import RoomType
+from .room_facilities import RoomFacilities

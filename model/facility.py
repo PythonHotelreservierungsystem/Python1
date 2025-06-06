@@ -1,7 +1,7 @@
 ##Facility
 class Facility:
     ##attributes
-    def __init__(self, facility_id: int, facility_name: str):
+    def __init__(self, facility_id: str, facility_name: str):
         if not facility_id:
             raise ValueError("facility_id ist erforderlich")
         if not isinstance(facility_id, str):
