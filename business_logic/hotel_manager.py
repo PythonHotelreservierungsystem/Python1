@@ -73,8 +73,6 @@ class HotelManager:
         hotels = self.__hotel_da.read_all_hotel()
         rooms = self.__room_da.show_room_details()
         bookings = booking_dao.show_bookings_with_hotels()
-        print(f"[DEBUG] Anzahl Buchungen geladen: {len(bookings)}")
-
         #nur hotels in gewünschter Stadt
         stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
 
@@ -94,8 +92,6 @@ class HotelManager:
                     if not (check_out_date <= b_check_in or check_in_date >= b_check_out):
                         return False
             return True
-
-        print(f"[DEBUG] Anzahl Buchungen geladen: {len(bookings)}")
         verfuegbare_hotels = []
 
         for hotel in stadt_hotels:
@@ -128,9 +124,9 @@ if __name__ == "__main__":
     manager = HotelManager(hotel_da, room_da)
 
     # Beispiel: Suche nach verfügbaren Hotels in Basel vom 10.06.2025 bis 12.06.2025
-    city = "Bern"
-    check_in = date(2025, 8, 3)
-    check_out = date(2025, 8, 6)
+    city = "Zürich"
+    check_in = date(2025, 7, 11)
+    check_out = date(2025, 7, 14)
 
     result = manager.find_available_hotels_by_city_and_dates(city, check_in, check_out, booking_da)
 
