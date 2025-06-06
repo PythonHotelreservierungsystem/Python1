@@ -69,40 +69,46 @@ class HotelManager:
         city: str, check_in_date: date, check_out_date:date,
         booking_dao: BookingDataAccess) -> list[model.Hotel]:
 
-        #alle Datenbank abfragen holen
+        # Sicherstellen, dass Datum korrekt ist
+        if isinstance(check_in_date, datetime):
+            check_in_date = check_in_date.date()
+        if isinstance(check_out_date, datetime):
+            check_out_date = check_out_date.date()
+
+        print(f"🔎 Anfrage: {check_in_date} bis {check_out_date}")
+
         hotels = self.__hotel_da.read_all_hotel()
         rooms = self.__room_da.show_room_details()
         bookings = booking_dao.show_bookings_with_hotels()
-        #nur hotels in gewünschter Stadt
+
         stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
-
-        # schauen ob room verfügbar ist
-        def is_room_available(room_id, bookings, check_in_date, check_out_date):
-            for b in bookings:
-                if b.room_id == room_id and not b.is_cancelled:
-                    b_check_in = b.check_in_date
-                    b_check_out = b.check_out_date
-
-                    if isinstance(b_check_in, str):
-                        b_check_in = date.fromisoformat(b_check_in)
-                    if isinstance(b_check_out, str):
-                        b_check_out = date.fromisoformat(b_check_out)
-
-                    # KORREKTER Vergleich mit den umgewandelten Werten
-                    if not (check_out_date <= b_check_in or check_in_date >= b_check_out):
-                        return False
-            return True
         verfuegbare_hotels = []
 
         for hotel in stadt_hotels:
-            # Alle Zimmer dieses Hotels herausfiltern
+            print(f"🏨 Prüfe Hotel: {hotel.name} (ID: {hotel.hotel_id})")
             hotel_rooms = [r for r in rooms if r.hotel.hotel_id == hotel.hotel_id]
-            # Prüfen, ob mindestens ein Zimmer verfügbar ist
+            print(f"➡️  Zimmer in diesem Hotel: {[r.room_id for r in hotel_rooms]}")
+
             for room in hotel_rooms:
-                if is_room_available(room.room_id, bookings, check_in_date, check_out_date):
+                # Filtere nur Buchungen für genau dieses Zimmer
+                relevant_bookings = [b for b in bookings if b.room_id == room.room_id and not b.is_cancelled]
+
+                # Debug-Ausgabe für Buchungen
+                for b in relevant_bookings:
+                    print(f"   📘 Buchung für Zimmer {b.room_id}: {b.check_in_date} bis {b.check_out_date}")
+
+                # Prüfe ob Konflikt existiert
+                conflict = False
+                for b in relevant_bookings:
+                    if not (check_out_date <= b.check_in_date or check_in_date >= b.check_out_date):
+                        conflict = True
+                        print(f"   ❌ Konflikt mit Buchung: {b.check_in_date} bis {b.check_out_date}")
+                        break
+
+                if not conflict:
+                    print(f"   ✅ Zimmer {room.room_id} ist verfügbar.")
                     verfuegbare_hotels.append(hotel)
-                    break
-        return verfuegbare_hotels
+                    break  # Nur ein freies Zimmer reicht
 
 
 
