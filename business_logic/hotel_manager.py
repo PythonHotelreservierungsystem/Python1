@@ -65,9 +65,10 @@ class HotelManager:
             return []
 
         # User Story 1.4
+
     def find_available_hotels_by_city_and_dates(self,
-        city: str, check_in_date: date, check_out_date:date,
-        booking_dao: BookingDataAccess) -> list[model.Hotel]:
+                                                city: str, check_in_date: date, check_out_date: date,
+                                                booking_dao: BookingDataAccess) -> list[model.Hotel]:
 
         # Sicherstellen, dass Datum korrekt ist
         if isinstance(check_in_date, datetime):
@@ -90,14 +91,11 @@ class HotelManager:
             print(f"➡️  Zimmer in diesem Hotel: {[r.room_id for r in hotel_rooms]}")
 
             for room in hotel_rooms:
-                # Filtere nur Buchungen für genau dieses Zimmer
                 relevant_bookings = [b for b in bookings if b.room_id == room.room_id and not b.is_cancelled]
 
-                # Debug-Ausgabe für Buchungen
                 for b in relevant_bookings:
                     print(f"   📘 Buchung für Zimmer {b.room_id}: {b.check_in_date} bis {b.check_out_date}")
 
-                # Prüfe ob Konflikt existiert
                 conflict = False
                 for b in relevant_bookings:
                     if not (check_out_date <= b.check_in_date or check_in_date >= b.check_out_date):
@@ -107,8 +105,13 @@ class HotelManager:
 
                 if not conflict:
                     print(f"   ✅ Zimmer {room.room_id} ist verfügbar.")
-                    verfuegbare_hotels.append(hotel)
+                    if hotel not in verfuegbare_hotels:
+                        verfuegbare_hotels.append(hotel)
                     break  # Nur ein freies Zimmer reicht
+
+        # ✅ Ausgabe nach Prüfung aller Hotels
+        print(f"📦 Gefundene verfügbare Hotels: {[h.name for h in verfuegbare_hotels]}")
+        return verfuegbare_hotels
 
 
 
@@ -130,9 +133,9 @@ if __name__ == "__main__":
     manager = HotelManager(hotel_da, room_da)
 
     # Beispiel: Suche nach verfügbaren Hotels in Basel vom 10.06.2025 bis 12.06.2025
-    city = "Zürich"
-    check_in = date(2025, 7, 11)
-    check_out = date(2025, 7, 14)
+    city = "Genève"
+    check_in = date(2025, 8, 22)
+    check_out = date(2025, 8, 24)
 
     result = manager.find_available_hotels_by_city_and_dates(city, check_in, check_out, booking_da)
 
