@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 class RoomFacilities:
-    ##attributes
+    ##attributes#
     def __init__(self, facility_id: int, room_id: int):
         if not facility_id:
             raise ValueError("facility_id ist erforderlich")

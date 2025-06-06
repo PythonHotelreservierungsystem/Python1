@@ -87,7 +87,7 @@ if __name__ == "__main__":
         print(
             f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
             f"A:{r.room_type.description}, Max Guests:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}")
-## User Story 2.2
+## User Story 2.2#
 ##für User story 3.8
     ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
      ##   sql="""
