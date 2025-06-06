@@ -9,10 +9,8 @@ from model import Address
 from model import Guest
 from model import Booking
 from model import Guest
-from model import Facility
 from model import Hotel
 from model import RoomType
-from model import RoomFacilities
 import sqlite3
 
 class RoomDataAccess(BaseDataAccess):
@@ -26,7 +24,7 @@ class RoomDataAccess(BaseDataAccess):
             price_per_night: float,
             room_type: model.RoomType = None,
             hotel_id: Hotel = None,
-            facility_id: model.Facility = None
+        
     ) -> model.Room:
         if room_number is None:
             raise ValueError("Room number cannot be None")
@@ -48,8 +46,7 @@ class RoomDataAccess(BaseDataAccess):
             room_type=room_type,
             price_per_night=price_per_night,
             hotel=hotel_id,
-            facilities=facility_id
-        )
+            )
 
 
     ##User Story 2.1
