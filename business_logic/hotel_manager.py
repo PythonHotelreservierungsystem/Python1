@@ -150,7 +150,16 @@ class HotelManager:
 
         return verfuegbare_hotels
 
+    # User Story 1.6
+    def show_all_hotel_infos(self) -> list[str]:
+        hotels = self.__hotel_da.read_all_hotel()
+        zusammenfassungen = []
 
+        for h in hotels:
+            eintrag = f"{h.name} – {h.address.street}, {h.address.zip_code} {h.address.city} ({h.stars} Sterne)"
+            zusammenfassungen.append(eintrag)
+
+        return zusammenfassungen
 
 
 
