@@ -146,6 +146,16 @@ if __name__ == "__main__":
 
 
 
+    #User Story 1.5
+    def find_hotels_by_criteria(
+        self, city: str, check_in_date: date, check_out_date: date, min_stars:int,
+        guest_count: int, booking_da: BookingDataAccess) -> list[model.Hotel]:
+
+        if isinstance(check_in_date, datetime):
+            check_in_date = check_in_date.date()
+        if isinstance(check_out_date, datetime):
+            check_out_date = check_out_date.date()
+
 
 
 
