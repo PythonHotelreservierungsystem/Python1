@@ -6,15 +6,10 @@ from data_access.room_data_access import RoomDataAccess
 from datetime import date, datetime
 
 
-
-
-
-
 class HotelManager:
     def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None):
         self.__hotel_da = hotel_data_access
         self.__room_da = room_data_access
-
 
 
     ## user Story 1.1
@@ -40,7 +35,8 @@ class HotelManager:
             return []
         return gefiltert
 
-    #     # User Story 1.3
+
+        # User Story 1.3
     def find_hotels_by_city_and_guests(self, city: str, guest_count: int) -> list:
         if not self.__room_da:
             raise ValueError("RoomDataAccess wurde nicht initialisiert.")
@@ -65,10 +61,9 @@ class HotelManager:
             return []
 
         # User Story 1.4
-
     def find_available_hotels_by_city_and_dates(self,
-                                                city: str, check_in_date: date, check_out_date: date,
-                                                booking_dao: BookingDataAccess) -> list[model.Hotel]:
+    city: str, check_in_date: date, check_out_date: date,
+    booking_dao: BookingDataAccess) -> list[model.Hotel]:
 
         if isinstance(check_in_date, datetime):
             check_in_date = check_in_date.date()
@@ -101,51 +96,102 @@ class HotelManager:
 
         return verfuegbare_hotels
 
-
-
-# if __name__ == "__main__":
-#     from data_access.hotel_data_access import HotelDataAccess
-#     from data_access.room_data_access import RoomDataAccess
-#     from data_access.booking_data_access import BookingDataAccess
-#     from datetime import date
-#
-#     # Datenbankpfad anpassen, falls nötig
-#     db_path = "../database/hotel_reservation_sample.db"
-#
-#     # DataAccess-Objekte erstellen
-#     hotel_da = HotelDataAccess(db_path)
-#     room_da = RoomDataAccess(db_path)
-#     booking_da = BookingDataAccess(db_path)
-#
-#     # HotelManager initialisieren
-#     manager = HotelManager(hotel_da, room_da)
-#
-#     # Beispiel: Suche nach verfügbaren Hotels in Basel vom 10.06.2025 bis 12.06.2025
-#     city = "Genève"
-#     check_in = date(2025, 8, 22)
-#     check_out = date(2025, 8, 24)
-#
-#     result = manager.find_available_hotels_by_city_and_dates(city, check_in, check_out, booking_da)
-#
-#     # Ausgabe
-#     if result:
-#         print(f"Verfügbare Hotels in '{city}' vom {check_in} bis {check_out}:")
-#         for h in result:
-#             print(f"  • {h.name} – {h.address.street}, {h.address.zip_code}")
-#     else:
-#         print(f"Keine verfügbaren Hotels in '{city}' vom {check_in} bis {check_out}.")
-
-
-
-    #User Story 1.5
+    # User Story 1.5
     def find_hotels_by_criteria(
-        self, city: str, check_in_date: date, check_out_date: date, min_stars:int,
-        guest_count: int, booking_da: BookingDataAccess) -> list[model.Hotel]:
+            self, city: str, check_in_date: date, check_out_date: date, min_stars: int,
+            guest_count: int, booking_da: BookingDataAccess) -> list[model.Hotel]:
 
+        # damit date auch wirklich als daze übergeben wird
         if isinstance(check_in_date, datetime):
             check_in_date = check_in_date.date()
         if isinstance(check_out_date, datetime):
             check_out_date = check_out_date.date()
+
+        # daten aus db holen
+        hotels = self.__hotel_da.read_all_hotel()
+        rooms = self.__room_da.show_room_details()
+        bookings = booking_da.show_bookings_with_hotels()
+
+        # Hotels in Wunschstadt und mit min. sternen
+        stadt_hotels = [
+            h for h in hotels
+            if h.address.city.strip().lower() == city.strip().lower() and h.stars >= min_stars
+        ]
+        verfuegbare_hotels = []
+
+        # alle passende hotel prüfen
+        for hotel in stadt_hotels:
+            # Alle Zimmer dieses Hotels
+            hotel_rooms = [r for r in rooms if r.hotel.hotel_id == hotel.hotel_id]
+
+            for room in hotel_rooms:
+                # Prüfen, ob das Zimmer genug Gäste aufnehmen kann
+                if room.room_type.max_guests < guest_count:
+                    continue  # Zimmer überspringen wenns zu klein ist
+
+                # alle buchungen zum zimmer die nicht storniert wurden
+                relevant_bookings = [
+                    b for b in bookings
+                    if b.room_id == room.room_id and not b.is_cancelled
+                ]
+
+                # prüfen ob es  terminüberschneidungen gibt
+                conflict = False
+                for b in relevant_bookings:
+                    if not (check_out_date <= b.check_in_date or check_in_date >= b.check_out_date):
+                        conflict = True  # Überschneidung gefunden
+                        break
+
+                if not conflict:
+                    # Sobald ein Zimmer passt, reicht das – Hotel als verfügbar merken
+                    if hotel not in verfuegbare_hotels:
+                        verfuegbare_hotels.append(hotel)
+                    break  # keine weiteren Zimmer prüfen nötig
+
+        return verfuegbare_hotels
+
+
+if __name__ == "__main__":
+    from data_access.hotel_data_access import HotelDataAccess
+    from data_access.room_data_access import RoomDataAccess
+    from data_access.booking_data_access import BookingDataAccess
+    from datetime import datetime
+
+    # DB-Pfad ggf. anpassen
+    db_path = "../database/hotel_reservation_sample.db"
+
+    # HotelManager erzeugen
+    manager = HotelManager(
+        hotel_data_access=HotelDataAccess(db_path),
+        room_data_access=RoomDataAccess(db_path)
+    )
+    booking_dao = BookingDataAccess(db_path)
+
+    # Testwerte
+    check_in = datetime(2025, 8, 23)
+    check_out = datetime(2025, 8, 25)
+    city = "Genève"
+    min_stars = 4
+    guest_count = 5
+
+    # Methode testen
+    ergebnisse = manager.find_hotels_by_criteria(
+        city=city,
+        check_in_date=check_in,
+        check_out_date=check_out,
+        min_stars=min_stars,
+        guest_count=guest_count,
+        booking_da=booking_dao
+    )
+
+    # Ausgabe
+    if ergebnisse:
+        print(f"Verfügbare Hotels in '{city}' vom {check_in.date()} bis {check_out.date()} (mind. {min_stars} Sterne, für {guest_count} Gäste):")
+        for h in ergebnisse:
+            print(f"  • {h.name} – {h.address.street}, {h.address.zip_code} {h.address.city}")
+    else:
+        print(f"Keine passenden Hotels in '{city}' für die angegebenen Kriterien gefunden.")
+
 
 
 
