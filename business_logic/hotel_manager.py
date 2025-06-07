@@ -162,6 +162,13 @@ class HotelManager:
         return zusammenfassungen
 
 
+        #User Story 3.1
+    def add_hotel(self, name: str, stars: int, address: model.Address) -> model.Hotel:
+        if not name or not isinstance(stars, int) or not address:
+            raise ValueError("Name, Sterne oder Adresse ungültig")
+        return self.__hotel_da.create_hotel(name, stars, address)
+
+
 
 
 
