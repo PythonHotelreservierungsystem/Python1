@@ -2,15 +2,13 @@
 class Facility:
     ##attributes
     def __init__(self, facility_id: str, facility_name: str):
-        if not facility_id:
-            raise ValueError("facility_id ist erforderlich")
-        if not isinstance(facility_id, str):
+        if facility_id is None or not str(facility_id).isdigit():
             raise ValueError("facility_id muss eine Zahl sein")
-        self.__facility_id = facility_id
+        self.facility_id = int(facility_id)
         self.facility_name = facility_name
 
     ##facility_id Getter & Setter
-    @property
+
     def facility_id(self):
         return self.__facility_id
 #

@@ -29,53 +29,60 @@ class FacilityDataAccess(BaseDataAccess):
     )
 
     ##User Story 2.1,
-    ##Zusatz Data Access für Ausstattung
-    def add_facility_to_room(self) -> list[Facility]:
-        sql="""
-        Select Facilities.facility_id, facility_name, Room_Facilities.room_id
-        FROM Facilities
-        JOIN Room_Facilities ON Facilities.facility_id = Room_Facilities.facility_id"""
-
-        facility_list = self.fetchall(sql)
-        return_list = []
-        for facility_id, facility_name, room_id in facility_list:
-            return_list.append(
-                Facility(
-                facility_id=facility_id,
-                facility_name=facility_name,
-                room_id=RoomFacilities(room_id)
-                )
-            )
-        return return_list
-
+    def get_facilities_by_room_id(self, room_id: int) -> list[Facility]:
+        sql = """
+        SELECT f.facility_id, f.facility_name
+        FROM Room_Facilities rf
+        JOIN Facilities f ON rf.facility_id = f.facility_id
+        WHERE rf.room_id = ? \
+        """
+        rows = self.fetchall(sql, (room_id,))
+        return [Facility(facility_id=int(row[0]), facility_name=row[1]) for row in rows]
 
 if __name__ == "__main__":
+    import os
 
-    def test_add_facility_to_room():
-        room_manager = FacilityDataAccess()
-        db_path = "../database/hotel_reservation_sample.db"
-        try:
-            facilities = room_manager.add_facility_to_room()
+    # Pfad zur Datenbank setzen
+    db_path = os.path.join("..", "database", "hotel_reservation_sample.db")
 
-            # Debug-Ausgabe der Rückgabewerte
-            print("\n--- Rückgabewerte von add_facility_to_room() ---")
-            for facility in facilities:
-                print(
-                    f"Facility-ID: {facility.facility_id}, Name: {facility.facility_name}, Room-ID: {facility.room_id.room_id}")
+    # DataAccess-Instanz erstellen
+    facility_da = FacilityDataAccess(db_path)
 
-            # Zusätzliche Tests
-            assert isinstance(facilities, list), "Rückgabe ist keine Liste"
-            for facility in facilities:
-                assert isinstance(facility, Facility), "Element ist kein Facility-Objekt"
-                assert hasattr(facility, 'facility_id'), "facility_id fehlt"
-                assert hasattr(facility, 'facility_name'), "facility_name fehlt"
-                assert hasattr(facility, 'room_id'), "room_id fehlt"
-                assert isinstance(facility.room_id, RoomFacilities), "room_id ist kein RoomFacilities-Objekt"
+    # Beispielhafte Room-ID
+    test_room_id = 1
 
-            print("\n✅ Test erfolgreich: Alle Facilities korrekt geladen und strukturiert.")
+    # Test: Facilities zu einem Zimmer laden
+    facilities = facility_da.get_facilities_by_room_id(test_room_id)
 
-        except Exception as e:
-            print(f"\n❌ Test fehlgeschlagen: {e}")
+    # Ausgabe
+    print(f"Ausstattung für Zimmer {test_room_id}:")
+    for f in facilities:
+        print(f"- {f.facility_name} (ID: {f.facility_id})")
 
 
-    test_add_facility_to_room()
+
+
+
+
+
+
+
+    # def add_facility_to_room(self) -> list[Facility]:
+    #     sql="""
+    #     Select Facilities.facility_id, facility_name, Room_Facilities.room_id
+    #     FROM Facilities
+    #     JOIN Room_Facilities ON Facilities.facility_id = Room_Facilities.facility_id"""
+    #
+    #     facility_list = self.fetchall(sql)
+    #     return_list = []
+    #     for facility_id, facility_name, room_id in facility_list:
+    #         return_list.append(
+    #             Facility(
+    #             facility_id=facility_id,
+    #             facility_name=facility_name,
+    #             room_id=RoomFacilities(room_id)
+    #             )
+    #         )
+    #     return return_list
+
+
