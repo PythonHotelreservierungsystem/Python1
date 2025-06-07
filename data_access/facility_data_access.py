@@ -39,25 +39,25 @@ class FacilityDataAccess(BaseDataAccess):
         rows = self.fetchall(sql, (room_id,))
         return [Facility(facility_id=int(row[0]), facility_name=row[1]) for row in rows]
 
-if __name__ == "__main__":
-    import os
-
-    # Pfad zur Datenbank setzen
-    db_path = os.path.join("..", "database", "hotel_reservation_sample.db")
-
-    # DataAccess-Instanz erstellen
-    facility_da = FacilityDataAccess(db_path)
-
-    # Beispielhafte Room-ID
-    test_room_id = 1
-
-    # Test: Facilities zu einem Zimmer laden
-    facilities = facility_da.get_facilities_by_room_id(test_room_id)
-
-    # Ausgabe
-    print(f"Ausstattung für Zimmer {test_room_id}:")
-    for f in facilities:
-        print(f"- {f.facility_name} (ID: {f.facility_id})")
+# if __name__ == "__main__":
+#     import os
+#
+#     # Pfad zur Datenbank setzen
+#     db_path = os.path.join("..", "database", "hotel_reservation_sample.db")
+#
+#     # DataAccess-Instanz erstellen
+#     facility_da = FacilityDataAccess(db_path)
+#
+#     # Beispielhafte Room-ID
+#     test_room_id = 1
+#
+#     # Test: Facilities zu einem Zimmer laden
+#     facilities = facility_da.get_facilities_by_room_id(test_room_id)
+#
+#     # Ausgabe
+#     print(f"Ausstattung für Zimmer {test_room_id}:")
+#     for f in facilities:
+#         print(f"- {f.facility_name} (ID: {f.facility_id})")
 
 
 

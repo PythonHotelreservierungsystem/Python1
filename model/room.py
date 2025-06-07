@@ -14,7 +14,7 @@ class Room:
         if not isinstance(room_id, int):
             raise ValueError("room_id muss eine Zahl sein")
         self.__room_id = room_id
-        self.room_no = room_number
+        self.room_number = room_number
         self.price_per_night = price_per_night
         self.room_type = room_type 
         self.hotel = hotel

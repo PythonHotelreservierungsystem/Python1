@@ -1,30 +1,41 @@
 import model
-from model import Hotel
+from model import Hotel, Room
 from data_access import RoomDataAccess, FacilityDataAccess
 from data_access import RoomDataAccess
 from data_access import HotelDataAccess
+
 
 class RoomManager:
     def __init__(self, room_data_access: RoomDataAccess, facility_data_access: FacilityDataAccess):
         self.__room_da = room_data_access
         self.__facility_da = facility_data_access
 
+        # User Story 2.1 – Raumdetails inkl. Ausstattung
 
-    def show_rooms(self, name: str) -> list[model.Room]:
-        alle_rooms = self.__room_da.show_room_details()
-        room_facilities= self.__facility_da
-
-        return[r for r in alle_rooms if r.hotel.name == name]
+        # User Story 2.1 – Zimmerdetails mit Ausstattung
+    def show_room_details(self) -> list[Room]:
+        rooms = self.__room_da.show_room_details()
+        for room in rooms:
+            # Hole die Ausstattung zu jedem Zimmer
+            room.facilities = self.__facility_da.get_facilities_by_room_id(room.room_id)
+        return rooms
 
 if __name__ == "__main__":
-    dao = RoomDataAccess("../database/hotel_reservation_sample.db")
-    manager = RoomManager(dao)
+    from data_access.room_data_access import RoomDataAccess
+    from data_access.facility_data_access import FacilityDataAccess
 
-    # nach Stadt filtern im String
-    room_nach_x = manager.show_rooms("Hotel Baur au Lac")
+    db_path = "../database/hotel_reservation_sample.db"
 
-    if not room_nach_x :
-        print("Keine Zimmer gefunden.")
-    else:
-        for r in room_nach_x :
-            print(f"{r.room_id} – Zimmernummer: {r.room_no}, Zimmerbeschreibung: {r.room_type.description}, PreisproNacht: {r.price_per_night}, MaxGäste: {r.room_type.max_guests}")
+    manager = RoomManager(
+        room_data_access=RoomDataAccess(db_path),
+        facility_data_access=FacilityDataAccess(db_path)
+    )
+
+    rooms = manager.show_room_details()
+    for room in rooms:
+        ausstattung = ", ".join([f.facility_name for f in room.facilities])
+        print(f"Zimmer {room.room_number} – {room.room_type.description}")
+        print(f"  Max. Gäste: {room.room_type.max_guests}")
+        print(f"  Preis pro Nacht: {room.price_per_night:.2f} CHF")
+        print(f"  Ausstattung: {ausstattung}")
+        print("-" * 60)
