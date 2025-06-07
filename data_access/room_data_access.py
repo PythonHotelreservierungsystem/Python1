@@ -82,7 +82,7 @@ if __name__ == "__main__":
     alle_rooms = dao.show_room_details()
     for r in alle_rooms:
         print(
-            f"ID: {r.room_id}, Zimmernummer: {r.room_no}, PreisproNacht: {r.price_per_night}, "
+            f"ID: {r.room_id}, Zimmernummer: {r.room_number}, PreisproNacht: {r.price_per_night}, "
             f"A:{r.room_type.description}, Max Guests:{r.room_type.max_guests}, C:{r.hotel.name}, D:{r.hotel.stars}, E:{r.hotel.address}")
 ## User Story 2.2#
 ##für User story 3.8
