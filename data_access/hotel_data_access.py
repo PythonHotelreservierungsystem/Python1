@@ -1,7 +1,8 @@
 from __future__ import annotations
 from datetime import date
 import model
-from model import Hotel, Address
+from model import Hotel
+from model import Address
 import sqlite3
 from typing import List
 from data_access.base_data_access import BaseDataAccess
@@ -12,8 +13,30 @@ class HotelDataAccess(BaseDataAccess):
         super().__init__(db_path)
 
     #Hotel erstellen
-    def create_hotel(self,):
-        pass
+    def create_hotel(self,
+                     name: str,
+                     stars: int,
+                     address_id: model.Address
+    ) -> model.Hotel:
+        if name is None:
+            raise ValueError("name cannot be None")
+        if stars is None:
+            raise ValueError("stars cannot be None")
+        sql="""
+        INSERT INTO Hotel(name, stars, address_id)
+        VALUES (?,?,?)
+        """
+        params = tuple([name, stars, address_id])
+
+        lastrow_id, row_count = self.execute(sql, params)
+
+        return model.Hotel(
+            hotel_id=lastrow_id,
+            name=name,
+            stars=stars,
+            address=address_id
+        )
+
 
     #Alle Hotelinfos aus DB holen
     def read_all_hotel(self,):
