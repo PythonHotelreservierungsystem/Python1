@@ -40,6 +40,14 @@ class BookingDataAccess(BaseDataAccess):
             total_amount=total_amount,
             guest=guest_id.guest_id if guest_id else None
         )
+    def delete_booking_by_id(self, booking_id: int) -> bool:
+        if booking_id is None:
+            raise ValueError("booking_id darf nicht None sein")
+        sql = "DELETE FROM Booking WHERE booking_id = ?"
+        params = (booking_id,)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
+
     ##User story 1.4 ? 2.2
     def show_bookings_with_hotels(self)-> list[model.Booking]:
         sql="""

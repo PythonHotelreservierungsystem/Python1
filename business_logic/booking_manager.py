@@ -51,6 +51,11 @@ class BookingManager:
         )
         print("Buchung erfolgreich erstellt.")
         return neue_buchung
+
+    ##Hilfsfunktion für Bookings
+    def delete_booking(self, booking_id: int)-> bool:
+        return self.__booking_da.delete_booking_by_id(booking_id)
+
     #User Story 5
     def Create_Invoice_with_Booking(self, guest: model.Guest, room: model.Room, check_in_date: date,
                                     check_out_date: date, invoice_da: InvoiceDataAccess) -> model.Invoice:
