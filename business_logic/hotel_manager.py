@@ -11,6 +11,10 @@ class HotelManager:
         self.__hotel_da = hotel_data_access
         self.__room_da = room_data_access
 
+    #eifach zum alli Hotels usgeh
+    def show_all_hotels_basic(self) -> list[model.Hotel]:
+        return self.__hotel_da.read_all_hotel()
+
 
     ## user Story 1.1
     def show_hotels_by_city(self, city: str) -> list[model.Hotel]:
