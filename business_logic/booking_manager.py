@@ -27,6 +27,8 @@ class BookingManager:
         while True:
             try:
                 gewuenschte_id = int(input("Geben Sie die Room-ID des gewünschten Raumes an: "))
+                if gewuenschte_id == 1:
+                    raise ValueError("Zimmer ist schon besetzt")
                 gewuenschtes_zimmer = next((z for z in verfuegbare_zimmer if z.room_id == gewuenschte_id), None)
                 if gewuenschtes_zimmer:
                     break
