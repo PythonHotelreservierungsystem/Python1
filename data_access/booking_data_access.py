@@ -1,8 +1,7 @@
 import model
 from datetime import date
 from data_access.base_data_access import BaseDataAccess
-from data_access.guest_data_access import Guest
-from data_access.room_data_access import Room
+
 
 class BookingDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -18,7 +17,8 @@ class BookingDataAccess(BaseDataAccess):
         ##Für Userstory
         sql="""
         INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date, is_cancelled, total_amount)
-        VALUES (?,?,?,?,?,?)"""
+        VALUES (?,?,?,?,?,?)
+            """
 
         params = tuple([
             guest_id.guest_id if guest_id else None,
@@ -32,12 +32,13 @@ class BookingDataAccess(BaseDataAccess):
         last_row_id, row_count = self.execute(sql, params)
         return model.Booking(
             booking_id=last_row_id,
-            guest=guest_id,
-            room=room_id,
+            hotel_id=room_id.hotel.hotel_id if room_id else None,
+            room_id=room_id.room_id if room_id else None,
             check_in_date=check_in_date,
             check_out_date=check_out_date,
             is_cancelled=is_cancelled,
-            total_amount=total_amount
+            total_amount=total_amount,
+            guest=guest_id.guest_id if guest_id else None
         )
     ##User story 1.4 ? 2.2
     def show_bookings_with_hotels(self)-> list[model.Booking]:
