@@ -52,12 +52,21 @@ class BookingManager:
         print("Buchung erfolgreich erstellt.")
         return neue_buchung
 
+    #User Story 6
+    def update_booking(self, booking_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: int, guest_id: model.Guest)-> bool:
+        return self.__booking_da.update_booking_by_id(booking_id=booking_id,
+                                                      check_in_date=check_in_date,
+                                                      check_out_date=check_out_date,
+                                                      is_cancelled=is_cancelled,
+                                                      total_amount=total_amount,
+                                                      guest=guest_id)
+
     ##Hilfsfunktion für Bookings
     def delete_booking(self, booking_id: int)-> bool:
         return self.__booking_da.delete_booking_by_id(booking_id)
 
     #User Story 5
-    def Create_Invoice_with_Booking(self, guest: model.Guest, room: model.Room, check_in_date: date,
+    def create_invoice_with_booking(self, guest: model.Guest, room: model.Room, check_in_date: date,
                                     check_out_date: date, invoice_da: InvoiceDataAccess) -> model.Invoice:
 
         verfuegbare_zimmer = self.__room_manager.find_available_rooms_by_dates(check_in_date, check_out_date)
