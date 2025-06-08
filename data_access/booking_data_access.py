@@ -8,13 +8,8 @@ class BookingDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
-    def create_booking(self,
-                       guest_id: model.Guest = None,
-                       room_id: model.Room = None,
-                       check_in_date: date =None,
-                       check_out_date: date = None,
-                       is_cancelled: bool = False,
-                       total_amount: float = 0.0
+##User Story 4
+    def create_booking(self, guest_id: model.Guest = None, room_id: model.Room = None, check_in_date: date =None, check_out_date: date = None, is_cancelled: bool = False, total_amount: float = 0.0
     ) -> model.Booking:
         if check_in_date is None or check_out_date is None:
             raise ValueError("Check in and check out dates are required")
@@ -68,17 +63,4 @@ class BookingDataAccess(BaseDataAccess):
         )
         return return_list
 
-
-
-
-if __name__ == "__main__":
-    # 1) Instanz erzeugen (Pfad anpassen, falls nötig)
-    dao = BookingDataAccess("../database/hotel_reservation_sample.db")
-
-    # 2) dao.read_all_hotel() aufrufen und Ergebnis ausgeben
-    alle_bookings = dao.show_bookings_with_hotels()
-    for b in alle_bookings:
-        print(
-            f"ID: {b.booking_id}, Gast: {b.guest}, CheckIn: {b.check_in_date}, CheckOut: {b.check_out_date} "
-            f"is cancelled?:{b.is_cancelled}, total amount:{b.total_amount}, hotel id:{b.hotel_id}")
 ## User Story 2.2
