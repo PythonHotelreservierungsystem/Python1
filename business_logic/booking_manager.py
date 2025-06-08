@@ -13,7 +13,7 @@ class BookingManager:
     def show_bookings(self) -> list[model.Booking]:
         return self.__booking_da.show_bookings_with_hotels()
 
-
+#
     ## Create Booking User story 4
     def create_new_booking(self, guest: model.Guest, check_in_date: date, check_out_date: date):
         verfuegbare_zimmer = self.__room_manager.find_available_rooms_by_dates(check_in_date, check_out_date)

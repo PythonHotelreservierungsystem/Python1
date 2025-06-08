@@ -14,7 +14,7 @@ class Booking:
         self.is_cancelled = is_cancelled
         self.total_amount = total_amount
         self.guest = guest
-
+#
     @property
     def booking_id(self):
         return self.__booking_id
