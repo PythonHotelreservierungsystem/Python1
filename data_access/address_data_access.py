@@ -46,6 +46,6 @@ class AddressDataAccess(BaseDataAccess):
         if result:
             (address_id,street,city,zip_code) = result
             return model.Address(
-                address_id,street,city,zip_code)
+                address_id,street,city,int(zip_code))
         else:
             return None
