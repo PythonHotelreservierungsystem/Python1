@@ -1,6 +1,6 @@
 import model
 from data_access.base_data_access import BaseDataAccess
-from data_access import BookingDataAccess
+from data_access import BookingDataAccess, AddressDataAccess
 from data_access.hotel_data_access import HotelDataAccess
 from data_access.room_data_access import RoomDataAccess
 from datetime import date, datetime
@@ -162,15 +162,21 @@ class HotelManager:
         return zusammenfassungen
 
 
-        #User Story 3.1
-    def add_hotel(self, name: str, stars: int, address: model.Address) -> model.Hotel:
-        if not name or not isinstance(stars, int) or not address:
-            raise ValueError("Name, Sterne oder Adresse ungültig")
-        return self.__hotel_da.create_hotel(name, stars, address)
+    #     #User Story 3.1
+    # def add_hotel(self, name: str, stars: int, address: model.Address) -> model.Hotel:
+    #     if not name or not isinstance(stars, int) or not address:
+    #         raise ValueError("Name, Sterne oder Adresse ungültig")
+    #     return self.__hotel_da.create_hotel(name, stars, address)
 
 
-
-
+#Create Hotel User story 3.1
+    def create_new_hotel(self, name: str, stars: int, address: model.Address, address_da:
+    AddressDataAccess) -> model.Hotel:
+        neues_hotel = self.__hotel_da.create_hotel(name=name, stars=stars, address_id=address.address_id)
+        neue_addresse = address_da.create_address(city=address.city, street=address.street, zip_code=address.zip_code)
+        neues_hotel.address = (
+            neue_addresse)
+        return neues_hotel
 
 
 

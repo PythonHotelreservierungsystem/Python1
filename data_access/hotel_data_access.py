@@ -53,7 +53,27 @@ class HotelDataAccess(BaseDataAccess):
 
 
 
+#User Story 3.1
+#Hotel erstellen
+    def create_hotel(self,name: str, stars: int, address_id: model.Address) -> model.Hotel:
+        if name is None:
+            raise ValueError("name cannot be None")
+        if stars is None:
+            raise ValueError("stars cannot be None")
+        sql = """ \
+              INSERT INTO Hotel(name, stars, address_id) \
+              VALUES (?, ?, ?) \
+            """
+        params = tuple([name, stars, address_id])
 
+        lastrow_id, row_count = self.execute(sql, params)
+
+        return model.Hotel(
+            hotel_id=lastrow_id,
+            name=name,
+            stars=stars,
+            address=address_id
+        )
 
 
 

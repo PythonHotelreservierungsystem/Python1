@@ -7,19 +7,17 @@ from data_access.base_data_access import BaseDataAccess
 class AddressDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
+
+
 ##Do müend bi de Models no ergänzt werde mit Country und so u
-    def create_address(
-            self,
-            street: str,
-            city: str,
-            zip_code: str
-    ) -> model.Address:
+    def create_address(self,street: str,city: str,zip_code: int) -> model.Address:
+
         if street is None:
             raise ValueError("street cannot be None")
         if city is None:
             raise ValueError("city cannot be None")
         if zip_code is None:
-            raise ValueError("postal code cannot be None")
+            raise ValueError("zip code cannot be None")
         sql = """
         INSERT INTO Address(Street, City, Zip_Code)
         VALUES (?, ?, ?)
@@ -41,27 +39,13 @@ class AddressDataAccess(BaseDataAccess):
             raise ValueError("Address ID is required")
         sql = """ 
         SELECT 
-            Address_Id, 
-            Street,
-            City,
-            Zip_Code 
-        FROM Address
-        WHERE Address_Id = ? 
+        Address_Id,Street,City,Zip_Code FROM Address WHERE Address_Id = ? 
             """
         params = tuple([address_id])
         result = self.fetchone(sql, params)
         if result:
-            (
-                address_id,
-                street,
-                city,
-                zip_code
-            ) = result
+            (address_id,street,city,zip_code) = result
             return model.Address(
-                address_id,
-                street,
-                city,
-                zip_code
-            )
+                address_id,street,city,zip_code)
         else:
             return None
