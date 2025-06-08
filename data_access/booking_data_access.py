@@ -21,8 +21,8 @@ class BookingDataAccess(BaseDataAccess):
         VALUES (?,?,?,?,?,?)"""
 
         params = tuple([
-            Guest.guest_id if guest_id else None,
-            Room.room_id if room_id else None,
+            guest_id.guest_id if guest_id else None,
+            room_id.room_id if room_id else None,
             check_in_date,
             check_out_date,
             is_cancelled,
