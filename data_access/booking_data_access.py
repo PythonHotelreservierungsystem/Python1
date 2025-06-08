@@ -71,5 +71,13 @@ class BookingDataAccess(BaseDataAccess):
             )
         )
         return return_list
+    #User Story 5
+    def update_booking_by_id(self, booking_id: int, guest_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: int)-> bool:
+        sql="""
+        UPDATE Booking 
+        SET guest_id = ?, check_in_date = ?, check_out_date = ?, is_cancelled = ?, total_amount = ? 
+        WHERE booking_id = ?"""
+        params = (guest_id, check_in_date, check_out_date, is_cancelled, total_amount, booking_id)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
 
-## User Story 2.2
