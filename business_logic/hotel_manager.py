@@ -3,19 +3,64 @@ from data_access.base_data_access import BaseDataAccess
 from data_access import BookingDataAccess, AddressDataAccess
 from data_access.hotel_data_access import HotelDataAccess
 from data_access.room_data_access import RoomDataAccess
+from data_access.address_data_access import AddressDataAccess
+from model import Address
 from datetime import date, datetime
 
 from model import address
 
 
 class HotelManager:
-    def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None):
+    def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None, address_data_access: AddressDataAccess = None):
         self.__hotel_da = hotel_data_access
         self.__room_da = room_data_access
 
     #eifach zum alli Hotels usgeh
     def show_all_hotels_basic(self) -> list[model.Hotel]:
         return self.__hotel_da.read_all_hotel()
+
+    # User Story 3.1
+    def create_new_hotel(self, name: str, stars: int, address: model.Address, address_da: AddressDataAccess) -> model.Hotel:
+        neues_hotel  = self.__hotel_da.create_hotel(name=name, stars=stars, address_id=address.address_id)
+        neue_addresse = address_da.create_address(city=address.city, street=address.street, zip_code=address.zip_code)
+        neues_hotel.address = (
+            neue_addresse)
+
+        return neues_hotel
+
+    #User Story 3.2
+    def update_a_hotel(self, name:str, stars:int, address:model.Address, hotel_id:int, address_da:AddressDataAccess) -> model.Hotel:
+        aktualisiertes_hotel=self.__hotel_da.update_hotel(name=name, stars=stars, address_id=address.address_id, hotel_id=hotel_id)
+        aktualisiertes_hotel.address=address_da.update_address(address_id=address.address_id, city=address.city, street=address.street, zip_code=address.zip_code)
+
+        return aktualisiertes_hotel
+
+
+# if __name__ == "__main__":
+#     from data_access.hotel_data_access import HotelDataAccess
+#     from data_access.booking_data_access import BookingDataAccess
+#     from data_access.address_data_access import AddressDataAccess
+#     from datetime import datetime
+#     from model import Address
+#
+#     hotel_dao = HotelDataAccess("../database/hotel_reservation_sample.db")
+#     address_dao = AddressDataAccess("../database/hotel_reservation_sample.db")
+#     manager = HotelManager(hotel_data_access=hotel_dao, address_data_access=address_dao)
+#
+#     new_address = Address(street="Bundesplatz 5", city="Aarburg", zip_code=3028,)
+#     new_hotel = manager.create_new_hotel(name="Hotel Aarhof", stars=5, address=new_address,address_da=address_dao)
+#
+#     if new_hotel:
+#         print("✅ Neues Hotel erfolgreich erstellt:\n")
+#         print(f"🏨 Name     : {new_hotel.name}")
+#         print(f"⭐ Sterne   : {new_hotel.stars}")
+#         print(f"📍 Adresse : {new_hotel.address.street}, {new_hotel.address.zip_code} {new_hotel.address.city}")
+#         print(f"🆔 Hotel-ID: {new_hotel.hotel_id}")
+#         print(f"🏠 Addr-ID : {new_hotel.address.address_id}")
+#     else:
+#         print("❌ Hotel konnte nicht erstellt werden.")
+#
+
 
 
     ## user Story 1.1
@@ -210,6 +255,7 @@ class HotelManager:
             address_id=address.address_id
         )
         return adresse_ok and hotel_ok
+
 
 
 
