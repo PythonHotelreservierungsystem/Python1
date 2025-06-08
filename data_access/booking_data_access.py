@@ -71,7 +71,49 @@ class BookingDataAccess(BaseDataAccess):
             )
         )
         return return_list
-    #User Story 5
+
+    def get_booking_by_id(self, booking_id: int) -> model.Booking:
+        sql = """
+              SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, 
+                     booking.check_out_date, booking.is_cancelled, booking.total_amount, room.room_number, 
+                     room.price_per_night, room.type_id, room.hotel_id
+              FROM Booking AS booking
+                       JOIN Room AS room ON booking.room_id = room.room_id
+              WHERE booking.booking_id = ? \
+              """
+        params = (booking_id,)
+        result = self.fetchone(sql, params)
+        if result:
+            (
+                booking_id, room_id, guest_id,
+                check_in_date, check_out_date, is_cancelled, total_amount,
+                room_number, price_per_night, type_id, hotel_id
+            ) = result
+            room_type = model.RoomType(type_id)
+            hotel = model.Hotel(hotel_id)
+            room = model.Room(
+                room_id=room_id,
+                room_number=room_number,
+                price_per_night=float(price_per_night),
+                room_type=room_type,
+                hotel=hotel
+            )
+            booking = model.Booking(
+                booking_id=booking_id,
+                hotel_id=hotel_id,
+                room_id=room_id,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                is_cancelled=is_cancelled,
+                total_amount=total_amount,
+                guest=guest_id
+            )
+            booking.room = room  # für Preiszugriff im InvoiceManager
+            return booking
+
+        return None
+
+    #User Story 6
     def update_booking_by_id(self, booking_id: int, guest: model.Guest, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: int)-> bool:
         sql="""
         UPDATE Booking 
