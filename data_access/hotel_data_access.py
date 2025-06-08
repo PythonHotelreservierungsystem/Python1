@@ -54,3 +54,12 @@ class HotelDataAccess(BaseDataAccess):
         params = (hotel_id,)
         _, row_count = self.execute(sql, params)
         return row_count > 0
+
+    #User Story 3.3
+    def update_hotel(self, hotel_id: int, name: str, stars: int, address_id: int) -> bool:
+        sql = """
+              UPDATE Hotel SET name       = ?, stars      = ?, address_id = ? WHERE hotel_id = ? 
+              """
+        params = (name, stars, address_id, hotel_id)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0

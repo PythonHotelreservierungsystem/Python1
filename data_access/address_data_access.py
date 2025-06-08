@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from multiprocessing.util import spawnv_passfds
+
 import model
 
 from data_access.base_data_access import BaseDataAccess
@@ -33,7 +35,21 @@ class AddressDataAccess(BaseDataAccess):
             zip_code=zip_code
         )
 
+    #delete Addresss
+    def delete_address(self,address: model.Address):
+        pass
 
+    #update Address
+    def update_address(self, address_id: int, street: str, city: str, zip_code: int) -> bool:
+        sql = """
+              UPDATE Address SET street   = ?, city     = ?, zip_code = ? WHERE address_id = ? \
+              """
+        params = (street, city, zip_code, address_id)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
+
+
+    #adressse nach id ahzeige
     def show_address_by_id(self, address_id: int) -> model.Address | None:
         if address_id is None:
             raise ValueError("Address ID is required")

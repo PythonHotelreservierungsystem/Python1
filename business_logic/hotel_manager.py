@@ -5,6 +5,8 @@ from data_access.hotel_data_access import HotelDataAccess
 from data_access.room_data_access import RoomDataAccess
 from datetime import date, datetime
 
+from model import address
+
 
 class HotelManager:
     def __init__(self, hotel_data_access: HotelDataAccess, room_data_access: RoomDataAccess = None):
@@ -188,6 +190,27 @@ class HotelManager:
     #delete hotel für user story 3.2
     def delete_hotel(self, hotel_id: int) -> bool:
         return self.__hotel_da.delete_hotel_by_id(hotel_id)
+
+
+    # Update Hotel für usser story 3.3
+    def update_hotel_and_address(
+            self,hotel_id: int,name: str,stars: int,address: model.Address,address_da: AddressDataAccess) -> bool:
+        # Adresse aktualisieren
+        adresse_ok = address_da.update_address(
+            address_id=address.address_id,
+            street=address.street,
+            city=address.city,
+            zip_code=address.zip_code
+        )
+        # Hotel aktualisieren
+        hotel_ok = self.__hotel_da.update_hotel(
+            hotel_id=hotel_id,
+            name=name,
+            stars=stars,
+            address_id=address.address_id
+        )
+        return adresse_ok and hotel_ok
+
 
 
 
