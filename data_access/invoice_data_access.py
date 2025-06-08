@@ -6,18 +6,20 @@ class InvoiceDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
-    def create_invoice(self, issue_date: date, total_amount: float, booking_id: model.Booking
-                       ) -> model.Invoice:
+    def create_invoice(self, issue_date: date, total_amount: float, booking_id: int) -> model.Invoice:
         if issue_date is None:
             raise ValueError("issue_date cannot be None")
         if total_amount is None:
             raise ValueError("total_amount cannot be None")
+        if booking_id is None:
+            raise ValueError("booking_id cannot be None")
 
-        sql ="""
-        INSERT INTO Invoice(Issue_Date, Total_Amount, Booking_Id)
-        VALUES (?, ?, ?)"""
+        sql = """
+              INSERT INTO Invoice(Issue_Date, Total_Amount, Booking_Id)
+              VALUES (?, ?, ?) \
+              """
 
-        params =tuple([issue_date, total_amount, booking_id])
+        params = (issue_date, total_amount, booking_id)
         last_row_id, row_count = self.execute(sql, params)
 
         return model.Invoice(
@@ -25,7 +27,6 @@ class InvoiceDataAccess(BaseDataAccess):
             issue_date=issue_date,
             total_amount=total_amount,
             booking=booking_id
-
         )
     #User Story 5
     def delete_invoice(self, invoice_id: int):

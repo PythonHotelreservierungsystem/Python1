@@ -72,35 +72,52 @@ class BookingDataAccess(BaseDataAccess):
         )
         return return_list
 
+
+    # für User story 5
     def get_booking_by_id(self, booking_id: int) -> model.Booking:
         sql = """
-              SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, 
-                     booking.check_out_date, booking.is_cancelled, booking.total_amount, room.room_number, 
-                     room.price_per_night, room.type_id, room.hotel_id
+              SELECT booking.booking_id, \
+                     booking.room_id, \
+                     booking.guest_id, \
+                     booking.check_in_date, \
+                     booking.check_out_date,
+                     booking.is_cancelled, \
+                     booking.total_amount, \
+                     room.room_number, \
+                     room.price_per_night,
+                     room.type_id, \
+                     room_type.description, \
+                     room_type.max_guests
               FROM Booking AS booking
                        JOIN Room AS room ON booking.room_id = room.room_id
+                       JOIN Room_Type AS room_type ON room.type_id = room_type.type_id
               WHERE booking.booking_id = ? \
               """
         params = (booking_id,)
         result = self.fetchone(sql, params)
+
         if result:
-            (
-                booking_id, room_id, guest_id,
-                check_in_date, check_out_date, is_cancelled, total_amount,
-                room_number, price_per_night, type_id, hotel_id
-            ) = result
-            room_type = model.RoomType(type_id)
-            hotel = model.Hotel(hotel_id)
+            (booking_id, room_id, guest_id, check_in_date, check_out_date, is_cancelled, total_amount,
+             room_number, price_per_night, type_id, type_description, max_guests) = result
+
+            room_type = model.RoomType(
+                room_type_id=type_id,
+                description=type_description,
+                max_guests=max_guests
+            )
+
+            # Hotel nicht benötigt – wir setzen einfach None oder lassen es ganz weg, wenn möglich
             room = model.Room(
                 room_id=room_id,
                 room_number=room_number,
                 price_per_night=float(price_per_night),
                 room_type=room_type,
-                hotel=hotel
+                hotel=None  # oder weglassen, falls der Konstruktor es erlaubt
             )
+
             booking = model.Booking(
                 booking_id=booking_id,
-                hotel_id=hotel_id,
+                hotel_id=None,  # optional, kann auch weggelassen werden
                 room_id=room_id,
                 check_in_date=check_in_date,
                 check_out_date=check_out_date,
@@ -108,7 +125,8 @@ class BookingDataAccess(BaseDataAccess):
                 total_amount=total_amount,
                 guest=guest_id
             )
-            booking.room = room  # für Preiszugriff im InvoiceManager
+            booking.room = room  # wichtig für Zugriff auf price_per_night
+
             return booking
 
         return None

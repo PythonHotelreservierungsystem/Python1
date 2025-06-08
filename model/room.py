@@ -8,7 +8,7 @@ from model import Hotel
 ##Room
 class Room:
     #attributes #?facilites als externe Facility Liste führen? #?room_type als string oder integer?
-    def __init__(self, room_id:int, room_number:int, price_per_night:float, room_type:RoomType, hotel:Hotel):
+    def __init__(self, room_id:int, room_number:int, price_per_night:float, room_type:RoomType, hotel=None):
         if not room_id:
             raise ValueError("room_id ist erforderlich")
         if not isinstance(room_id, int):
