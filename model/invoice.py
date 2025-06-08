@@ -1,9 +1,12 @@
 from datetime import datetime, date
 
+from model import Booking
+
+
 ##Invoice
 class Invoice:
     #attributes
-    def __init__(self, invoice_id: int, issue_date: date, total_amount: int, booking: str):
+    def __init__(self, invoice_id: int, issue_date: date, total_amount: int, booking: Booking):
         self.__invoice_id = invoice_id
         self.issue_date = issue_date
         self.total_amount = total_amount
