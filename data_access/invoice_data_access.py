@@ -27,3 +27,19 @@ class InvoiceDataAccess(BaseDataAccess):
             booking=booking_id
 
         )
+    #User Story 5
+    def delete_invoice(self, invoice_id: int):
+        if invoice_id is None:
+            raise ValueError("invoice_id cannot be None")
+        sql = """DELETE FROM Invoice WHERE Invoice_Id = ?"""
+        params = tuple([invoice_id])
+        _,row_count = self.execute(sql, params)
+        return row_count > 0
+    #User Story 5/6
+    def delete_invoice_by_booking_id(self, booking_id: int):
+        if booking_id is None:
+            raise ValueError("booking_id cannot be None")
+        sql = """DELETE FROM Invoice WHERE Booking_Id = ?"""
+        params = tuple([booking_id])
+        _,row_count = self.execute(sql, params)
+        return row_count > 0
