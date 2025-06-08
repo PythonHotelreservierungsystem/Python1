@@ -161,15 +161,7 @@ class HotelManager:
 
         return zusammenfassungen
 
-
-    #     #User Story 3.1
-    # def add_hotel(self, name: str, stars: int, address: model.Address) -> model.Hotel:
-    #     if not name or not isinstance(stars, int) or not address:
-    #         raise ValueError("Name, Sterne oder Adresse ungültig")
-    #     return self.__hotel_da.create_hotel(name, stars, address)
-
-
-#Create Hotel User story 3.1
+    #Create Hotel User story 3.1
     def create_new_hotel(self, name: str, stars: int, address: model.Address,
                          address_da: AddressDataAccess) -> model.Hotel:
         # 1. Adresse erstellen
@@ -189,75 +181,11 @@ class HotelManager:
 
         return neues_hotel
 
-# if __name__ == "__main__":
-#     from data_access.hotel_data_access import HotelDataAccess
-#     from data_access.address_data_access import AddressDataAccess
-#     from model import Address
-#     from business_logic.hotel_manager import HotelManager
-#
-#     # Pfad zur SQLite-Datenbank – ggf. anpassen
-#     db_path = r"../database\hotel_reservation_sample.db"
-#
-#     # DAO-Objekte
-#     hotel_da = HotelDataAccess(db_path)
-#     address_da = AddressDataAccess(db_path)
-#
-#     # HotelManager erstellen
-#     manager = HotelManager(hotel_data_access=hotel_da)
-#
-#     # Adresse für das neue Hotel definieren
-#     neue_adresse = Address(
-#         address_id=0,  # Platzhalter, wird von DB gesetzt
-#         street="Hauptstrasse 10",
-#         city="Dulliken",
-#         zip_code=4657
-#     )
-#
-#     # Neues Hotel erstellen
-#     try:
-#         neues_hotel = manager.create_new_hotel(
-#             name="Hotel Silberbein",
-#             stars=2,
-#             address=neue_adresse,
-#             address_da=address_da
-#         )
-#         print("✅ Hotel erfolgreich erstellt:")
-#         print(f"Hotel-ID: {neues_hotel.hotel_id}")
-#         print(f"Address-ID: {neues_hotel.address.address_id}")
-#         print(f"{neues_hotel.name} – {neues_hotel.address.street}, {neues_hotel.address.zip_code} {neues_hotel.address.city}")
-#     except Exception as e:
-#         print("❌ Fehler beim Erstellen des Hotels:", e)
+    #delete hotel für user story 3.2
+    def delete_hotel(self, hotel_id: int) -> bool:
+        return self.__hotel_da.delete_hotel_by_id(hotel_id)
 
 
-
-
-
-
-# if __name__ == "__main__":
-#     from data_access.hotel_data_access import HotelDataAccess
-#     from business_logic.hotel_manager import HotelManager
-#
-#     # Pfad zur Datenbank
-#     db_path = r"../database\hotel_reservation_sample.db"
-#
-#     # DAO & Manager
-#     hotel_da = HotelDataAccess(db_path)
-#     manager = HotelManager(hotel_data_access=hotel_da)
-#
-#     # Alle Hotels ausgeben
-#     try:
-#         alle_hotels = hotel_da.read_all_hotel()  # oder: manager.show_all_hotel_infos() für formatierten Text
-#         if alle_hotels:
-#             print(f"✅ {len(alle_hotels)} Hotel(s) in der Datenbank:")
-#             for hotel in alle_hotels:
-#                 print(f"Hotel-ID: {hotel.hotel_id} | Address-ID: {hotel.address.address_id}")
-#                 print(f"Name: {hotel.name}")
-#                 print(f"Adresse: {hotel.address.street}, {hotel.address.zip_code} {hotel.address.city}")
-#                 print("-" * 50)
-#         else:
-#             print("❌ Keine Hotels in der Datenbank gefunden.")
-#     except Exception as e:
-#         print("❌ Fehler beim Auslesen der Hotels:", e)
 
 
 

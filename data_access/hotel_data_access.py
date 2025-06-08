@@ -25,8 +25,6 @@ class HotelDataAccess(BaseDataAccess):
             return_list.append(Hotel(hotel_id, name, stars, Address(address_id, street, city, int(zip_code))))
         return return_list
 
-
-
 #User Story 3.1
 #Hotel erstellen
     def create_hotel(self,name: str, stars: int, address_id: model.Address) -> model.Hotel:
@@ -39,7 +37,6 @@ class HotelDataAccess(BaseDataAccess):
               VALUES (?, ?, ?) \
             """
         params = tuple([name, stars, address_id])
-
         lastrow_id, row_count = self.execute(sql, params)
 
         return model.Hotel(
@@ -49,5 +46,11 @@ class HotelDataAccess(BaseDataAccess):
             address=address_id
         )
 
-
-
+    #User Story 3.2
+    def delete_hotel_by_id(self, hotel_id: int) -> bool:
+        if hotel_id is None:
+            raise ValueError("hotel_id darf nicht None sein")
+        sql = "DELETE FROM Hotel WHERE hotel_id = ?"
+        params = (hotel_id,)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
