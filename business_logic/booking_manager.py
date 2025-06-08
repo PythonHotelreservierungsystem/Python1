@@ -36,7 +36,7 @@ else:
 
     # Create Booking User story 4
     def create_new_booking(self, guest: model.Guest, room: model.room, check_in_date: int, check_out_date: int,
-                           is_cancelled: bool, total_amount: int):
+                           is_cancelled: bool, total_amount: float) -> model.Booking:
         verfuegbare_zimmer = self.room_manager.find_available_rooms_by_dates(check_in_date, check_out_date)
         if not(verfuegbare_zimmer):
             print("Es gibt keine Verfügbaren Räume für Ihren gewünschten Zeitraum")
@@ -61,4 +61,6 @@ else:
             total_amount = gesamtpreis)
 
         return neue_buchung
+
+
 
