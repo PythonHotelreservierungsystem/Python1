@@ -4,6 +4,10 @@ from data_access.booking_data_access import BookingDataAccess
 from data_access.invoice_data_access import InvoiceDataAccess
 from data_access.room_data_access import RoomDataAccess
 from business_logic.room_manager import RoomManager
+from test.model_tests.test_booking import booking
+
+from model import Booking
+
 
 class BookingManager:
     def __init__(self, booking_da: BookingDataAccess, room_manager: RoomManager):
@@ -107,3 +111,9 @@ class BookingManager:
         issue_date = check_out_date
         invoice = invoice_da.create_invoice(issue_date=issue_date, total_amount=gesamtpreis, booking_id=neue_buchung.booking_id)
         return invoice
+
+    #User Story 8
+    def show_all_bookings_with_all_hotels(self,) -> list[Booking]:
+
+        return self.__booking_da.show_all_bookings_with_all_hotels()
+
