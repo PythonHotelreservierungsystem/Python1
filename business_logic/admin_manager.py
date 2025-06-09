@@ -13,8 +13,16 @@ from data_access.base_data_access import BaseDataAccess
 
 
 class AdminManager:
-    def __init__(self, admin_da: AdminDataAccess, hotel_da: HotelDataAccess, address_da: AddressDataAccess, room_da: RoomDataAccess, room_type_da: RoomTypeDataAccess, booking_da: BookingDataAccess, guest_da: GuestDataAccess, invoice_da: InvoiceDataAccess):
-        self.__admin_da = admin_da
+    def __init__(self,
+                 admin_data_access: AdminDataAccess,
+                 hotel_da=None,
+                 address_da=None,
+                 room_da=None,
+                 room_type_da=None,
+                 booking_da=None,
+                 guest_da=None,
+                 invoice_da=None):
+        self.__admin_da = admin_data_access
         self.__hotel_da = hotel_da
         self.__address_da = address_da
         self.__room_da = room_da
@@ -22,6 +30,7 @@ class AdminManager:
         self.__booking_da = booking_da
         self.__guest_da = guest_da
         self.__invoice_da = invoice_da
+        self.admin_data_access = admin_data_access
 
     def update_booking_admin(self, booking_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool,
                         total_amount: int, guest_id: model.Guest) -> bool:
@@ -44,5 +53,5 @@ class AdminManager:
     def update_room_type_admin(self, room_type_id: int, description: str, max_guests: int) -> RoomType:
         return self.__room_type_da.update_room_type(room_type_id=room_type_id, description=description, max_guests=max_guests)
 
-
-
+    def login(self, username: str, password: str):
+        return self.admin_data_access.login_admin(username, password)

@@ -15,6 +15,7 @@ class AdminDataAccess:
         conn.commit()
         conn.close()
 
+    #für hilfsfuunktion im Jupyter
     def get_all_admins(self):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -22,3 +23,18 @@ class AdminDataAccess:
         rows = cursor.fetchall()
         conn.close()
         return [Admin(*row) for row in rows]
+
+    def login_admin(self, username: str, password: str):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("""
+                       SELECT admin_id, username, password, email, vorname, nachname
+                       FROM admin
+                       WHERE username = ?
+                         AND password = ?
+                       """, (username, password))
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            return Admin(*row)
+        return None
