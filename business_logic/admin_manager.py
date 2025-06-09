@@ -31,6 +31,7 @@ class AdminManager:
         self.__guest_da = guest_da
         self.__invoice_da = invoice_da
         self.admin_data_access = admin_data_access
+        self.logged_in_admin = None
 
     def update_booking_admin(self, booking_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool,
                         total_amount: int, guest_id: model.Guest) -> bool:
@@ -53,5 +54,13 @@ class AdminManager:
     def update_room_type_admin(self, room_type_id: int, description: str, max_guests: int) -> RoomType:
         return self.__room_type_da.update_room_type(room_type_id=room_type_id, description=description, max_guests=max_guests)
 
-    def login(self, username: str, password: str):
-        return self.admin_data_access.login_admin(username, password)
+
+    #für login
+    def authenticate(self, username: str, password: str) -> bool:
+        admin = self.admin_data_access.login_admin(username, password)
+        if admin:
+            self.logged_in_admin = admin
+            return True
+        return False
+    def get_logged_in_admin(self):
+        return self.logged_in_admin
