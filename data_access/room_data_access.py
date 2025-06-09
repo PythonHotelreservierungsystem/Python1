@@ -108,5 +108,12 @@ class RoomDataAccess(BaseDataAccess):
                 facility = model.Facility(facility_id, facility_name)
                 rooms_dict[room_id].facilities.append(facility)
         return list(rooms_dict.values())
-
+    #User Story 10
+    def update_room(self, room_id: int, room_number: int, price_per_night: float, room_type: model.RoomType) -> bool:
+        sql="""
+        UPDATE Room SET room_number       = ?, price_per_night      = ?, type_id = ?
+        WHERE room_id = ?"""
+        params = (room_number, price_per_night, room_type, room_id)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
 

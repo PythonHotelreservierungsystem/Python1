@@ -1,7 +1,7 @@
 import model
 
 from data_access.base_data_access import BaseDataAccess
-
+from model import RoomType
 
 class RoomTypeDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
@@ -30,3 +30,11 @@ class RoomTypeDataAccess(BaseDataAccess):
             description=description,
             max_guests=max_guests
         )
+
+    def update_room_type(self, room_type_id:int, description: str, max_guests: int)-> model.RoomType:
+        sql="""
+        UPDATE Room_Type SET Description = ?, Max_Guests = ? 
+        WHERE Type_Id = ?"""
+        params = (description,max_guests,room_type_id)
+        _,row_count = self.execute(sql,params)
+        return row_count > 0
