@@ -1,14 +1,16 @@
 from datetime import datetime, date
 from model.guest import Guest
+from model.room import Room
+from model.hotel import Hotel
 class Booking:
-    def __init__(self, booking_id: int, hotel_id: int, room_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: float, guest: Guest):
+    def __init__(self, booking_id: int, hotel: Hotel, room: Room, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: float, guest: Guest):
         if not booking_id:
             raise ValueError("booking_id ist erforderlich")
         if not isinstance(booking_id, int):
             raise ValueError("booking_id muss ein String sein")
         self.__booking_id = booking_id
-        self.hotel_id = hotel_id ##allwe überflüssig jetzt
-        self.room_id = room_id
+        self.hotel = hotel ##allwe überflüssig jetzt
+        self.room = room
         self.check_in_date = check_in_date
         self.check_out_date = check_out_date
         self.is_cancelled = is_cancelled
