@@ -62,7 +62,7 @@ class BookingDataAccess(BaseDataAccess):
                 model.Booking(
                 booking_id=booking_id,
                 room_id=room_id,
-                guest_id=guest_id,
+                guest=guest_id,
                 check_in_date=check_in_date,
                 check_out_date=check_out_date,
                 is_cancelled=is_cancelled,
