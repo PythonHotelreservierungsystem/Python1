@@ -76,76 +76,37 @@ class RoomDataAccess(BaseDataAccess):
             return_list.append(room)
         return return_list
 
+    def get_rooms_with_facilities(self) -> list[Room]:
+        sql = """
+              SELECT r.room_id, r.room_number, r.price_per_night, rt.type_id, rt.description, rt.max_guests, h.hotel_id, 
+                     h.name, h.stars, h.address_id, f.facility_id, f.facility_name
+              FROM Room r
+              JOIN Room_Type rt ON r.type_id = rt.type_id
+              JOIN Hotel h ON r.hotel_id = h.hotel_id
+              LEFT JOIN Room_Facilities rf ON r.room_id = rf.room_id
+              LEFT JOIN Facilities f ON rf.facility_id = f.facility_id
+              ORDER BY r.room_id \
+              """
+        results = self.fetchall(sql)
+        rooms_dict = {}
 
-
-
-
-
-##für User story 3.8
-    ##def get_bookings_for_rooms(self, room_id: int)-> list[Booking]:
-     ##   sql="""
-       ## SELECT room_id, guest_id, check_in_date, check_out_date, booking_id
-        ##FROM Booking WHERE room_id = ?
-        ##"""
-       ## params = tuple([room_id])
-        ##booking = self.fetchall(sql, params)
-        ##return [
-           ## model.Booking(
-             ##   room_id,
-               ## guest,
-                ##heck_in_date,
-                ##check_out_date,
-                ##rooms
-            ##)
-            ##for(room_id,
-              ##  guest,
-                ##check_in_date,
-                ##check_out_date,
-                ##rooms
-                ##)in booking
-       ## ]
-    ##def get_all_with_room_and_hotels(self) -> list[Booking]:
-       ## sql="""
-        ##SELECT booking.booking_id, booking.room_id, booking.guest_id,
-            ##booking.check_in_date, booking.check_out_date, booking.is_cancelled,
-           ## booking.total_amount, room.room_number, hotel.hotel_id, hotel.name,
-           # hotel.address_id
-       # FROM Booking AS booking
-        #JOIN Room AS room ON booking.room_id = room.room_id
-       #JOIN Hotel AS hotel ON room.hotel_id = hotel.hotel_id
-        #"""
-       # params = tuple([bookings])
-        #result = self.fetchall(sql, params)
-
-        #for results in result:
-          #  (
-            #    booking_id, room_id, guest_id,
-              #  check_in_date, check_out_date,
-               # is_cancelled, total_amount, room_number,
-               # hotel_id, name, address_id) = results
-
-           # hotel = model.Hotel(
-            #    hotel_id=hotel_id,
-            #    name=name,
-              #  address=hotel_address_id)
-
-           # room = model.Room(
-           #     room_id=room_id,
-            #    room_no=room_number,
-            #    price_per_night=price_per_night,
-            #    room_type=room_type_id,
-             #   hotel=hotel_id
-           # )
-           # booking = model.Booking(
-           #     booking_id=booking_id,
-           #     room_id=room_id,
-           #     guest=guest_id,
-           #     check_in_date=check_in_date,
-           #     check_out_date=check_out_date,
-           #     is_cancelled=is_cancelled,
-           #     total_amount=total_amount
-           # )
-           # bookings.append(booking)
-           # return bookings
+        for row in results:
+            (
+                room_id, room_number, price_per_night,
+                type_id, description, max_guests,
+                hotel_id, name, stars, address_id,
+                facility_id, facility_name
+            ) = row
+            if room_id not in rooms_dict:
+                address = self.__address_da.show_address_by_id(address_id)
+                hotel = Hotel(hotel_id, name, stars, address)
+                room_type = RoomType(type_id, description, max_guests)
+                room = Room(room_id, room_number, price_per_night, room_type, hotel)
+                room.facilities = []
+                rooms_dict[room_id] = room
+            if facility_id:
+                facility = model.Facility(facility_id, facility_name)
+                rooms_dict[room_id].facilities.append(facility)
+        return list(rooms_dict.values())
 
 

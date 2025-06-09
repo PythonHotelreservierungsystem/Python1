@@ -57,7 +57,6 @@ class RoomManager:
             return 1.2  # +20% von mai bis august
         else:
             return 0.9  # -10% von september bis april
-
     def calculate_dynamic_price(self, room: Room, check_in: date, check_out: date) -> float:
         total_price = 0.0
         current_date = check_in
@@ -67,33 +66,7 @@ class RoomManager:
             current_date += timedelta(days=1)
         return round(total_price, 2)
 
-if __name__ == "__main__":
-    from data_access.room_data_access import RoomDataAccess
-    from data_access.facility_data_access import FacilityDataAccess
-    from datetime import date
 
-    # Datenbankpfad anpassen!
-    db_path = "../database/hotel_reservation_sample.db"
-
-    # RoomManager initialisieren
-    room_da = RoomDataAccess(db_path)
-    facility_da = FacilityDataAccess(db_path)
-    room_manager = RoomManager(room_da, facility_da)
-
-    # Beispielzimmer holen
-    rooms = room_manager.show_room_details()
-    room = rooms[4]
-
-    # Zeitraum definieren
-    check_in = date(2025, 10, 10)
-    check_out = date(2025, 10, 15)
-
-    # Preis berechnen
-    base_price = room.price_per_night
-    dynamic_price = room_manager.calculate_dynamic_price(room, check_in, check_out)
-
-    # Ergebnis ausgeben
-    print(f"Zimmernummer: {room.room_number}")
-    print(f"Basispreis pro Nacht: {base_price:.2f} CHF")
-    print(f"Zeitraum: {check_in} bis {check_out}")
-    print(f"Dynamischer Gesamtpreis: {dynamic_price:.2f} CHF")
+    #user story 9
+    def get_rooms_with_facilities(self) -> list[Room]:
+        return self.__room_da.get_rooms_with_facilities()
