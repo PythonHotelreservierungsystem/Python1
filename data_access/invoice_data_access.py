@@ -44,3 +44,11 @@ class InvoiceDataAccess(BaseDataAccess):
         params = tuple([booking_id])
         _,row_count = self.execute(sql, params)
         return row_count > 0
+    #User Story 10
+    def update_invoice(self,invoice_id: int, issue_date: date, total_amount: float)-> model.Invoice:
+        sql="""
+        UPDATE Invoice SET Issue_Date = ?, Total_Amount = ? WHERE Invoice_Id = ?
+        """
+        params = (issue_date,total_amount,invoice_id)
+        _,row_count = self.execute(sql,params)
+        return row_count > 0

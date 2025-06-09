@@ -46,3 +46,11 @@ class GuestDataAccess(BaseDataAccess):
             email=email
 
         )
+    #Userstory 10
+    def update_guest(self, guest_id: int, firstname: str, lastname: str, email: str) -> model.Guest:
+        sql = """
+        UPDATE Guest SET first_name       = ?, last_name      = ?, email = ? WHERE guest_id = ? 
+        """
+        params = (firstname, lastname, email, guest_id)
+        _, row_count = self.execute(sql, params)
+        return row_count > 0
