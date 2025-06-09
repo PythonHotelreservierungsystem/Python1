@@ -113,7 +113,6 @@ class BookingManager:
         return invoice
 
     #User Story 8
-    def show_all_bookings_with_all_hotels(self,) -> list[Booking]:
-
-        return self.__booking_da.show_all_bookings_with_all_hotels()
+    def show_all_bookings_with_all_hotels(self) -> list[Booking]:
+        return self.__booking_da.show_bookings_with_hotels()
 
