@@ -14,3 +14,11 @@ class AdminDataAccess:
         """, (admin.username, admin.password, admin.email, admin.vorname, admin.nachname))
         conn.commit()
         conn.close()
+
+    def get_all_admins(self):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT admin_id, username, password, email, vorname, nachname FROM admin")
+        rows = cursor.fetchall()
+        conn.close()
+        return [Admin(*row) for row in rows]
