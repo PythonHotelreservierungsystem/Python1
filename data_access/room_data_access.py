@@ -63,13 +63,13 @@ class RoomDataAccess(BaseDataAccess):
         return_list = []
 
         for room_id, room_number, price_per_night, type_id, description, max_guests, hotel_id, name, stars, address_id in rooms:
-            # ✅ Address-Objekt laden:
+            #Address-Objekt laden:
             address = self.__address_da.show_address_by_id(address_id)
 
-            # ✅ Hotel mit Address-Objekt erstellen:
+            #Hotel mit Address-Objekt erstellen:
             hotel = Hotel(hotel_id, name, stars, address)
 
-            # ✅ Room mit Hotel + RoomType erstellen:
+            #Room mit Hotel + RoomType erstellen:
             room_type = RoomType(type_id, description, max_guests)
             room = Room(room_id, room_number, price_per_night, room_type, hotel)
 
