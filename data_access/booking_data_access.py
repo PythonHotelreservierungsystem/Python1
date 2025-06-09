@@ -76,18 +76,9 @@ class BookingDataAccess(BaseDataAccess):
     # für User story 5
     def get_booking_by_id(self, booking_id: int) -> model.Booking:
         sql = """
-              SELECT booking.booking_id, \
-                     booking.room_id, \
-                     booking.guest_id, \
-                     booking.check_in_date, \
-                     booking.check_out_date,
-                     booking.is_cancelled, \
-                     booking.total_amount, \
-                     room.room_number, \
-                     room.price_per_night,
-                     room.type_id, \
-                     room_type.description, \
-                     room_type.max_guests
+              SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date,
+                     booking.is_cancelled, booking.total_amount, room.room_number, room.price_per_night,
+                     room.type_id, room_type.description, room_type.max_guests
               FROM Booking AS booking
                        JOIN Room AS room ON booking.room_id = room.room_id
                        JOIN Room_Type AS room_type ON room.type_id = room_type.type_id
@@ -112,7 +103,7 @@ class BookingDataAccess(BaseDataAccess):
                 room_number=room_number,
                 price_per_night=float(price_per_night),
                 room_type=room_type,
-                hotel=None  # oder weglassen, falls der Konstruktor es erlaubt
+                hotel=None  # habe im model room Konstruuktor dafür hotel = None gemacht
             )
 
             booking = model.Booking(
@@ -125,7 +116,7 @@ class BookingDataAccess(BaseDataAccess):
                 total_amount=total_amount,
                 guest=guest_id
             )
-            booking.room = room  # wichtig für Zugriff auf price_per_night
+            booking.room = room
 
             return booking
 
