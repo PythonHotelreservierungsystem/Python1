@@ -1,4 +1,7 @@
 import model
+from model.booking import Booking
+from model.hotel import Hotel
+from model.room import Room
 from datetime import date
 from data_access.base_data_access import BaseDataAccess
 
@@ -142,6 +145,46 @@ class BookingDataAccess(BaseDataAccess):
         return row_count > 0
 
     #User Story 8
+
+    def get_all_bookings_with_hotel(self) -> list[Booking]:
+        sql = """
+              SELECT b.booking_id, \
+                     b.room_id, \
+                     b.guest_id, \
+                     b.check_in_date, \
+                     b.check_out_date, \
+                     b.is_cancelled, \
+                     b.total_amount, \
+                     r.room_number, \
+                     h.hotel_id, \
+                     h.name, \
+                     h.stars, \
+                     h.address_id
+              FROM Booking b
+                       JOIN Room r ON b.room_id = r.room_id
+                       JOIN Hotel h ON r.hotel_id = h.hotel_id \
+              """
+        results = self.fetchall(sql)
+        bookings = []
+
+        for row in results:
+            (booking_id, room_id, guest_id,
+             check_in_date, check_out_date,
+             is_cancelled, total_amount,
+             room_number, hotel_id, hotel_name, stars, address_id) = row
+
+            address = self.address_da.show_address_by_id(address_id)
+            hotel = Hotel(hotel_id, hotel_name, stars, address)
+            room = Room(room_id, room_number, 0.0, None, hotel)  # Preis/Typ optional
+            booking = Booking(booking_id, room_id, guest_id, check_in_date,
+                              check_out_date, is_cancelled, total_amount)
+            booking.room = room
+            booking.hotel = hotel  # optionales Attribut hinzufügen, falls nicht vorhanden
+            bookings.append(booking)
+
+        return bookings
+
+
 
     # def show_all_bookings_with_all_hotels(self,) -> list[model.Booking]:
     #     sql = """
