@@ -1,6 +1,6 @@
 ##Guest
 class Guest:
-    def __init__(self, guest_id: int, firstname: str, lastname: str, email: str):
+    def __init__(self, guest_id: int, firstname: str, lastname: str, email: str, phone_number: str = None):
         if not guest_id:
             raise ValueError("guest_id ist erforderlich")
         if not isinstance(guest_id, int):
@@ -11,6 +11,7 @@ class Guest:
         self.email = email
         self.__address = [] # Association mit address
         self.bookings = []  # Association mit Booking
+        self.phone_number = phone_number
 
     ## add_booking Methode
     def add_booking(self, booking):
@@ -67,3 +68,14 @@ class Guest:
             self.__address = value
         else:
             raise ValueError("Ungültige Adresse")
+
+    @property
+    def phone_number(self):
+        return self.__phone_number
+
+    @phone_number.setter
+    def phone_number(self, value: str):
+        if value is None or (isinstance(value, str) and value.strip() != ""):
+            self.__phone_number = value
+        else:
+            raise ValueError("Ungültige Telefonnummer")

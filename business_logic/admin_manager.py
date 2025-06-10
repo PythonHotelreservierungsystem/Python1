@@ -14,14 +14,8 @@ from data_access.base_data_access import BaseDataAccess
 
 class AdminManager:
     def __init__(self,
-                 admin_data_access: AdminDataAccess,
-                 hotel_da=None,
-                 address_da=None,
-                 room_da=None,
-                 room_type_da=None,
-                 booking_da=None,
-                 guest_da=None,
-                 invoice_da=None):
+                 admin_data_access: AdminDataAccess,hotel_da=None,address_da=None,room_da=None,room_type_da=None,
+                 booking_da=None,guest_da=None,invoice_da=None):
         self.__admin_da = admin_data_access
         self.__hotel_da = hotel_da
         self.__address_da = address_da
