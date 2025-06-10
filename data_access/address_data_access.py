@@ -41,6 +41,7 @@ class AddressDataAccess(BaseDataAccess):
 
     #update Address
     def update_address(self, address_id: int, street: str, city: str, zip_code: int) -> bool:
+        if street
         sql = """
               UPDATE Address SET street   = ?, city     = ?, zip_code = ? WHERE address_id = ? \
               """
@@ -50,12 +51,12 @@ class AddressDataAccess(BaseDataAccess):
 
 
     #adressse nach id ahzeige
-    def show_address_by_id(self, address_id: int) -> model.Address | None:
+    def show_address_by_id(self, address_id:int) -> model.Address:
         if address_id is None:
             raise ValueError("Address ID is required")
         sql = """ 
         SELECT 
-        Address_Id,Street,City,Zip_Code FROM Address WHERE Address_Id = ? 
+        address_id, street, city, zip_code FROM Address WHERE Address_Id = ? 
             """
         params = tuple([address_id])
         result = self.fetchone(sql, params)

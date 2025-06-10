@@ -52,3 +52,12 @@ class InvoiceDataAccess(BaseDataAccess):
         params = (issue_date,total_amount,invoice_id)
         _,row_count = self.execute(sql,params)
         return row_count > 0
+    #User Story 10
+    def read_all_invoices(self)->list[model.Invoice]:
+        sql="""
+        SELECT Invoice_Id, Issue_Date, Total_Amount, Booking_Id FROM Invoice"""
+        invoices = self.fetchall(sql)
+        return_list = []
+        for invoice_id, issue_date, total_amount, booking_id in invoices:
+            return_list.append(model.Invoice(invoice_id, issue_date, total_amount, booking_id))
+        return return_list

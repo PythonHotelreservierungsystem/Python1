@@ -38,3 +38,12 @@ class RoomTypeDataAccess(BaseDataAccess):
         params = (description,max_guests,room_type_id)
         _,row_count = self.execute(sql,params)
         return row_count > 0
+
+    def read_all_room_types(self)->list[model.RoomType]:
+        sql="""
+        SELECT Type_Id, Description, Max_Guests FROM Room_Type"""
+        room_types = self.fetchall(sql)
+        return_list = []
+        for room_type_id, description, max_guests in room_types:
+            return_list.append(model.RoomType(room_type_id, description, max_guests))
+        return return_list

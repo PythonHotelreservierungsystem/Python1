@@ -76,6 +76,18 @@ class RoomDataAccess(BaseDataAccess):
             return_list.append(room)
         return return_list
 
+    #User Story 10
+    def show_room_details_by(self) -> list[model.Room]:
+        sql = """SELECT room_id, room_number, price_per_night
+        FROM Room """
+        rooms= self.fetchall(sql)
+        retrun_list = []
+        for room_id, room_number, price_per_night in rooms:
+            retrun_list.append(Room(room_id, room_number, price_per_night))
+        return retrun_list
+
+
+
     def get_rooms_with_facilities(self) -> list[Room]:
         sql = """
               SELECT r.room_id, r.room_number, r.price_per_night, rt.type_id, rt.description, rt.max_guests, h.hotel_id, 
@@ -109,11 +121,11 @@ class RoomDataAccess(BaseDataAccess):
                 rooms_dict[room_id].facilities.append(facility)
         return list(rooms_dict.values())
     #User Story 10
-    def update_room(self, room_id: int, room_number: int, price_per_night: float, room_type: model.RoomType) -> bool:
+    def update_room(self, room_id: int, room_number: int, price_per_night: float) -> bool:
         sql="""
-        UPDATE Room SET room_number       = ?, price_per_night      = ?, type_id = ?
+        UPDATE Room SET room_number       = ?, price_per_night      = ?
         WHERE room_id = ?"""
-        params = (room_number, price_per_night, room_type, room_id)
+        params = (room_number, price_per_night, room_id)
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
