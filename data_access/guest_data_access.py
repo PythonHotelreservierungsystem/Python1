@@ -48,3 +48,9 @@ class GuestDataAccess(BaseDataAccess):
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
+    def show_all_guests(self):
+        sql = "SELECT guest_id, first_name, last_name, email, phone_number FROM Guest"
+        guests_raw = self.fetchall(sql)
+
+        for row in guests_raw:
+            print(f"ID: {row[0]}, Name: {row[1]} {row[2]}, Email: {row[3]}, Telefon: {row[4]}")
