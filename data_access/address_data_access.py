@@ -41,7 +41,6 @@ class AddressDataAccess(BaseDataAccess):
 
     #update Address
     def update_address(self, address_id: int, street: str, city: str, zip_code: int) -> bool:
-        if street
         sql = """
               UPDATE Address SET street   = ?, city     = ?, zip_code = ? WHERE address_id = ? \
               """
