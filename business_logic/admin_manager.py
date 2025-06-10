@@ -43,8 +43,8 @@ class AdminManager:
     def update_invoice_admin(self, invoice_id: int, issue_date: date, total_amount: int,) -> model.Invoice:
         return self.__invoice_da.update_invoice(invoice_id=invoice_id, issue_date=issue_date, total_amount=total_amount)
 
-    def update_room_admin(self, room_id: int, room_number:int, price_per_night: int, room_type: RoomType) -> bool:
-        return self.__room_da.update_room(room_id=room_id, room_number=room_number, price_per_night=price_per_night, room_type=room_type)
+    def update_room_admin(self, room_id: int, room_number:int, price_per_night: int) -> bool:
+        return self.__room_da.update_room(room_id=room_id, room_number=room_number, price_per_night=price_per_night)
 
     def update_room_type_admin(self, room_type_id: int, description: str, max_guests: int) -> RoomType:
         return self.__room_type_da.update_room_type(room_type_id=room_type_id, description=description, max_guests=max_guests)
