@@ -40,10 +40,11 @@ class GuestDataAccess(BaseDataAccess):
 
         )
     #Userstory 10
-    def update_guest(self, guest_id: int, firstname: str, lastname: str, email: str) -> model.Guest:
+    def update_guest(self, guest_id: int, firstname: str, lastname: str, email: str, phone_number: str=None) -> model.Guest:
         sql = """
-        UPDATE Guest SET first_name       = ?, last_name      = ?, email = ? WHERE guest_id = ? 
+        UPDATE Guest SET first_name= ?, last_name= ?, email = ?, phone_number = ? WHERE guest_id = ?
         """
-        params = (firstname, lastname, email, guest_id)
+        params = (firstname, lastname, email, phone_number, guest_id)
         _, row_count = self.execute(sql, params)
         return row_count > 0
+
