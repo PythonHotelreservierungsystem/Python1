@@ -30,6 +30,7 @@ class AdminManager:
     def update_booking_admin(self, booking_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool,
                         total_amount: int, guest_id: model.Guest) -> bool:
         return self.__booking_da.update_booking_by_id(booking_id=booking_id, check_in_date=check_in_date, check_out_date=check_out_date,  is_cancelled=is_cancelled, total_amount=total_amount, guest=guest_id)
+
     def update_address_admin(self, address_id:int, street:str, zip_code:int, city:str) -> bool:
         return self.__address_da.update_address(address_id=address_id, street=street, zip_code=zip_code, city=city)
 

@@ -54,3 +54,13 @@ class GuestDataAccess(BaseDataAccess):
 
         for row in guests_raw:
             print(f"ID: {row[0]}, Name: {row[1]} {row[2]}, Email: {row[3]}, Telefon: {row[4]}")
+
+    def read_all_guests(self) -> list[Guest]:
+        sql = """
+        SELECT guest_id, first_name, last_name, email, phone_number
+        FROM Guest"""
+        guests = self.fetchall(sql)
+        return_list = []
+        for guest_id, firstname, lastname, email, phone_number in guests:
+            return_list.append(Guest(guest_id, firstname, lastname, email, phone_number))
+        return return_list
