@@ -1,15 +1,9 @@
 from __future__ import annotations
-
 import model
-
 from model import Address
-
 from model import Hotel
-
 from model import Booking
-
 from model import Guest
-
 from data_access.base_data_access import BaseDataAccess
 
 
@@ -36,7 +30,6 @@ class GuestDataAccess(BaseDataAccess):
             address_id,
             booking_id
         ])
-
         last_row_id, row_count = self.execute(sql, params)
 
         return model.Guest(
