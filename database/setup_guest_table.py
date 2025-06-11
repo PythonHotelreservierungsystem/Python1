@@ -7,5 +7,5 @@ def add_phone_number_to_guest():
     conn.close()
     print("Spalte 'phone_number' wurde hinzugefügt.")
 
-# if __name__ == "__main__":
-#     add_phone_number_to_guest()
+#if __name__ == "__main__":
+     #add_phone_number_to_guest()

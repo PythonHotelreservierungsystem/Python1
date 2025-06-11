@@ -19,5 +19,5 @@ def create_admin_table():
     conn.close()
     print("Admin-Tabelle erfolgreich erstellt (falls noch nicht vorhanden).")
 
-# if __name__ == "__main__":
-#     create_admin_table()
+#if __name__ == "__main__":
+ #   create_admin_table()
