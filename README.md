@@ -1,4 +1,13 @@
-#AEP_Hotelreservierungssystem
+# AEP_Hotelreservierungssystem
 
-##Rollen
+## Rollen
+
+Entwickler - Yannick Krähenbühl, Cesco Meggiolaro, Tobias Mutz, Jennifer Studer
+
+Coaches -  Sandro Schwander, Phillip Gachnang
+
+# Projektstruktur
+
+# Code Überblick
+
 
