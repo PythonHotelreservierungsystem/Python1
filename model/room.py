@@ -65,11 +65,11 @@ class Room:
     def hotel(self, value):
         self.__hotel = value
 
-    #facilities Getter und Setter
-    @property
-    def facilities(self):
-        return self.__facilities
-    @facilities.setter
-    def facilities(self, value):
-        self.__facilities = value
+    # #facilities Getter und Setter
+    # @property
+    # def facilities(self):
+    #     return self.__facilities
+    # @facilities.setter
+    # def facilities(self, value):
+    #     self.__facilities = value
         
