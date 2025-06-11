@@ -49,9 +49,9 @@ class Booking:
             raise TypeError("check_out_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
         #if parsed_date < date.today():
             #raise ValueError("CheckOut Date darf nicht in der Vergangenheit liegen")
-        if hasattr(self, '_Booking__checkin_date') and parsed_date < self.checkin_date:
+        if hasattr(self, '_Booking__checkin_date') and parsed_date < self.check_in_date:
             raise ValueError("CheckOut Date darf nicht vor dem CheckIn Date liegen")
         self.__check_out_date = parsed_date
 
     def __str__(self):
-        return f"Booking({self.__booking_id}, {self.checkin_date}, {self.checkout_date}, {self.is_cancelled}, {self.total_amount}, {self.guest})"
+        return f"Booking({self.__booking_id}, {self.check_in_date}, {self.check_out_date}, {self.is_cancelled}, {self.total_amount}, {self.guest})"
