@@ -59,6 +59,10 @@ Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Ve
 # Umsetzung User Stories
 Sämtliche UserStory Abfragen werden in einem seperaten Jupyter Notebook ([user_stories.ipynb](user_stories.ipynb)) abgefragt.
 
+### User Story 1; Als Gast möchte ich die verfügbaren Hotels durchsuchen, damit ich dasjenige auswählen kann, welches meinen Wünschen entspricht. Wünsche sind
+Bei den Usterstories 1 waren vor allem die Importe herausfordernd, was nach einigen Recherchen reibungslos funktionierte.
+
+### User Story 2; Als Gast möchte ich Details zu verschiedenen Zimmertypen (Single, Double, Suite usw.), die in einem Hotel verfügbar sind, sehen, einschliesslich der maximalen Anzahl von Gästen für dieses Zimmer, Beschreibung, Preis und Ausstattung, um eine fundierte Entscheidung zu treffen.
 
 # Vorgehen in der Gruppe
 In diesem Modul stellte sich die Aufteilung der Arbeiten sehr schwer, vor allem aus dem Grund, dass kein Mitglied Erfahrungen mit Python hatte. Es war für uns ziemlich herausfordernd, das Gelernte im Unterricht am geeigneten Ort im Projekt umzusetzen.
@@ -67,4 +71,3 @@ Nachdem die Models befriedigend umgesetzt wurden, stellte sich schnell heraus, d
 Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den Erwärbstätigkeiten mancher Gruppenmitglieder wurde das Projekt die verschiedenen Userstories aufgeteilt und bearbeitet.
 Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. 
 
-Test
