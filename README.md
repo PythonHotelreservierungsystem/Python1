@@ -66,3 +66,5 @@ Nach anfänglichem Ausprobieren teilten wir die Aufgaben in die drei Teile, mode
 Nachdem die Models befriedigend umgesetzt wurden, stellte sich schnell heraus, dass diese Aufgabenteilung für die individuelle Weiterentwicklung und die Fertigstellung des Projektes wenig sinnvoll war.
 Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den Erwärbstätigkeiten mancher Gruppenmitglieder wurde das Projekt die verschiedenen Userstories aufgeteilt und bearbeitet.
 Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. 
+
+Test
