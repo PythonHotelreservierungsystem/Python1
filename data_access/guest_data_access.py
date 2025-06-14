@@ -38,7 +38,8 @@ class GuestDataAccess(BaseDataAccess):
             email=email
 
         )
-    #Userstory 10
+
+    #Userstory 10.1
     def update_guest(self, guest_id: int, firstname: str, lastname: str, email: str, phone_number: str=None) -> model.Guest:
         sql = """
         UPDATE Guest SET first_name= ?, last_name= ?, email = ?, phone_number = ? WHERE guest_id = ?
@@ -47,6 +48,7 @@ class GuestDataAccess(BaseDataAccess):
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
+    #User Story 1 Schemaänderung
     def show_all_guests(self):
         sql = "SELECT guest_id, first_name, last_name, email, phone_number FROM Guest"
         guests_raw = self.fetchall(sql)
@@ -54,6 +56,7 @@ class GuestDataAccess(BaseDataAccess):
         for row in guests_raw:
             print(f"ID: {row[0]}, Name: {row[1]} {row[2]}, Email: {row[3]}, Telefon: {row[4]}")
 
+    #User Story 10.1
     def read_all_guests(self) -> list[Guest]:
         sql = """
         SELECT guest_id, first_name, last_name, email, phone_number

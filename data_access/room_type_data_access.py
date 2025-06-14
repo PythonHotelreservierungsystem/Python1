@@ -7,6 +7,7 @@ class RoomTypeDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
+    #Hilfsfunktion
     def create_room_type(
             self,
             description: str,
@@ -31,6 +32,7 @@ class RoomTypeDataAccess(BaseDataAccess):
             max_guests=max_guests
         )
 
+    #User Story 10.5
     def update_room_type(self, room_type_id:int, description: str, max_guests: int)-> model.RoomType:
         sql="""
         UPDATE Room_Type SET Description = ?, Max_Guests = ? 
@@ -39,6 +41,7 @@ class RoomTypeDataAccess(BaseDataAccess):
         _,row_count = self.execute(sql,params)
         return row_count > 0
 
+    #User Story 10.5
     def read_all_room_types(self)->list[model.RoomType]:
         sql="""
         SELECT Type_Id, Description, Max_Guests FROM Room_Type"""

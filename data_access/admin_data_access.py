@@ -5,7 +5,7 @@ from model.admin import Admin
 class AdminDataAccess:
     def __init__(self, db_path="database/hotel_reservation_sample.db"):
         self.db_path = db_path
-
+    #Für Admin User Story
     def create_admin(self, admin: Admin):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -16,7 +16,7 @@ class AdminDataAccess:
         conn.commit()
         conn.close()
 
-    #für hilfsfuunktion im Jupyter
+    #Für Admin User Story
     def get_all_admins(self):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -25,6 +25,7 @@ class AdminDataAccess:
         conn.close()
         return [Admin(*row) for row in rows]
 
+    # Für Admin User Story
     def login_admin(self, username: str, password: str):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()

@@ -13,7 +13,7 @@ class RoomManager:
         self.__facility_da = facility_data_access
 
 
-        # User Story 2.1 – Zimmerdetails mit Ausstattung
+        # User Story 2.1, 7
     def show_room_details(self) -> list[Room]:
         rooms = self.__room_da.show_room_details()
         for room in rooms:
@@ -21,7 +21,7 @@ class RoomManager:
             room.facilities = self.__facility_da.get_facilities_by_room_id(room.room_id)
         return rooms
 
-        # User Story 2.2
+        # User Story 2.2, 4
     def find_available_rooms_by_dates(
             self, check_in_date: date, check_out_date: date,
             booking_dao: BookingDataAccess) -> list[Room]:
@@ -51,13 +51,15 @@ class RoomManager:
         return available_rooms
 
 
-    #für user Story 7
+    #User Story 7
     def get_season_multiplier(self, date: date) -> float:
         # Hochsaison = Juni, Juli, August, Dezember
         if date.month in [5, 6, 7, 8 ]:
             return 1.2  # +20% von mai bis august
         else:
             return 0.9  # -10% von september bis april
+
+    #User Story 7
     def calculate_dynamic_price(self, room: Room, check_in: date, check_out: date) -> float:
         total_price = 0.0
         current_date = check_in

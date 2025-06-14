@@ -14,17 +14,18 @@ class BookingManager:
         self.__booking_da = booking_da
         self.__room_manager = room_manager
 
+    #User Story 4, 6, 10.6
     def show_bookings(self) -> list[model.Booking]:
         return self.__booking_da.show_bookings_with_hotels()
 
-#
+
     ## Create Booking User story 4
     def create_new_booking(self, guest: model.Guest, check_in_date: date, check_out_date: date):
         verfuegbare_zimmer = self.__room_manager.find_available_rooms_by_dates(check_in_date, check_out_date)
         if not verfuegbare_zimmer:
             print("Es gibt keine verfügbaren Räume für Ihren gewünschten Zeitraum.")
             return None
-
+        #Verfügbare Zimmer anzeigen
         print("Verfügbare Zimmer:")
         for zimmer in verfuegbare_zimmer:
             print(f"Room-ID: {zimmer.room_id} | Typ: {zimmer.type_id} | Preis/Nacht: {zimmer.price_per_night}")
@@ -41,10 +42,10 @@ class BookingManager:
                     print("Kein Zimmer mit dieser ID verfügbar. Bitte erneut versuchen.")
             except ValueError:
                 print("Ungültige Eingabe. Bitte eine gültige Ganzzahl eingeben.")
-
+        #Berechnung des Gesamtpreis
         total_naechte = (check_out_date - check_in_date).days
         gesamtpreis = total_naechte * gewuenschtes_zimmer.price_per_night
-
+        #Neue Buchung erstellen und ausgeben
         neue_buchung = self.__booking_da.create_booking(
             guest_id=guest,
             room_id=gewuenschtes_zimmer,

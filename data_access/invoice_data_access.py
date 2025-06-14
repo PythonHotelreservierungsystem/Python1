@@ -9,6 +9,7 @@ class InvoiceDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
+    #User Story 5
     def create_invoice(self, issue_date: date, total_amount: float, booking_id: int) -> model.Invoice:
         if issue_date is None:
             raise ValueError("issue_date cannot be None")
@@ -31,6 +32,7 @@ class InvoiceDataAccess(BaseDataAccess):
             total_amount=total_amount,
             booking=booking_id
         )
+
     #User Story 5
     def delete_invoice(self, invoice_id: int):
         if invoice_id is None:
@@ -39,7 +41,8 @@ class InvoiceDataAccess(BaseDataAccess):
         params = tuple([invoice_id])
         _,row_count = self.execute(sql, params)
         return row_count > 0
-    #User Story 5/6
+
+    #User Story 6
     def delete_invoice_by_booking_id(self, booking_id: int):
         if booking_id is None:
             raise ValueError("booking_id cannot be None")
@@ -47,7 +50,8 @@ class InvoiceDataAccess(BaseDataAccess):
         params = tuple([booking_id])
         _,row_count = self.execute(sql, params)
         return row_count > 0
-    #User Story 10
+
+    #User Story 10.3
     def update_invoice(self,invoice_id: int, issue_date: date, total_amount: float)-> model.Invoice:
         sql="""
         UPDATE Invoice SET Issue_Date = ?, Total_Amount = ? WHERE Invoice_Id = ?
@@ -55,7 +59,8 @@ class InvoiceDataAccess(BaseDataAccess):
         params = (issue_date,total_amount,invoice_id)
         _,row_count = self.execute(sql,params)
         return row_count > 0
-    #User Story 10
+
+    #User Story 10.3
     def read_all_invoices(self)->list[model.Invoice]:
         sql="""
         SELECT Invoice_Id, Issue_Date, Total_Amount, Booking_Id FROM Invoice"""

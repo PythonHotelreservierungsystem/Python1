@@ -12,7 +12,7 @@ class RoomDataAccess(BaseDataAccess):
         super().__init__(db_path)
         self.__address_da = AddressDataAccess(db_path)
 
-    # Room erstellen
+    #Hilfsfunktion Room erstellen
     def create_room(
             self,
             room_number: int,
@@ -43,8 +43,7 @@ class RoomDataAccess(BaseDataAccess):
             hotel=hotel_id,
             )
 
-
-    ##User Story 2.1
+    ##User Story 1.3, 1.4, 1.5, 2.1, 2.2, 4
     def show_room_details(self) -> list[Room]:
         sql = """
               SELECT Room.room_id, room_number, price_per_night,
@@ -70,7 +69,7 @@ class RoomDataAccess(BaseDataAccess):
             return_list.append(room)
         return return_list
 
-    #User Story 10
+    #User Story 10.4
     def show_room_details_by(self) -> list[model.Room]:
         sql = """SELECT room_id, room_number, price_per_night
         FROM Room """
@@ -80,8 +79,7 @@ class RoomDataAccess(BaseDataAccess):
             retrun_list.append(Room(room_id, room_number, price_per_night))
         return retrun_list
 
-
-
+    #User Story 9
     def get_rooms_with_facilities(self) -> list[Room]:
         sql = """
               SELECT r.room_id, r.room_number, r.price_per_night, rt.type_id, rt.description, rt.max_guests, h.hotel_id, 
@@ -114,7 +112,8 @@ class RoomDataAccess(BaseDataAccess):
                 facility = model.Facility(facility_id, facility_name)
                 rooms_dict[room_id].facilities.append(facility)
         return list(rooms_dict.values())
-    #User Story 10
+
+    #User Story 10.4
     def update_room(self, room_id: int, room_number: int, price_per_night: float) -> bool:
         sql="""
         UPDATE Room SET room_number       = ?, price_per_night      = ?

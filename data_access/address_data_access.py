@@ -9,8 +9,7 @@ class AddressDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
-
-    #create address
+    #User Story 3.1
     def create_address(self,street: str,city: str,zip_code: int) -> model.Address:
 
         if street is None:
@@ -34,11 +33,11 @@ class AddressDataAccess(BaseDataAccess):
             zip_code=zip_code
         )
 
-    #delete Addresss
+    #Delete Addresss
     def delete_address(self,address: model.Address):
         pass
 
-    #update Address
+    #User Story 10.2
     def update_address(self, address_id: int, street: str, city: str, zip_code: int) -> bool:
         sql = """
               UPDATE Address SET street   = ?, city     = ?, zip_code = ? WHERE address_id = ? \
@@ -47,8 +46,7 @@ class AddressDataAccess(BaseDataAccess):
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
-
-    #adressse nach id ahzeige
+    #User Story 10.2
     def show_address_by_id(self, address_id:int) -> model.Address:
         if address_id is None:
             raise ValueError("Address ID is required")

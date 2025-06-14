@@ -13,53 +13,16 @@ class HotelManager:
         self.__hotel_da = hotel_data_access
         self.__room_da = room_data_access
 
-    #eifach zum alli Hotels usgeh
+    #eifach zum alli Hotels usgeh 3.2 z.B
     def show_all_hotels_basic(self) -> list[model.Hotel]:
         return self.__hotel_da.read_all_hotel()
 
-    # User Story 3.1
-    def create_new_hotel(self, name: str, stars: int, address: model.Address, address_da: AddressDataAccess) -> model.Hotel:
-        neues_hotel  = self.__hotel_da.create_hotel(name=name, stars=stars, address_id=address.address_id)
-        neue_addresse = address_da.create_address(city=address.city, street=address.street, zip_code=address.zip_code)
-        neues_hotel.address = (
-            neue_addresse)
-
-        return neues_hotel
-
-    #User Story 3.2
+    #User Story 3.3
     def update_a_hotel(self, name:str, stars:int, address:model.Address, hotel_id:int, address_da:AddressDataAccess) -> model.Hotel:
         aktualisiertes_hotel=self.__hotel_da.update_hotel(name=name, stars=stars, address_id=address.address_id, hotel_id=hotel_id)
         aktualisiertes_hotel.address=address_da.update_address(address_id=address.address_id, city=address.city, street=address.street, zip_code=address.zip_code)
 
         return aktualisiertes_hotel
-
-
-# if __name__ == "__main__":
-#     from data_access.hotel_data_access import HotelDataAccess
-#     from data_access.booking_data_access import BookingDataAccess
-#     from data_access.address_data_access import AddressDataAccess
-#     from datetime import datetime
-#     from model import Address
-#
-#     hotel_dao = HotelDataAccess("../database/hotel_reservation_sample.db")
-#     address_dao = AddressDataAccess("../database/hotel_reservation_sample.db")
-#     manager = HotelManager(hotel_data_access=hotel_dao, address_data_access=address_dao)
-#
-#     new_address = Address(street="Bundesplatz 5", city="Aarburg", zip_code=3028,)
-#     new_hotel = manager.create_new_hotel(name="Hotel Aarhof", stars=5, address=new_address,address_da=address_dao)
-#
-#     if new_hotel:
-#         print("✅ Neues Hotel erfolgreich erstellt:\n")
-#         print(f"🏨 Name     : {new_hotel.name}")
-#         print(f"⭐ Sterne   : {new_hotel.stars}")
-#         print(f"📍 Adresse : {new_hotel.address.street}, {new_hotel.address.zip_code} {new_hotel.address.city}")
-#         print(f"🆔 Hotel-ID: {new_hotel.hotel_id}")
-#         print(f"🏠 Addr-ID : {new_hotel.address.address_id}")
-#     else:
-#         print("❌ Hotel konnte nicht erstellt werden.")
-#
-
-
 
     ## user Story 1.1
     def show_hotels_by_city(self, city: str) -> list[model.Hotel]:
@@ -93,7 +56,7 @@ class HotelManager:
         hotels = self.__hotel_da.read_all_hotel()
         # Räume mit Typ und Hotel laden
         rooms = self.__room_da.show_room_details()
-
+        #Leere Liste vorbereiten
         ergebnis = []
         for hotel in hotels:
             if hotel.address.city.strip().lower() != city.strip().lower():
@@ -122,13 +85,13 @@ class HotelManager:
         hotels = self.__hotel_da.read_all_hotel()
         rooms = self.__room_da.show_room_details()
         bookings = booking_dao.show_bookings_with_hotels()
-
+        #Hotels nach Stadt abgleichen
         stadt_hotels = [h for h in hotels if h.address.city.strip().lower() == city.strip().lower()]
         verfuegbare_hotels = []
-
+        #Räume nach Hotels abgleichen
         for hotel in stadt_hotels:
             hotel_rooms = [r for r in rooms if r.hotel.hotel_id == hotel.hotel_id]
-
+            #Belegte Räume ausschliessen
             for room in hotel_rooms:
                 relevant_bookings = [b for b in bookings if b.room_id == room.room_id and not b.is_cancelled]
 
@@ -230,12 +193,12 @@ class HotelManager:
 
         return neues_hotel
 
-    #delete hotel für user story 3.2
+    #User story 3.2
     def delete_hotel(self, hotel_id: int) -> bool:
         return self.__hotel_da.delete_hotel_by_id(hotel_id)
 
 
-    # Update Hotel für usser story 3.3
+    #User story 3.3
     def update_hotel_and_address(
             self,hotel_id: int,name: str,stars: int,address: model.Address,address_da: AddressDataAccess) -> bool:
         # Adresse aktualisieren

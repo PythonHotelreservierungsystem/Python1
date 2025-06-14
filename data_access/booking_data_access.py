@@ -13,7 +13,8 @@ class BookingDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
         self.address_da = AddressDataAccess(db_path)
-##User Story 4
+
+    #User Story 4
     def create_booking(self, guest_id: model.Guest = None, room_id: model.Room = None, check_in_date: date =None, check_out_date: date = None, is_cancelled: bool = False, total_amount: float = 0.0
     ) -> model.Booking:
         if check_in_date is None or check_out_date is None:
@@ -25,7 +26,6 @@ class BookingDataAccess(BaseDataAccess):
         INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date, is_cancelled, total_amount)
         VALUES (?,?,?,?,?,?)
             """
-
         params = tuple([
             guest_id.guest_id if guest_id else None,
             room_id.room_id if room_id else None,
@@ -46,6 +46,8 @@ class BookingDataAccess(BaseDataAccess):
             total_amount=total_amount,
             guest=guest_id.guest_id if guest_id else None
         )
+
+    #Hilfsfunktion
     def delete_booking_by_id(self, booking_id: int) -> bool:
         if booking_id is None:
             raise ValueError("booking_id darf nicht None sein")
@@ -54,7 +56,7 @@ class BookingDataAccess(BaseDataAccess):
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
-    ##User story 1.4 ? 2.2
+    ##User story 1.4, 1.5, 2.2, 4, 10.6
     def show_bookings_with_hotels(self)-> list[model.Booking]:
         sql="""
         SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date, booking.is_cancelled, booking.total_amount, room.hotel_id, room.room_number
@@ -78,8 +80,7 @@ class BookingDataAccess(BaseDataAccess):
         )
         return return_list
 
-
-    # für User story 5
+    #User story 5
     def get_booking_by_id(self, booking_id: int) -> model.Booking:
         sql = """
               SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date,
@@ -128,7 +129,7 @@ class BookingDataAccess(BaseDataAccess):
 
         return None
 
-    #user Story 6
+    #user Story 6, 10.6
     def update_booking_by_id(self, booking_id: int, guest: model.Guest, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: int)-> bool:
         sql="""
         UPDATE Booking 
@@ -138,17 +139,7 @@ class BookingDataAccess(BaseDataAccess):
         _, row_count = self.execute(sql, params)
         return row_count > 0
 
-    def cancel_booking(self, booking_id: int)-> bool:
-        sql="""
-        UPDATE Booking 
-        SET is_cancelled = 1 
-        WHERE booking_id = ?"""
-        params = (booking_id,)
-        _, row_count = self.execute(sql, params)
-        return row_count > 0
-
     #User Story 8
-
     def get_all_bookings_with_hotel(self) -> list[Booking]:
         sql = """
               SELECT b.booking_id,
@@ -180,7 +171,7 @@ class BookingDataAccess(BaseDataAccess):
             hotel = Hotel(hotel_id, hotel_name, stars, address)
             room = Room(room_id, room_number, 0.0, None, hotel)  # Preis/Typ optional
 
-            # ✅ Hier: Parameter korrekt benannt!
+            #Hier: Parameter korrekt benannt!
             booking = Booking(
                 booking_id=booking_id,
                 hotel_id=hotel_id,
@@ -197,4 +188,3 @@ class BookingDataAccess(BaseDataAccess):
             bookings.append(booking)
 
         return bookings
-
