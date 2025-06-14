@@ -1,9 +1,8 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
-from model.facility import Facility
+
 from model.booking import Booking
 from model.room_type import RoomType
-from model import Hotel
+
 
 ##Room
 class Room:

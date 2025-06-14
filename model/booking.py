@@ -1,5 +1,7 @@
 from datetime import datetime, date
+
 from model.guest import Guest
+
 class Booking:
     def __init__(self, booking_id: int, hotel_id: int, room_id: int, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: float, guest: Guest):
         if not booking_id:

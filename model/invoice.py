@@ -2,7 +2,6 @@ from datetime import datetime, date
 
 from model import Booking
 
-
 ##Invoice
 class Invoice:
     #attributes

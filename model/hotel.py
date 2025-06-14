@@ -1,5 +1,6 @@
-##Hotel#
+
 from model import Address
+##Hotel
 class Hotel:
     #attributes
     def __init__(self, hotel_id:int, name:str, stars:int, address:Address):
