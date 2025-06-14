@@ -126,7 +126,7 @@ class BookingDataAccess(BaseDataAccess):
 
         return None
 
-    #user Story 6.
+    #user Story 6
     def update_booking_by_id(self, booking_id: int, guest: model.Guest, check_in_date: date, check_out_date: date, is_cancelled: bool, total_amount: int)-> bool:
         sql="""
         UPDATE Booking 
