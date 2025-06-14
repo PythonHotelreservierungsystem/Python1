@@ -13,11 +13,7 @@ class Guest:
         self.bookings = []  # Association mit Booking
         self.phone_number = phone_number
 
-    ## add_booking Methode
-    def add_booking(self, booking):
-        self.bookings.append(booking)
-
-    ## guest_id Getter & Setter
+    ## guest_id Getter
     @property
     def guest_id(self):
         return self.__guest_id
@@ -26,7 +22,6 @@ class Guest:
     @property
     def firstname(self):
         return self.__firstname
-
     @firstname.setter
     def firstname(self, value: str):
         if value:
@@ -38,7 +33,6 @@ class Guest:
     @property
     def lastname(self):
         return self.__lastname
-
     @lastname.setter
     def lastname(self, value):
         if value:
@@ -50,7 +44,6 @@ class Guest:
     @property
     def email(self):
         return self.__email
-
     @email.setter
     def email(self, value):
         if "@" not in value or "." not in value:
@@ -61,7 +54,6 @@ class Guest:
     @property
     def address(self):
         return self.__address
-
     @address.setter
     def address(self, value):
         if value:
@@ -69,10 +61,10 @@ class Guest:
         else:
             raise ValueError("Ungültige Adresse")
 
+    #Phone Number Getter & Setter
     @property
     def phone_number(self):
         return self.__phone_number
-
     @phone_number.setter
     def phone_number(self, value: str):
         if value is None or (isinstance(value, str) and value.strip() != ""):

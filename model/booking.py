@@ -16,15 +16,16 @@ class Booking:
         self.is_cancelled = is_cancelled
         self.total_amount = total_amount
         self.guest = guest
-#
+
+    #Booking id Getter
     @property
     def booking_id(self):
         return self.__booking_id
 
+    #Checkindate Getter & Setter
     @property
     def check_in_date(self):
         return self.__check_in_date
-
     @check_in_date.setter
     def check_in_date(self, value):
         if isinstance(value, date):
@@ -33,14 +34,14 @@ class Booking:
             parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
         else:
             raise TypeError("check_in_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
-        ##if parsed_date < date.today():
-        ##    raise ValueError("CheckIn Date darf nicht in der Vergangenheit liegen")
+        if parsed_date < date.today():
+            raise ValueError("CheckIn Date darf nicht in der Vergangenheit liegen")
         self.__check_in_date = parsed_date
 
+    #Checkoutdate Getter & Setter
     @property
     def check_out_date(self):
         return self.__check_out_date
-
     @check_out_date.setter
     def check_out_date(self, value):
         if isinstance(value, date):
@@ -49,11 +50,8 @@ class Booking:
             parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
         else:
             raise TypeError("check_out_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
-        #if parsed_date < date.today():
-            #raise ValueError("CheckOut Date darf nicht in der Vergangenheit liegen")
+        if parsed_date < date.today():
+            raise ValueError("CheckOut Date darf nicht in der Vergangenheit liegen")
         if hasattr(self, '_Booking__checkin_date') and parsed_date < self.check_in_date:
             raise ValueError("CheckOut Date darf nicht vor dem CheckIn Date liegen")
         self.__check_out_date = parsed_date
-
-    def __str__(self):
-        return f"Booking({self.__booking_id}, {self.check_in_date}, {self.check_out_date}, {self.is_cancelled}, {self.total_amount}, {self.guest})"

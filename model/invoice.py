@@ -24,7 +24,6 @@ class Invoice:
     @property
     def issue_date(self):
         return self.__issue_date
-
     @issue_date.setter
     def issue_date(self, value):
         if isinstance(value, str):

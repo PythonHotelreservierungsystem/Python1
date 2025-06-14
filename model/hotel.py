@@ -14,7 +14,7 @@ class Hotel:
         self.address = address
         self.__rooms = []
 
-    ##hotel_id Getter & Setter
+    ##hotel_id Getter
     @property
     def hotel_id(self):
         return self.__hotel_id

@@ -9,5 +9,3 @@ class RoomFacilities:
             raise ValueError("facility_id muss eine Zahl sein")
         self.facility_id = facility_id
         self.room_id = room_id
-
-

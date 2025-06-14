@@ -22,7 +22,6 @@ class Admin:
     @property
     def username(self):
         return self.__username
-
     @username.setter
     def username(self, value: str):
         if value and isinstance(value, str):
@@ -34,7 +33,6 @@ class Admin:
     @property
     def password(self):
         return self.__password
-
     @password.setter
     def password(self, value):
         self.__password = value
@@ -57,7 +55,6 @@ class Admin:
     @property
     def email(self):
         return self.__email
-
     @email.setter
     def email(self, value):
         if "@" not in value or "." not in value:
@@ -65,10 +62,10 @@ class Admin:
         self.__email = value
         # Email muss ein @ und . enthalten.
 
+    #Vorname Getter & Setter
     @property
     def vorname(self):
         return self.__vorname
-
     @vorname.setter
     def vorname(self, value: str):
         if value and isinstance(value, str):
@@ -76,10 +73,10 @@ class Admin:
         else:
             raise ValueError("Ungültiger Vorname")
 
+    #Nachname Getter & Setter
     @property
     def nachname(self):
         return self.__nachname
-
     @nachname.setter
     def nachname(self, value: str):
         if value and isinstance(value, str):
