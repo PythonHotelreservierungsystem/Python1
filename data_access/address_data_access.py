@@ -10,7 +10,7 @@ class AddressDataAccess(BaseDataAccess):
         super().__init__(db_path)
 
 
-##Do müend bi de Models no ergänzt werde mit Country und so u
+    #create address
     def create_address(self,street: str,city: str,zip_code: int) -> model.Address:
 
         if street is None:
