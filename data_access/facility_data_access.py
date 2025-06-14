@@ -8,6 +8,7 @@ class FacilityDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
 
+    #Hilfsfunktion
     def create_facility(
             self,
             facility_name: str

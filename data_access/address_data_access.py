@@ -11,7 +11,7 @@ class AddressDataAccess(BaseDataAccess):
 
     #User Story 3.1
     def create_address(self,street: str,city: str,zip_code: int) -> model.Address:
-
+        #Sicherstellung von richtigen Werten
         if street is None:
             raise ValueError("street cannot be None")
         if city is None:
@@ -25,7 +25,7 @@ class AddressDataAccess(BaseDataAccess):
         params = tuple([street, city, zip_code])
 
         last_row_id, row_count = self.execute(sql, params)
-
+        #Gibt Addresse zurück mit der aktuellsten Id
         return model.Address(
             address_id=last_row_id,
             street=street,
@@ -47,7 +47,7 @@ class AddressDataAccess(BaseDataAccess):
         return row_count > 0
 
     #User Story 10.2
-    def show_address_by_id(self, address_id:int) -> model.Address:
+    def show_address_by_id(self, address_id:int) -> [model.Address]:
         if address_id is None:
             raise ValueError("Address ID is required")
         sql = """ 

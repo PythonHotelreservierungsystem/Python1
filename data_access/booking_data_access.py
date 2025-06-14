@@ -21,7 +21,7 @@ class BookingDataAccess(BaseDataAccess):
             raise ValueError("Check in and check out dates are required")
         if check_in_date > check_out_date:
             raise ValueError("Check in date cannot be after check out date")
-        ##Für Userstory
+
         sql="""
         INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date, is_cancelled, total_amount)
         VALUES (?,?,?,?,?,?)
@@ -34,7 +34,7 @@ class BookingDataAccess(BaseDataAccess):
             is_cancelled,
             total_amount
         ])
-
+        #Gibt Buchung zurück mit oder ohne optionalen Parametern
         last_row_id, row_count = self.execute(sql, params)
         return model.Booking(
             booking_id=last_row_id,
@@ -81,7 +81,7 @@ class BookingDataAccess(BaseDataAccess):
         return return_list
 
     #User story 5
-    def get_booking_by_id(self, booking_id: int) -> model.Booking:
+    def get_booking_by_id(self, booking_id: int) -> [model.Booking]:
         sql = """
               SELECT booking.booking_id, booking.room_id, booking.guest_id, booking.check_in_date, booking.check_out_date,
                      booking.is_cancelled, booking.total_amount, room.room_number, room.price_per_night,
@@ -93,7 +93,7 @@ class BookingDataAccess(BaseDataAccess):
               """
         params = (booking_id,)
         result = self.fetchone(sql, params)
-
+        #Result verifizieren
         if result:
             (booking_id, room_id, guest_id, check_in_date, check_out_date, is_cancelled, total_amount,
              room_number, price_per_night, type_id, type_description, max_guests) = result
