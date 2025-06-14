@@ -9,7 +9,6 @@ from data_access.room_type_data_access import RoomTypeDataAccess
 from data_access.booking_data_access import BookingDataAccess
 from data_access.guest_data_access import GuestDataAccess
 from data_access.invoice_data_access import InvoiceDataAccess
-from data_access.base_data_access import BaseDataAccess
 
 
 class AdminManager:

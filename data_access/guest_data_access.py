@@ -1,8 +1,5 @@
 from __future__ import annotations
 import model
-from model import Address
-from model import Hotel
-from model import Booking
 from model import Guest
 from data_access.base_data_access import BaseDataAccess
 
