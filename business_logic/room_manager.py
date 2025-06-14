@@ -1,9 +1,10 @@
-import model
-from model import Hotel, Room
+from datetime import datetime, date, timedelta
+
+from model import Room
+
 from data_access import RoomDataAccess, FacilityDataAccess
 from data_access import RoomDataAccess
 from data_access import HotelDataAccess, BookingDataAccess
-from datetime import datetime, date, timedelta
 
 
 class RoomManager:

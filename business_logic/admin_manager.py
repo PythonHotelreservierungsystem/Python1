@@ -1,6 +1,8 @@
-import model
 from datetime import date
-from model.room_type import RoomType
+
+import model
+from model import RoomType
+
 from data_access.address_data_access import AddressDataAccess
 from data_access.hotel_data_access import HotelDataAccess
 from data_access.admin_data_access import AdminDataAccess

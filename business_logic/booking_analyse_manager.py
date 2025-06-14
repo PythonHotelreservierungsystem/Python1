@@ -1,6 +1,8 @@
 import pandas as pd
+
 from data_access.booking_data_access import BookingDataAccess
 from data_access.room_data_access import RoomDataAccess
+
 
 class BookingAnalyticsManager:
     def __init__(self, booking_da: BookingDataAccess, room_da: RoomDataAccess):

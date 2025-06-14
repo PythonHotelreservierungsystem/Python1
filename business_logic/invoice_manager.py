@@ -1,5 +1,5 @@
-from datetime import date
-from model.invoice import Invoice
+from model import Invoice
+
 from data_access.invoice_data_access import InvoiceDataAccess
 from data_access.booking_data_access import BookingDataAccess
 

@@ -1,6 +1,7 @@
 import sqlite3
 from model.admin import Admin
 
+
 class AdminDataAccess:
     def __init__(self, db_path="database/hotel_reservation_sample.db"):
         self.db_path = db_path

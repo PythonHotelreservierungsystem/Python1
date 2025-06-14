@@ -1,6 +1,7 @@
 import os
 import sqlite3
 
+
 class BaseDataAccess:
     def __init__(self, connection_str: str = "../../database/hotel_reservation_sample.db"):
         if connection_str:

@@ -1,12 +1,12 @@
-import model
 from datetime import date
+
+import model
+from model import Booking
+
 from data_access.booking_data_access import BookingDataAccess
 from data_access.invoice_data_access import InvoiceDataAccess
-from data_access.room_data_access import RoomDataAccess
+
 from business_logic.room_manager import RoomManager
-
-
-from model import Booking
 
 
 class BookingManager:

@@ -7,7 +7,6 @@ from data_access.base_data_access import BaseDataAccess
 from data_access.address_data_access import AddressDataAccess
 
 
-
 class RoomDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None, address_data_access: AddressDataAccess = None):
         super().__init__(db_path)
