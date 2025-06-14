@@ -198,23 +198,3 @@ class BookingDataAccess(BaseDataAccess):
 
         return bookings
 
-
-
-    # def show_all_bookings_with_all_hotels(self,) -> list[model.Booking]:
-    #     sql = """
-    #     SELECT Booking.booking_id, check_in_date, check_out_date, is_cancelled, Hotel.hotel_id, name, Guest.guest_id, first_name, last_name, Room.room_id, room_number, price_per_night, type_id, description, max_guests
-    #     FROM Booking
-    #     JOIN Room ON Booking.room_id = room.room_id
-    #     JOIN Guest ON Booking.guest_id = Guest.guest_id
-    #     JOIN Hotel ON Room.hotel_id = Hotel.hotel_id
-    #     JOIN Room_Type AS room_type ON room.type_id = room_type.type_id
-    #         """
-    #     bookings = self.fetchall(sql)
-    #
-    #     return_list = []
-    #
-    #     for booking_id, check_in_date, check_out_date, is_cancelled, hotel_id, name, guest_id, firstname, lastname, room_id, room_number, price_per_night, type_id, description, max_guests in bookings:
-    #         return_list.append(model.Booking(booking_id, check_in_date, check_out_date, is_cancelled, model.Hotel(hotel_id, name, model.Guest(guest_id, firstname, lastname, model.Room(room_id, room_number, model.RoomType(type_id, description, max_guests))))))
-    #
-    #     return return_list
-
