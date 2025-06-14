@@ -1,10 +1,12 @@
-import model
-from data_access import AddressDataAccess
-from model.booking import Booking
-from model.hotel import Hotel
-from model.room import Room
 from datetime import date
-from data_access.base_data_access import BaseDataAccess
+
+import model
+from model import Booking
+from model import Hotel
+from model import Room
+
+from data_access import AddressDataAccess
+from data_access import BaseDataAccess
 
 
 class BookingDataAccess(BaseDataAccess):

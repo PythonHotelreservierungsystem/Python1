@@ -1,20 +1,15 @@
 import model
-from data_access.base_data_access import BaseDataAccess
-from data_access.hotel_data_access import HotelDataAccess
-from data_access.room_type_data_access import RoomTypeDataAccess
-from data_access.address_data_access import AddressDataAccess
-from data_access.guest_data_access import GuestDataAccess
 from model import Room
-from model import Address
-from model import Guest
-from model import Booking
-from model import Guest
 from model import Hotel
 from model import RoomType
-import sqlite3
+
+from data_access.base_data_access import BaseDataAccess
+from data_access.address_data_access import AddressDataAccess
+
+
 
 class RoomDataAccess(BaseDataAccess):
-    def __init__(self, db_path: str = None, adress_data_access: AddressDataAccess = None ):
+    def __init__(self, db_path: str = None, address_data_access: AddressDataAccess = None):
         super().__init__(db_path)
         self.__address_da = AddressDataAccess(db_path)
 

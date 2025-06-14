@@ -1,5 +1,7 @@
-import model
 from datetime import date
+
+import model
+
 from data_access.base_data_access import BaseDataAccess
 
 class InvoiceDataAccess(BaseDataAccess):

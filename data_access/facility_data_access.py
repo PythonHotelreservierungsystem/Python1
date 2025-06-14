@@ -1,7 +1,8 @@
 import model
+from model import Facility
 
 from data_access.base_data_access import BaseDataAccess
-from model import Facility, RoomFacilities
+
 
 
 class FacilityDataAccess(BaseDataAccess):

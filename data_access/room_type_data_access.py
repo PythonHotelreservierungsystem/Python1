@@ -1,7 +1,6 @@
 import model
 
 from data_access.base_data_access import BaseDataAccess
-from model import RoomType
 
 class RoomTypeDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
