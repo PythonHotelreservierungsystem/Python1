@@ -50,7 +50,7 @@ class AdminManager:
         return self.__room_type_da.update_room_type(room_type_id=room_type_id, description=description, max_guests=max_guests)
 
 
-    #für login
+    #für loginprüfung wird über AdminDataAccess die Funktion login_admin() aufgerufen
     def authenticate(self, username: str, password: str) -> bool:
         admin = self.admin_data_access.login_admin(username, password)
         if admin:

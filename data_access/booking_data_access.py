@@ -1,4 +1,5 @@
 import model
+from data_access import AddressDataAccess
 from model.booking import Booking
 from model.hotel import Hotel
 from model.room import Room
@@ -9,7 +10,7 @@ from data_access.base_data_access import BaseDataAccess
 class BookingDataAccess(BaseDataAccess):
     def __init__(self, db_path: str = None):
         super().__init__(db_path)
-
+        self.address_da = AddressDataAccess(db_path)
 ##User Story 4
     def create_booking(self, guest_id: model.Guest = None, room_id: model.Room = None, check_in_date: date =None, check_out_date: date = None, is_cancelled: bool = False, total_amount: float = 0.0
     ) -> model.Booking:
@@ -148,17 +149,17 @@ class BookingDataAccess(BaseDataAccess):
 
     def get_all_bookings_with_hotel(self) -> list[Booking]:
         sql = """
-              SELECT b.booking_id, \
-                     b.room_id, \
-                     b.guest_id, \
-                     b.check_in_date, \
-                     b.check_out_date, \
-                     b.is_cancelled, \
-                     b.total_amount, \
-                     r.room_number, \
-                     h.hotel_id, \
-                     h.name, \
-                     h.stars, \
+              SELECT b.booking_id,
+                     b.room_id,
+                     b.guest_id,
+                     b.check_in_date,
+                     b.check_out_date,
+                     b.is_cancelled,
+                     b.total_amount,
+                     r.room_number,
+                     h.hotel_id,
+                     h.name,
+                     h.stars,
                      h.address_id
               FROM Booking b
                        JOIN Room r ON b.room_id = r.room_id
@@ -176,8 +177,19 @@ class BookingDataAccess(BaseDataAccess):
             address = self.address_da.show_address_by_id(address_id)
             hotel = Hotel(hotel_id, hotel_name, stars, address)
             room = Room(room_id, room_number, 0.0, None, hotel)  # Preis/Typ optional
-            booking = Booking(booking_id, room_id, guest_id, check_in_date,
-                              check_out_date, is_cancelled, total_amount)
+
+            # ✅ Hier: Parameter korrekt benannt!
+            booking = Booking(
+                booking_id=booking_id,
+                hotel_id=hotel_id,
+                room_id=room_id,
+                check_in_date=check_in_date,
+                check_out_date=check_out_date,
+                is_cancelled=is_cancelled,
+                total_amount=total_amount,
+                guest=guest_id
+            )
+
             booking.room = room
             booking.hotel = hotel  # optionales Attribut hinzufügen, falls nicht vorhanden
             bookings.append(booking)

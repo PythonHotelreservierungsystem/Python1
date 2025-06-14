@@ -7,6 +7,7 @@ class BookingAnalyticsManager:
         self.booking_da = booking_da
         self.room_da = room_da
 
+    #Methode für Datenvisualisierung 1: Buchungen pro Zimmerart anzeigen lassen
     def get_booking_counts_by_room_type(self) -> pd.DataFrame:
         # Daten laden
         bookings = self.booking_da.show_bookings_with_hotels()
@@ -27,7 +28,7 @@ class BookingAnalyticsManager:
         # Join über room_id
         df_merged = pd.merge(df_bookings, df_rooms, on="room_id", how="left")
 
-        # Nur nicht stornierte Buchungen
+        # stornierte buchungen aussortieren
         df_valid = df_merged[df_merged["is_cancelled"] == 0]
 
         # Gruppieren und zählen

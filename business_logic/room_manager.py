@@ -7,7 +7,7 @@ from datetime import datetime, date, timedelta
 
 
 class RoomManager:
-    def __init__(self, room_data_access: RoomDataAccess, facility_data_access: FacilityDataAccess):
+    def __init__(self, room_data_access: RoomDataAccess, facility_data_access: FacilityDataAccess = None):
         self.__room_da = room_data_access
         self.__facility_da = facility_data_access
 

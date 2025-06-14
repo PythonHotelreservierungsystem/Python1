@@ -114,5 +114,5 @@ class BookingManager:
 
     #User Story 8
     def show_all_bookings_with_all_hotels(self) -> list[Booking]:
-        return self.__booking_da.show_bookings_with_hotels()
+        return self.__booking_da.get_all_bookings_with_hotel()
 
