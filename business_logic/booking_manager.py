@@ -112,7 +112,7 @@ class BookingManager:
         invoice = invoice_da.create_invoice(issue_date=issue_date, total_amount=gesamtpreis, booking_id=neue_buchung.booking_id)
         return invoice
 
-    #User Story 8
+    #user Story 8
     def show_all_bookings_with_all_hotels(self) -> list[Booking]:
         return self.__booking_da.get_all_bookings_with_hotel()
 
