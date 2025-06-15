@@ -33,7 +33,7 @@ Beinhaltet Informationen zu Zimmern in Hotels, welche Listen von RoomType und Fa
 Repräsentiert ein Hotel mit Name, Adresse, Sterne und der Zimmerliste.
 
 ### Invoice
-Wird bei einer Buchung erstellt, berechnet und speichert den Betrag und generiert ein pdf Dokument der Rechnung, welche direkt zum Gast gesendet wird.
+Wird bei einer Buchung erstellt, berechnet, speichert den Betrag und generiert ein pdf Dokument der Rechnung, welche direkt zum Gast gesendet wird.
 
 ### Admin
 Der Admin hat Rechte zur Verwaltung der Benutzer, Hotels, Buchungen etc.
@@ -166,7 +166,7 @@ Die Single-Zimmer könnten bei Bedarf gezielt vermarktet werden, um ihre solide 
 In diesem Modul stellte sich die Aufteilung der Arbeiten sehr schwer, vor allem aus dem Grund, dass kein Mitglied Erfahrungen mit Python hatte. 
 Nach anfänglichem Ausprobieren teilten wir die Aufgaben in die drei Teile, model, data_access und business_logic auf, jede Person übernahm einen davon.
 Nachdem die Models befriedigend umgesetzt wurden, stellte sich schnell heraus, dass diese Aufgabenteilung für die individuelle Weiterentwicklung und die Fertigstellung des Projektes wenig sinnvoll war.
-Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den Erwärbstätigkeiten mancher Gruppenmitglieder wurde das Projekt die verschiedenen Userstories aufgeteilt und bearbeitet.
+Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den Erwerbstätigkeiten mancher Gruppenmitglieder wurde das Projekt die verschiedenen Userstories aufgeteilt und bearbeitet.
 Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. Als letztes wurde das Video  online in einer Teamskonferenz aufgenommen und danach geschnitten und mit den anderen Dokumenten hochgeladen.
 
 # Fazit
