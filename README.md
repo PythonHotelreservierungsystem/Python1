@@ -95,6 +95,12 @@ Der Gast gibt Check-in und Check-out als Datumsobjekte an: check_in = date(2025,
 Die Herausforderung dieser Userstory war die Verknüpfung von room, room_type, booking mit den check_in_date und check_out_date. 
 
 ### User Story 3; Als Admin des Buchungssystems möchte ich die Möglichkeit haben, Hotelinformationen zu pflegen, um aktuelle Informationen im System zu haben.
+### User Story 3.1; Ich möchte neue Hotels zum System hinzufügen
+Bevor ein Hotel erstellt wird, prüft das System, ob ein Admin angemeldet ist: if admin_manager.get_logged_in_admin(). Ohne Login wird der Zugriff verweigert: else: print("Zugriff verweigert – bitte zuerst als Admin einloggen."). Es wird ein Adressobjekt erstellt, das die Straße, Stadt und Postleitzahl des neuen Hotels enthält. Die address_id wird von der Datenbank automatisch vergeben: adresse = Address(    address_id=0, street="Lindenweg 8", city="Däniken", zip_code=3012). Das Hotel wird mit Namen, Sternebewertung und Adresse in das System eingefügt. Die Daten werden über eine Hotelverwaltungsfunktion (create_new_hotel) verarbeitet: neues_hotel = manager.create_new_hotel(name="Hotel Bernblick", stars=3, address=adresse, address_da=address_da). Wenn das Hotel erfolgreich erstellt wurde, gibt der Code zur Bestätigung relevante Informationen aus: Hotel wurde erfolgreich erstellt: Hotel-ID: 17 Address-ID: 42 Hotel Bernblick, Lindenweg 8, 3012 Däniken. Falls ein Fehler beim Erstellen des Hotels auftritt, wird dieser über ein try-except-Block abgefangen und ausgegeben: except Exception as e: print("Fehler beim Erstellen des Hotels:", e). Diese Funktion ermöglicht es Administratoren, das System bei Bedarf eigenständig und sicher um neue Hotelstandorte zu erweitern.
+### User Story 3.2; Ich möchte Hotels aus dem System entfernen
+
+### User Story 3.3; Ich möchte die Informationen bestimmter Hotels aktualisieren, z. B. den Namen, die Sterne usw.
+
 Das Hinzufügen und Löschen von Daten waren nicht eine riesige Herausforderung, lediglich das Update in 3.3 war schwierig umzusetzen. Wir haben einen neuen Wert definiert, das Update durchgeführt und das Ergebnis danach angezeigen lassen.
 
 ### User Story 4; Als Gast möchte ich ein Zimmer in einem bestimmten Hotel buchen, um meinen Urlaub zu planen.
