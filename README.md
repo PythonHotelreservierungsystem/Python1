@@ -6,6 +6,13 @@ Entwickler - Yannick Krähenbühl, Cesco Meggiolaro, Tobias Mutz, Jennifer Stude
 
 Coaches -  Sandro Schwander, Phillip Gachnang
 
+# Projektstruktur, Überblick
+
+![Project_Structure.png](images/Project_Structure.png)
+In der Datenbank werden sämtliche Daten hinterlegt.
+Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben definiert.  
+Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Verfügbarkeit der Abfragen gewährleistet, welche in der [business_logic](business_logic) definiert werden.
+
 # Klassendiagramm
 
 ![2.Sem AEP.jpg](images/2.Sem%20AEP.jpg)
@@ -51,13 +58,6 @@ Room -> Facility: m:n
 Booking -> Invoice: 1:1
 
 Admin, Guest -> Address: 1:1
-
-# Projektstruktur, Überblick
-
-![Project_Structure.png](images/Project_Structure.png)
-In der Datenbank werden sämtliche Daten hinterlegt.
-Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben definiert.  
-Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Verfügbarkeit der Abfragen gewährleistet, welche in der [business_logic](business_logic) definiert werden.
 
 # Umsetzung User Stories
 Sämtliche UserStory Abfragen werden in einem seperaten Jupyter Notebook ([user_stories.ipynb](user_stories.ipynb)) abgefragt.
