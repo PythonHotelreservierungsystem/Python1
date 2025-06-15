@@ -30,7 +30,7 @@ class BookingAnalyticsManager:
         # Join über room_id
         df_merged = pd.merge(df_bookings, df_rooms, on="room_id", how="left")
 
-        # stornierte buchungen aussortieren
+        # Stornierte buchungen aussortieren
         df_valid = df_merged[df_merged["is_cancelled"] == 0]
 
         # Gruppieren und zählen
