@@ -34,8 +34,6 @@ class Booking:
             parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
         else:
             raise TypeError("check_in_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
-        if parsed_date < date.today():
-            raise ValueError("CheckIn Date darf nicht in der Vergangenheit liegen")
         self.__check_in_date = parsed_date
 
     #Checkoutdate Getter & Setter
@@ -50,8 +48,6 @@ class Booking:
             parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
         else:
             raise TypeError("check_out_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
-        if parsed_date < date.today():
-            raise ValueError("CheckOut Date darf nicht in der Vergangenheit liegen")
         if hasattr(self, '_Booking__checkin_date') and parsed_date < self.check_in_date:
             raise ValueError("CheckOut Date darf nicht vor dem CheckIn Date liegen")
         self.__check_out_date = parsed_date

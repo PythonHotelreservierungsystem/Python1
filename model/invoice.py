@@ -35,10 +35,6 @@ class Invoice:
             parsed_date = value
         else:
             raise TypeError("issue_date muss ein String (YYYY-MM-DD) oder ein datetime.date sein")
-        # Validierung: kein Datum in der Vergangenheit
-        if parsed_date < date.today():
-            raise ValueError("Issue Date darf nicht in der Vergangenheit liegen")
-
         self.__issue_date = parsed_date
 
     ##total_amount Getter & Setter
