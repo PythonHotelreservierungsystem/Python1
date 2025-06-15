@@ -9,10 +9,10 @@ Coaches -  Sandro Schwander, Phillip Gachnang
 # Projektstruktur, Überblick
 
 ![Project_Structure.png](images/Project_Structure.png)
-In der Datenbank werden sämtliche Daten hinterlegt.
-Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben definiert.  
-Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Verfügbarkeit der Abfragen gewährleistet, welche in der [business_logic](business_logic) definiert werden.
-Das UI (User Interface) wurde in der User Story 1 der Datenvisualisierung festgehalten.
+In der Datenbank werden sämtliche Daten hinterlegt und gespeichert.
+Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben validiert, damit die Fehlerrate in den Daten möglichst minimiert wird.  
+Die den Zugriff auf die Datenbank ist der [data_access](data_access) zuständig. Darin wird die Verfügbarkeit der Abfragen mit SQL-Statements gewährleistet, welche in der [business_logic](business_logic) definiert werden. Genauer gessagt verbindet der Business Logic Layer die Datenbankabfragen vom Business Logic Layer mit Regeln und Abläufen.
+Das UI (User Interface) wurde in der User Story 1 der Datenvisualisierung festgehalten. Dabei liegt der Fokus auf die benutzerfreundliche Darstellung und kommuniziert mit dem Business Logic Layer, um die aktuellsten Informationen benutzerfreundlich anzuzeigen.
 
 # Klassendiagramm
 
