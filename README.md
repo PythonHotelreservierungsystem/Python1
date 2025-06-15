@@ -53,7 +53,10 @@ Booking -> Invoice: 1:1
 Admin, Guest -> Address: 1:1
 
 # Projektstruktur, Überblick
-Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. 
+
+![Project_Structure.png](images/Project_Structure.png)
+In der Datenbank werden sämtliche Daten hinterlegt.
+Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben definiert.  
 Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Verfügbarkeit der Abfragen gewährleistet, welche in der [business_logic](business_logic) definiert werden.
 
 # Umsetzung User Stories
