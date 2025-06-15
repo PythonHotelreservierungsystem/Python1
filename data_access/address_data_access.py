@@ -33,7 +33,7 @@ class AddressDataAccess(BaseDataAccess):
             zip_code=zip_code
         )
 
-    #Delete Addresss
+    #Delete Address
     def delete_address(self,address: model.Address):
         pass
 
