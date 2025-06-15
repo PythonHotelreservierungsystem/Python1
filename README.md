@@ -49,16 +49,28 @@ Definiert die Art des Zimmers (Einelzimmer, Suite, Doppelzimmer) und die maximal
 
 ## Beziehungen
 Guest -> Booking: 1:n
+Ein Gast kann mehere Buchungen tätigen, während im System eine Buchung nur auf einen Gast zugeteilt werden kann.
 
-Booking -> Room: 1:1
+Booking -> Room: m:n
+Buchungen können einen oder mehrere Räume enthalten.
 
 Hotel -> Room: 1:n
+Ein Hotel hat ein oder mehrere Räume, während ein Raum genau ein Hotel hat.
 
 Room -> Facility: m:n
+Räume können mehrere Einrichtungseigenschaften enthalten.
 
-Booking -> Invoice: 1:1
+Booking -> Invoice: 1:n
+Eine Buchung kann eine oder mehrere Rechnungen enthalten, eine Rechnung gehört genau zu einer Buchung.
 
-Admin, Guest -> Address: 1:1
+Hotel, Guest -> Address: 1:1
+Eine Adresse gehört genau zu einem Gast oder einem Hotel.
+
+Admin -> Hotel, Room, RoomType, Booking: m:n
+Ein Admin kann ein oder mehrere Hotels, Räume, Raumtypen oder Buchungen bearbeiten, hinzufügen oder stornieren.
+
+Room -> RoomType: 1:1
+Ein Raum hat genau einen Raumtyp, während ein Raumtyp ebenso genau einen Raum betrifft.
 
 # Umsetzung User Stories
 Sämtliche UserStory Abfragen werden in einem seperaten Jupyter Notebook ([user_stories.ipynb](user_stories.ipynb)) abgefragt.
