@@ -130,6 +130,9 @@ Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den
 Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. Als letztes wurde das Video  online in einer Teamskonferenz aufgenommen und danach geschnitten und mit den anderen Dokumenten hochgeladen.
 
 # Fazit
-Das Projekt war deutlich schwieriger und zeitaufwändiger als das vorher besuchte Modul Datenbasierte Unternehmensanwedungen. Vor allem zu Beginn war es schwierig zu verstehen, wo und wie man das Gelernte im Projekt anwenden kann.
-Ebenfalls war es organisatorisch spannend das Projekt durchzuführen, da ein Gruppenmitglied die Vorlesungen am Mittwoch besucht hat, während alle anderen Teammitglieder am Montag anwesend waren. Dies benötigte eine gute Organisation und Flexibilität für Besprechungen von allen Parteien.
-
+Das Projekt war deutlich schwieriger und zeitaufwändiger als das vorher besuchte Modul Datenbasierte Unternehmensanwedungen. 
+Vor allem zu Beginn war es schwierig zu verstehen, wo und wie man das Gelernte im Projekt anwenden kann, also genauer gesagt fehlte ein klarer Plan.
+Im Verlauf der Zusammenarbeit zeigte sich, dass die Arbeitsverteilung in der Gruppe nicht immer ausgeglichen war, was teilweise zu zusätzlichem Druck und Verzögerungen geführt hat. Dank unseren Coaches konnten wir langsam Struktur in unser Projekt bringen und die Arbeiten besser definieren.
+Ebenfalls war es organisatorisch spannend das Projekt durchzuführen, da ein Gruppenmitglied die Vorlesungen am Mittwoch besucht hat, während alle anderen Teammitglieder am Montag anwesend waren. 
+Besonders in der Abschlussphase mussten einige Teammitglieder noch einmal Einsatz zeigen, um die offenen Aufgaben fristgerecht zu bewältigen.
+Trotz den Schwierigkeiten konnten wir das Projekt erfolgreich abschliessen und tolle Erfahrungen im Bereich Teamarbeit, Zeitmanagement und Eigenverantwortung sammeln.
