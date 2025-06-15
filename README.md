@@ -20,7 +20,7 @@ Das UI (User Interface) wurde in der User Story 1 der Datenvisualisierung festge
 
 Das Klassendiagramm dient als Grundlage für die Objektstruktur, Geschäftslogik und Datenpersistenz in Python.
 ### Guest
-Repräsentiert einen registrierten Gast, der eine Buchungen buchen, stornieren und den Buchungsverlauf anzeigen kann.
+Repräsentiert einen registrierten Gast, der mehrere Buchungen buchen, stornieren und den Buchungsverlauf anzeigen kann und mit der Adresse verknüpft ist.
 
 ### Booking
 Verbindet die Gästen mit Zimmern zu den bestimmten Zeiträumen, z.B. mit den Attributen check_in_date, check_out_date, is_cancelled, total_amount.
@@ -39,7 +39,7 @@ Wird bei einer Buchung erstellt, berechnet, speichert den Betrag und generiert e
 Der Admin hat Rechte zur Verwaltung der Benutzer, Hotels, Buchungen etc.
 
 ### Address
-Enthält die Adressen von Guest, Hotel und Admin.
+Enthält die Adressen von Gues und Hotel.
 
 ### Facility
 Zusatzleistungen im Hotel, z.B. Spa, WLAN, ein Zimmer kann mehrere Facility-Objekte beinhalten.
