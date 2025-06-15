@@ -36,10 +36,10 @@ Repräsentiert ein Hotel mit Name, Adresse, Sterne und der Zimmerliste.
 Wird bei einer Buchung erstellt, berechnet, speichert den Betrag und generiert ein pdf Dokument der Rechnung, welche direkt zum Gast gesendet wird.
 
 ### Admin
-Der Admin hat Rechte zur Verwaltung der Benutzer, Hotels, Buchungen etc.
+Der Admin hat Rechte zur Verwaltung der Benutzer, Hotels, Buchungen, Zimmer etc.
 
 ### Address
-Enthält die Adressen von Gues und Hotel.
+Enthält die Adressen von Guest und Hotel.
 
 ### Facility
 Zusatzleistungen im Hotel, z.B. Spa, WLAN, ein Zimmer kann mehrere Facility-Objekte beinhalten.
