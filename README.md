@@ -49,27 +49,35 @@ Definiert die Art des Zimmers (Einelzimmer, Suite, Doppelzimmer) und die maximal
 
 ## Beziehungen
 Guest -> Booking: 1:n
+
 Ein Gast kann mehere Buchungen tätigen, während im System eine Buchung nur auf einen Gast zugeteilt werden kann.
 
 Booking -> Room: m:n
+
 Buchungen können einen oder mehrere Räume enthalten.
 
 Hotel -> Room: 1:n
+
 Ein Hotel hat ein oder mehrere Räume, während ein Raum genau ein Hotel hat.
 
 Room -> Facility: m:n
+
 Räume können mehrere Einrichtungseigenschaften enthalten.
 
 Booking -> Invoice: 1:n
+
 Eine Buchung kann eine oder mehrere Rechnungen enthalten, eine Rechnung gehört genau zu einer Buchung.
 
 Hotel, Guest -> Address: 1:1
+
 Eine Adresse gehört genau zu einem Gast oder einem Hotel.
 
 Admin -> Hotel, Room, RoomType, Booking: m:n
+
 Ein Admin kann ein oder mehrere Hotels, Räume, Raumtypen oder Buchungen bearbeiten, hinzufügen oder stornieren.
 
 Room -> RoomType: 1:1
+
 Ein Raum hat genau einen Raumtyp, während ein Raumtyp ebenso genau einen Raum betrifft.
 
 # Umsetzung User Stories
@@ -110,7 +118,7 @@ Mit dem admin_manager konnte mit dem Update hinterlegt werden, dass man die Date
 ### User Story DB-Schemaänderung 1; Als Admin möchte ich alle Buchungen bearbeiten können, um fehlende Informationen zu ergänzen (z.B. Telefonnummer).
 Wir haben uns entschieden, eine neue Tabelle in der Datenbank für den Admin zu erstellen. Dafür wurde eine neue Klasse hinzugefügt (admin_dao.create_admin(admin)) mit den Attributen admin_id, username, password, email, vorname und nachname.
 
-### User Story Datenvisulaisieurng ??;
+### User Story Datenvisulaisieurng User Story 1;
 
 
 
@@ -119,8 +127,9 @@ In diesem Modul stellte sich die Aufteilung der Arbeiten sehr schwer, vor allem 
 Nach anfänglichem Ausprobieren teilten wir die Aufgaben in die drei Teile, model, data_access und business_logic auf, jede Person übernahm einen davon.
 Nachdem die Models befriedigend umgesetzt wurden, stellte sich schnell heraus, dass diese Aufgabenteilung für die individuelle Weiterentwicklung und die Fertigstellung des Projektes wenig sinnvoll war.
 Aufgrund des immer näher rückenden Abgabetermins und des Zeitmangels wegen den Erwärbstätigkeiten mancher Gruppenmitglieder wurde das Projekt die verschiedenen Userstories aufgeteilt und bearbeitet.
-Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. 
+Dies klappte nach anfänglichen Unsicherheiten bei der Umsetzung erstaunlich gut. Als letztes wurde das Video  online in einer Teamskonferenz aufgenommen und danach geschnitten und mit den anderen Dokumenten hochgeladen.
 
 # Fazit
 Das Projekt war deutlich schwieriger und zeitaufwändiger als das vorher besuchte Modul Datenbasierte Unternehmensanwedungen. Vor allem zu Beginn war es schwierig zu verstehen, wo und wie man das Gelernte im Projekt anwenden kann.
 Ebenfalls war es organisatorisch spannend das Projekt durchzuführen, da ein Gruppenmitglied die Vorlesungen am Mittwoch besucht hat, während alle anderen Teammitglieder am Montag anwesend waren. Dies benötigte eine gute Organisation und Flexibilität für Besprechungen von allen Parteien.
+
