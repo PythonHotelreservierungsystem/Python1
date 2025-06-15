@@ -107,7 +107,7 @@ Es ist wichtig, dass die Buchung nicht auf der Datenbank gelöscht wird, sondern
 
 
 ### User Story 8; Als Admin des Buchungssystems möchte ich alle Buchungen aller Hotels sehen können, um eine Übersicht zu erhalten. 
-
+Zu Beginn prüft das System über die Funktion admin_manager.get_logged_in_admin(), ob ein Admin angemeldet ist. Nur bei positiver Prüfung wird dem Nutzer Zugriff auf die vollständige Buchungsübersicht gewährt. Ist kein Admin eingeloggt, wird eine klare Fehlermeldung ausgegeben: print("Zugriff verweigert – bitte zuerst als Admin einloggen.") Diese wurde mit einer else-Schleife erstellt. Sobald ein Admin authentifiziert ist, ruft das System mittels booking_manager.show_all_bookings_with_all_hotels() alle verfügbaren Buchungen aus sämtlichen Hotels ab. Die einzelnen Buchungseinträge werden durch eine for-Schleife verarbeitet und ausgegeben. Dabei enthält jede Buchung folgende Informationen: Hotel-ID, Hotelname, Zimmernummer, Check-In-, Check-Out-Datum, Stornierungsstatus, Gesamtbetrag der Buchung, Name des Gastes. Durch die Verwendung von hasattr wird sichergestellt, dass auch unvollständige oder fehlerhafte Objekte keine Fehlermeldung erzeugen. Die fehlenden Informationen werden stattdessen mit 'N/A' gekennzeichnet. Dies gewährleistet die Stabilität und Lesbarkeit der Ausgabe.
 
 ### User Story 9; Als Admin möchte ich eine Liste der Zimmer mit ihrer Ausstattung sehen, damit ich sie besser bewerben kann.
 Mit dem admin_manager.get_logged_in_admin() kann lediglich der Admin über die room_nr die facility_name aufrufen.
