@@ -47,6 +47,9 @@ Zusatzleistungen im Hotel, z.B. Spa, WLAN, ein Zimmer kann mehrere Facility-Obje
 ### RoomType
 Definiert die Art des Zimmers (Einelzimmer, Suite, Doppelzimmer) und die maximale Anzahl der Gäste pro Zimmer.
 
+### RoomFacilities
+Stellt die Beziehung zwischen RoomType und Facility dar.
+
 ## Beziehungen
 Guest -> Booking: 1:n
 
