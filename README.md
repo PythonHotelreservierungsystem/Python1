@@ -12,6 +12,7 @@ Coaches -  Sandro Schwander, Phillip Gachnang
 In der Datenbank werden sämtliche Daten hinterlegt.
 Die [model](model) definieren die Datenstrukturen, die im gesamten Projekt verwendet werden. Ebenfalls werden die model mit Getter und Setter definiert. Der Getter definiert, dass die Daten abgefragt werden können, während der Setter die Eingaben definiert.  
 Die Datenbankoperation kapselt der [data_access](data_access). Darin wird die Verfügbarkeit der Abfragen gewährleistet, welche in der [business_logic](business_logic) definiert werden.
+Das UI (User Interface) wurde in der User Story 1 der Datenvisualisierung festgehalten.
 
 # Klassendiagramm
 
