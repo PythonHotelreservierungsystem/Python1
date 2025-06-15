@@ -84,13 +84,35 @@ Ein Raum hat genau einen Raumtyp, während ein Raumtyp ebenso genau einen Raum b
 Sämtliche UserStory Abfragen werden in einem seperaten Jupyter Notebook ([user_stories.ipynb](user_stories.ipynb)) abgefragt.
 Grundsätzlich kann man rückblickend sagen, dass es öfters Probleme bei den Datentypen in den Klassen gab, welche falsch definiert wurden und im nachhinein neu angepasst werden mussten.
 
-### User Story 1; Als Gast möchte ich die verfügbaren Hotels durchsuchen, damit ich dasjenige auswählen kann, welches meinen Wünschen entspricht. Wünsche sind
+### User Story 1; Als Gast möchte ich die verfügbaren Hotels durchsuchen, damit ich dasjenige auswählen kann, welches meinen Wünschen entspricht. Wünsche sind:
+### User Story 1.1; Ich möchte alle Hotels in einer Stadt durchsuchen, damit ich das Hotel nach meinem bevorzugten Standort (Stadt) auswählen kann.
+
+
+### User Story 1.2; Ich möchte alle Hotels in einer Stadt nach der Anzahl der Sterne (z.B. mindestens 4 Sterne) durchsuchen.
+
+
+
+### User Story 1.3; Ich möchte alle Hotels in einer Stadt durchsuchen, die Zimmer haben, die meiner Gästezahl entsprechen (nur 1 Zimmer pro Buchung).
+
+
+### User Story 1.4; Ich möchte alle Hotels in einer Stadt durchsuchen die während meines Aufenthaltes ("von" (check_in_date) und "bis" (check_out_date)) Zimmer zur Verfügung haben,damit ich nur relevante Ergebnisse sehe.
+
+
+
+### User Story 1.5; Ich möchte Wünsche kombinieren können, z.B. die verfügbaren Zimmer zusammen mit meiner Gästezahl und der mindest Anzahl Sterne.
+
+
+### User Story 1.6; Ich möchte die folgenden Information pro Hotel sehen: Name, Adresse, Anzahl der Sterne.
+
+
+
+
 Bei den Usterstories 1 waren vor allem die Importe herausfordernd, was nach einigen Recherchen reibungslos funktionierte. Ebenfalls eine grosse Herausforderung war die Trennung der Business Logic und dem Data Access, also welche Informationen wo hinterlegt werden. 
 
 ### User Story 2; Als Gast möchte ich Details zu verschiedenen Zimmertypen (Single, Double, Suite usw.), die in einem Hotel verfügbar sind, sehen, einschliesslich der maximalen Anzahl von Gästen für dieses Zimmer, Beschreibung, Preis und Ausstattung, um eine fundierte Entscheidung zu treffen.
-### 2.1; Ich möchte die folgenden Informationen pro Zimmer sehen: Zimmertyp, max. Anzahl der Gäste, Beschreibung, Ausstattung, Preis pro Nacht und Gesamtpreis.
+### User Story 2.1; Ich möchte die folgenden Informationen pro Zimmer sehen: Zimmertyp, max. Anzahl der Gäste, Beschreibung, Ausstattung, Preis pro Nacht und Gesamtpreis.
 Über die Definition von check_in und check_out kann optional der Gesamtpreis für den Aufenthalt berechnet werden: check_in = date(2025, 7, 11), check_out = date(2025, 7, 15). Alle Zimmerdetails werden über den room_manager geladen: room_infos = room_manager.show_room_details(). Für jedes Zimmer werden folgende Informationen angezeigt: Zimmertyp: room.room_type.description, Maximale Gästezahl: room.room_type.max_guests, Ausstattung: Aus room.facilities extrahiert; falls keine vorhanden ist, wird „Keine!“ ausgegeben, Preis pro Nacht: room.price_per_night in CHF, formatiert auf zwei Nachkommastellen. Wenn Check-In und Check-Out gesetzt sind, wird der Gesamtpreis auf Basis der Nächte berechnet: nächte = (check_out - check_in).days, gesamtpreis = room.price_per_night * nächte. Die Funktion bietet den Gästen eine vollständige und verständliche Übersicht, mit der sie Zimmertypen vergleichen und fundierte Buchungsentscheidungen treffen können.
-### 2.2; Ich möchte nur die verfügbaren Zimmer sehen, sofern ich meinen Aufenthalt (von – bis) spezifiziert habe.
+### User Story 2.2; Ich möchte nur die verfügbaren Zimmer sehen, sofern ich meinen Aufenthalt (von – bis) spezifiziert habe.
 Der Gast gibt Check-in und Check-out als Datumsobjekte an: check_in = date(2025, 8, 20), check_out = date(2025, 8, 22). Die Methode "find_available_rooms_by_dates" liefert nur Zimmer zurück, die im gewählten Zeitraum frei sind: verfuegbare_zimmer = room_manager.find_available_rooms_by_dates(check_in_date=check_in, check_out_date=check_out, booking_dao=booking_dao). Es werden ausschließlich freie Zimmer ausgegeben: for room in verfuegbare_zimmer:, Zimmertyp und Zimmernummer:     print(f"Zimmer {room.room_number} – {room.room_type.description}"), Hotelname und Adresse: print(f" Hotel: {room.hotel.name}, Adresse: {room.hotel.address.street}{room.hotel.address.city}"), Maximale Gästeanzahl:   print(f"  Max. Gäste     : {room.room_type.max_guests}"), Ausstattung (oder „Keine“): print(f"  Ausstattung    : {ausstattung if ausstattung else 'Keine'}"), Preis pro Nacht:     print(f"  Preis pro Nacht: {room.price_per_night:.2f} CHF"), Optional: Gesamtpreis (abhängig von Aufenthaltsdauer): if check_in and check_out and check_out > check_in: nächte = (check_out - check_in).days, gesamtpreis = room.price_per_night * nächte, print(f"  Gesamtpreis    : {gesamtpreis:.2f} CHF für {nächte} Nächte"). Die Funktion sorgt für eine realistische, zielgerichtete Anzeige und verbessert so die Benutzerfreundlichkeit beim Buchen deutlich.
 Die Herausforderung dieser Userstory war die Verknüpfung von room, room_type, booking mit den check_in_date und check_out_date. 
 
@@ -118,7 +140,7 @@ Zu Beginn wird ein Zimmer aus der verfügbaren Liste ausgewählt: rooms = room_m
 Zu Beginn prüft das System über die Funktion admin_manager.get_logged_in_admin(), ob ein Admin angemeldet ist. Nur bei positiver Prüfung wird dem Nutzer Zugriff auf die vollständige Buchungsübersicht gewährt. Ist kein Admin eingeloggt, wird eine klare Fehlermeldung ausgegeben: print("Zugriff verweigert – bitte zuerst als Admin einloggen.") Diese wurde mit einer else-Schleife erstellt. Sobald ein Admin authentifiziert ist, ruft das System mittels booking_manager.show_all_bookings_with_all_hotels() alle verfügbaren Buchungen aus sämtlichen Hotels ab. Die einzelnen Buchungseinträge werden durch eine for-Schleife verarbeitet und ausgegeben. Dabei enthält jede Buchung folgende Informationen: Hotel-ID, Hotelname, Zimmernummer, Check-In-, Check-Out-Datum, Stornierungsstatus, Gesamtbetrag der Buchung, Name des Gastes. Durch die Verwendung von hasattr wird sichergestellt, dass auch unvollständige oder fehlerhafte Objekte keine Fehlermeldung erzeugen. Die fehlenden Informationen werden stattdessen mit 'N/A' gekennzeichnet. Dies gewährleistet die Stabilität und Lesbarkeit der Ausgabe.
 
 ### User Story 9; Als Admin möchte ich eine Liste der Zimmer mit ihrer Ausstattung sehen, damit ich sie besser bewerben kann.
-Mit dem admin_manager.get_logged_in_admin() kann lediglich der Admin über die room_nr die facility_name aufrufen.
+Auch hier erfolgt die Ausgabe ausschließlich, wenn ein Admin im System eingeloggt ist. Dadurch wird unberechtigter Zugriff verhindert. Hier werden alle Zimmer aus dem System geladen, inklusive ihrer jeweils verknüpften Ausstattungsmerkmale: rooms = room_manager.get_rooms_with_facilities(). Dan wird Für jedes Zimmer die Zimmernummer angezeigt: print(f"Zimmer {room.room_number}:"). Falls das Zimmer über Ausstattungen verfügt, werden diese einzeln ausgegeben: for facility in room.facilities: print(f" - {facility.facility_name}"). Falls ein Zimmer keine Ausstattungen hat, wird dies ebenfalls klar angezeigt: print(" (Keine Ausstattung vorhanden)"). Damit steht Administratoren eine hilfreiche Übersicht zur Verfügung, um Zimmer gezielt zu bewerben z.B. auf Hotelwebseiten oder in Broschüren. 
 
 ### User Story 10; Als Admin möchte ich in der Lage sein, Stammdaten zu verwalten, z.B. Zimmertypen, Einrichtungen, und Preise in Echtzeit zu aktualisieren, damit das Backend-System aktuelle Informationen hat.
 Mit dem admin_manager konnte mit dem Update hinterlegt werden, dass man die Daten anpassen kann, ohne die ID zu verändern. Dies wurde für Guest, Address, Invoice, Room, RoomType, Bookng und Hotel übernommen. Nach der Änderung werden die Daten vor und nach dem Update geprintet.
