@@ -117,7 +117,11 @@ Mit dem admin_manager konnte mit dem Update hinterlegt werden, dass man die Date
 ### User Story DB-Schemaänderung 1; Als Admin möchte ich alle Buchungen bearbeiten können, um fehlende Informationen zu ergänzen (z.B. Telefonnummer).
 Wir haben uns entschieden, eine neue Tabelle in der Datenbank für den Admin zu erstellen. Dafür wurde eine neue Klasse hinzugefügt (admin_dao.create_admin(admin)) mit den Attributen admin_id, username, password, email, vorname und nachname.
 
-### User Story Datenvisulaisieurng User Story 1;
+### User Story Datenvisulaisieurng User Story 1; Als Admin möchte ich die Belegungsraten für jeden Zimmertyp in meinem Hotel sehen, damit ich weiss, welche Zimmer ambeliebtesten sind und ich meine Buchungsstrategien optimieren kann. Hint: Wählt ein geeignetes Diagramm, um die Auslastung nach Zimmertyp darzustellen (z. B. wie oft jeder Zimmertyp gebucht wird).
+Die benötigten Abhängigkeiten zur Buchungs- und Zimmerdatenbank werden über das Konstruktor-Argument bereitgestellt: def __init__(self, booking_da, room_da): self.booking_da = booking_da, self.room_da = room_da. Es werden sämtliche Buchungen mit zugehörigen Hotelinformationen sowie alle Zimmerdetails geladen: bookings = self.booking_da.show_bookings_with_hotels(), rooms = self.room_da.show_room_details(), Die geladenen Buchungs- und Zimmerdaten werden in zwei Pandas-DataFrames konvertiert: df_bookings: enthält booking_id, room_id und is_cancelled, df_rooms: enthält room_id und den jeweiligen room_type. Dies erlaubt uns eine effiziente Datenverarbeitung: df_bookings = pd.DataFrame([{, df_rooms = pd.DataFrame([{. Beide Tabellen werden nun über die gemeinsame Spalte room_id verknüpft: df_merged = pd.merge(df_bookings, df_rooms, on="room_id", how="left"). So erhält jede Buchung ihren zugehörigen Zimmertyp. Stornierte Buchungen werden aus der Analyse ausgeschlossen, weil sie nicht zur tatsächlichen Auslastung beitragen: df_valid = df_merged[df_merged["is_cancelled"] == 0]. Schließlich wird die Anzahl gültiger Buchungen je Zimmertyp ermittelt: df_counts = df_valid.groupby("room_type").size().reset_index(name="Anzahl_Buchungen"). Das Ergebnis ist ein DataFrame, welches wir in Form eines Balkendiagramm zur Visualisierung erstellt haben. Die Funktion liefert eine klare, aggregierte Übersicht über die Anzahl an Buchungen pro Zimmertyp. Sie schafft damit die Grundlage für eine aussagekräftige grafische Darstellung der Zimmerauslastung. 
+![image](https://github.com/user-attachments/assets/9d0ba64d-5ccb-41ec-aec4-87ebf1be4987)
+
+
 
 
 
